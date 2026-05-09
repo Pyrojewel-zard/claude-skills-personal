@@ -20,7 +20,7 @@ The accepted user-facing flow is:
 - `wiki-compile`: compile stable material into readable wiki pages
 - `wiki-refine`: optionally promote high-value knowledge into typed nodes
 - `wiki-ingest`: underlying compile engine
-- `wiki-crystallize`: candidate review and promotion
+- `wiki-crystallize`: optional candidate review and promotion
 
 ## Active Skill Directories
 
@@ -38,6 +38,7 @@ The accepted user-facing flow is:
 - `skills/wiki-compile`
 - `skills/wiki-refine`
 - `skills/wiki-ingest`
+- `skills/wiki-crystallize`
 - `skills/docx-redline-reviewer`
 - `skills/lit-reading`
 - `skills/autoresearch-generator`
