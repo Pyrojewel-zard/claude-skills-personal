@@ -38,7 +38,7 @@ def test_download(doi, title, index, total):
     try:
         # 直接调用ieee-download，显示完整输出
         result = subprocess.run(
-            ['/home/holmes/.local/bin/claude', 'skill', 'run', 'ieee-download', doi],
+            ['claude', 'skill', 'run', 'ieee-download', doi],
             capture_output=True,
             text=True,
             timeout=300  # 5分钟超时

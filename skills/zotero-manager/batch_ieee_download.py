@@ -34,7 +34,7 @@ def call_ieee_download(doi):
     try:
         # 调用claude的/ieee-download命令，不设置超时
         result = subprocess.run(
-            ['/home/holmes/.local/bin/claude', 'run', 'ieee-download', doi],
+            ['claude', 'run', 'ieee-download', doi],
             capture_output=True,
             text=True,
             timeout=None  # 不设置超时

@@ -11,7 +11,7 @@
     {
       "id": 2,
       "eval_name": "batch-json-pipeline",
-      "prompt": "You have a Word document at /tmp/test_docx_redline/original.docx with 3 paragraphs:\n1. '地下室是城市化过程中形成的一种特殊的空间。'\n2. '论文围绕新时期北京城市小说中的地下室书写展开。'\n3. '本研究采用文本细读与空间理论相结合的方法。'\n\nCreate a JSON file /tmp/test_docx_redline/replacements.json with two replacements, then use the bundled script at /home/holmes/.cc-switch/skills/docx-redline-reviewer/scripts/apply_diff_revisions.py to produce /tmp/test_docx_redline/reviewed.docx. Each replacement should have paragraph_index, search, replace, and comment fields. The output must contain both revision markup and comments.",
+      "prompt": "You have a Word document at /tmp/test_docx_redline/original.docx with 3 paragraphs:\n1. '地下室是城市化过程中形成的一种特殊的空间。'\n2. '论文围绕新时期北京城市小说中的地下室书写展开。'\n3. '本研究采用文本细读与空间理论相结合的方法。'\n\nCreate a JSON file /tmp/test_docx_redline/replacements.json with two replacements, then use the bundled script at ./skills/docx-redline-reviewer/scripts/apply_diff_revisions.py to produce /tmp/test_docx_redline/reviewed.docx. Each replacement should have paragraph_index, search, replace, and comment fields. The output must contain both revision markup and comments.",
       "expected_output": "reviewed.docx generated via the bundled script, containing both tracked changes and AI comments",
       "files": []
     },

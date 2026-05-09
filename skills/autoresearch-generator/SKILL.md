@@ -81,7 +81,7 @@ description: 增强版ML实验生成器 - 分析项目结构，集成Codex审核
 
 ```bash
 # ✅ 正确格式
-ssh RFRL26@RFRLSERVER5 'bash -lc "cd /home/DataTransfer/Pyrojewel/vscode/autoModel && source ~/miniconda3/etc/profile.d/conda.sh && conda activate pacosyt && python /home/DataTransfer/Pyrojewel/vscode/autoModel/scripts/train_local.py --scheme {scheme} > logs/run_{tag}.log 2>&1"'
+ssh user@remote-host 'bash -lc "cd /path/to/project && source ~/miniconda3/etc/profile.d/conda.sh && conda activate your-env && python /path/to/project/scripts/train_local.py --scheme {scheme} > logs/run_{tag}.log 2>&1"'
 ```
 
 ### 禁止
@@ -179,7 +179,7 @@ if variance_std > 0.01:
 
 ### 5. SSH执行模板
 ```bash
-ssh RFRL26@RFRLSERVER5 'bash -lc "cd {PROJECT_PATH} && source ~/miniconda3/etc/profile.d/conda.sh && conda activate pacosyt && python {ABSOLUTE_SCRIPT_PATH} --scheme {scheme} --config {ABSOLUTE_CONFIG_PATH} --stage {stage} > {ABSOLUTE_LOG_PATH} 2>&1"'
+ssh user@remote-host 'bash -lc "cd {PROJECT_PATH} && source ~/miniconda3/etc/profile.d/conda.sh && conda activate your-env && python {ABSOLUTE_SCRIPT_PATH} --scheme {scheme} --config {ABSOLUTE_CONFIG_PATH} --stage {stage} > {ABSOLUTE_LOG_PATH} 2>&1"'
 ```
 
 ### 6. Codex审核节点
@@ -225,7 +225,7 @@ mkdir -p {PROJECT}/.claude/skills/autoresearch-{scheme}
 - Stage 4 开始: 配置审核
 
 === 执行环境 ===
-SSH: RFRL26@RFRLSERVER5
+SSH: user@remote-host
 Conda: pacosyt
 绝对路径: {project_path}
 
@@ -281,7 +281,7 @@ stage	experiment	commit	val_rel_l2_base	val_rel_l2_final	arch_type	hidden_dims	l
 | 命令 | 说明 |
 |------|------|
 | `mkdir -p .claude/skills/autoresearch-{scheme}` | 创建skill目录 |
-| `ssh RFRL26@RFRLSERVER5 'cd ... && python /abs/path'` | 远程执行 |
+| `ssh user@remote-host 'cd ... && python /abs/path'` | 远程执行 |
 | `mcp__codex__codex(model="gpt-5.4", prompt=...)` | Codex审核 |
 | `grep "val_rel_l2" logs/run.log | tail -1` | 解析指标 |
 

@@ -10,7 +10,7 @@ from pathlib import Path
 
 def main():
     # 读取搜索结果
-    base_path = Path("/home/holmes/.claude/projects/-mnt-d-obsidian-wiki/da4dba44-1ad4-41bd-9a6d-540e981c194e/tool-results")
+    base_path = Path("./tool-results")
 
     all_results = []
 

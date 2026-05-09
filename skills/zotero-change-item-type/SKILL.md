@@ -40,7 +40,7 @@ description: 批量修改 Zotero collection 中文献的 itemType。当用户说
 使用 `scripts/change_item_type.py` 执行批量修改：
 
 ```bash
-cd /home/holmes/.claude/skills/zotero-change-item-type
+cd /path/to/zotero-change-item-type
 python3 scripts/change_item_type.py <collection_name_or_key> <target_item_type>
 ```
 
