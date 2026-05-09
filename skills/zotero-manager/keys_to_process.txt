@@ -1,0 +1,214 @@
+Q2IZ2UTR	A holistic methodology for system margining and jitter toler	10.1109/tmtt.2015.2504099
+99JRK7TA	Machine Learning-Based Defect Detection, Output Matching Ass	10.1109/TMTT.2025.3619021
+HUJMTUUW	Performance-oriented broadband inverse design of frequency-s	10.1109/TMTT.2025.3633907
+8AP3FDI2	A spectral convolutional net for co-optimization of integrat	10.1109/ICCAD45719.2019.8942109
+S6Q3CA53	Simulation and automated modeling of microwave circuits: Sta	10.1109/jmw.2020.3033780
+CSXKV7B4	Efficient Broadband Modeling of Microwave Devices with Machi	10.1109/ICEAA49419.2022.9899975
+SDKCCR8K	Deep Learning-Enabled Inverse Design of 30–94 GHz P<sub>sat,	10.1109/LMWC.2022.3161979
+J7P6SBX3	Algorithmic design of nonintuitive on-chip multilayered pass	10.1109/IMS40360.2025.11103811
+MGAZGNHU	End-to-end machine-learning framework for electromagnetic in	10.1109/TMTT.2025.3583316
+RKJ62CL9	Deep-learning-based inverse-designed millimeter-wave passive	10.1109/JSSC.2023.3276315
+SFQ5SCTW	R-INN: An efficient reversible design model for microwave ci	10.1109/TMTT.2025.3581947
+DQV3ZM5N	Inverse design of multilayered pixelated mm-wave power ampli	10.1109/JSSC.2026.3656334
+UNU7967A	Independent Digital Predistortion Parameters Estimation Usin	10.1109/TMTT.2018.2870420
+XWCDXVUJ	INVITED: Reducing Time and Effort in IC Implementation: A Ro	10.1109/DAC.2018.8465871
+6DAMSPUU	Feedback-Driven Differential Evolution Model for Device Sizi	10.1109/ACCESS.2026.3676156
+DXXK35VK	RF Design-Oriented ACM Model Generation Using Parametric Tes	10.1109/LASCAS67804.2026.11457152
+WZ4G6JK9	Application Driven Rapid Synthesis for Analog BIST Component	10.1109/MWSCAS54063.2022.9859392
+X4E3HQFT	RX Equalization for a High-Speed Channel based on Bayesian A	10.1109/EPEPS48591.2020.9231471
+M267E3VC	A new nonlinear behavioral modeling technique for RF power t	10.1109/MWSYM.2017.8058645
+HXWGWVP9	Intelligent and Interactive Analog Layout Design Automation	10.1109/ICSICT55466.2022.9963217
+625QWXEH	Application of Neural Networks to Reduce Distortion of RF Si	10.1109/EExPolytech50912.2020.9243973
+A6Q3EH6X	Prediction of Active Implantable Medical Device Electromagne	10.1109/APS/URSI47566.2021.9704511
+G6XCPP7B	Artificial Neural Network Modeling of Interdigital Capacitor	10.1109/ICEST49890.2020.9232862
+E9KSS6M6	An Efficient Neural Network Macro-model for Electromagnetic 	10.1109/EMCEUROPE48519.2020.9245803
+P5ETR3IW	Automated E-circuit Designing and Characterization using Pro	10.1109/SCEECS48394.2020.85
+MNIEUGTJ	Design Automation of CMOS Op-Amps Using Statistical Geometri	10.1109/ISCAS48785.2022.9937871
+TQ4PUCKP	An Intelligent Sensing Framework for Post-Manufacturing Perf	10.1109/TIM.2022.3225039
+XBKEW3P9	Machine-Learning Prediction of RF Band-Pass Filter Performan	10.1109/ICSPED65817.2026.11448539
+PHST2NPW	System and Component Design for Wireless Distributed Computi	10.1109/RFIT49453.2020.9226252
+236NXRKK	Performance Estimate of Multi-Terminal Dielectric Array Radi	10.1109/GCWCN66157.2025.11448537
+PEQQTPCD	A Neural Network-Based Model of Radio Frequency Energy Harve	10.1109/JSEN.2019.2922346
+CSPB5FGV	GCN-RL Circuit Designer: Transferable Transistor Sizing with	10.1109/DAC18072.2020.9218757
+9G2IMDTV	GCN-RL Circuit Designer: Transferable Transistor Sizing with	10.1109/DAC18072.2020.9218757
+XPFI8A5E	An Accuracy Improvement of the Neuromorphic Functional Model	10.1109/EWDTS50664.2020.9225034
+VAV6CMXF	A robust calibration and supervised machine learning reliabi	10.1109/MWSCAS.2017.8053129
+72W828SW	System Margining Surrogate-Based Optimization in Post-Silico	10.1109/TMTT.2017.2701368
+3SMB4RRG	Digital Predistortion of RF Power Amplifiers With Decomposed	10.1109/TMTT.2022.3209658
+SMPAJKRJ	Trade-off-aware Analog Circuit Sizing Based on A Multitask S	10.1109/tcad.2026.3677769
+3RIS25R5	An area efficient high turn ratio monolithic transformer for	10.1109/RFIC.2008.4561410
+M4U26NG9	Distributed modeling of six-port transformer for millimeter-	10.1109/TMTT.2012.2220563
+7ICK8C24	Modeling and characterization of on-chip transformers	10.1109/iedm.1998.746414
+5NVBDQA4	Monolithic transformers for silicon RF IC design	10.1109/4.868049
+MDZBE6LN	Analysis and design of a CMOS LNA with transformer-based int	10.1109/TMTT.2021.3126858
+4NSF8H3Y	Generative Methods in EDA: Innovations in Dataset Generation	10.1145/3676536.3697122
+IXDAZ2F3	A 22.4-to-35-GHz Two-Stage Low-Noise Amplifier With Triple-C	10.1109/tmtt.2025.3606989
+IKUPBSSE	An mm-Wave Full-Duplex Front End With Integrated LNA, PA, an	10.1109/tmtt.2025.3604338
+ZYGZBBCE	A Large-Scale, Low-Power, Compact 5G mm-Wave Phased-Array Tr	10.1109/tmtt.2025.3544620
+9SNFW8UM	NeuroSchedule2.0: A Novel GNN-based Scheduling Method with R	10.1109/tcad.2026.3661431
+RK8TEF6W	Frequency Domain Modeling of Interconnects Based on Assemble	10.1109/tcad.2025.3614103
+ZR7NRSTL	Timing-Driven Technology Mapping Approximation Based on Rein	10.1109/tcad.2024.3379016
+JPSV23EG	Towards Efficient ECO Automation: Timing and DRCs Concurrent	10.1109/tcad.2026.3656764
+9BFC6DEN	TransMap: Transformer-Enhanced Divide-and-Conquer Reinforcem	10.1109/tcad.2026.3653869
+DD98LDIG	Nonintrusive Data-Driven Model Order Reduction for Circuits 	10.1109/tcad.2024.3509797
+FMUT7L5N	An Updated Assessment of Reinforcement Learning for Macro Pl	10.1109/tcad.2025.3644293
+HM4J96S7	A 7.2–29.8 GHz LNA With 1.35–2.67-dB NF Using Coupled-Line-B	10.1109/tcsi.2025.3554211
+QP992YYK	An 8.3–43 GHz CMOS Low-Noise Amplifier With Wideband Input M	10.1109/lmwt.2025.3644444
+AP8GSRLN	A Compact 12 to 47 GHz Variable Gain Amplifier With Low Gain	10.1109/lmwt.2025.3603604
+VJ3D4VLV	Design and Analysis of a 22.6-to-73.9 GHz Low-Noise Amplifie	10.1109/jssc.2025.3545463
+EUG9SAJE	Design Insights Into Sixth-Order Matching Networks for a 105	10.1109/jssc.2025.3595668
+J9WL26F7	LSTP: A logic synthesis timing predictor	10.1109/asp-dac58780.2024.10473925
+SLAAEB85	A resource-efficient task scheduling system using reinforcem	10.1109/asp-dac58780.2024.10473960
+LJPKE4CQ	Synergistic bayesian optimization and reinforcement learning	10.1109/asp-dac66049.2026.11420424
+4RV7WAGN	Lorecast: Layout-aware performance and power forecasting fro	10.1109/asp-dac66049.2026.11420573
+R3IYLESV	LLM-assisted circuit verification: A comprehensive survey	10.1109/asp-dac66049.2026.11420692
+LHIMDVS5	A 3.23DB average NF and 2.32dB minimum NF V-/E-band common-g	10.1109/rfic61188.2025.11082870
+P6DPS5GK	A compact ka-band bi-directional PA-LNA with 17.4-dBm p<sub>	10.1109/rfic61187.2024.10599967
+Q4X9XGRI	A blocker-tolerant mm-wave MIMO receiver with spatial notch 	10.1109/rfic61187.2024.10599961
+JPHDSAVE	Design of 22.6-29.5/ 30.4-43.5 GHz dual-band low power LNA w	10.1109/rfic61188.2025.11082893
+GLK9T5JK	A D-band LNA exploiting ultra-wideband sixth-order matching 	10.1109/esserc62670.2024.10719560
+X82SFXQS	A 25.6-60.0 GHz LNA with inter-stage magnetic coupling for d	10.1109/esserc62670.2024.10719582
+N7W5T3BL	A 70-to-110 GHz 28-nm CMOS low noise amplifier with 6.1-dB N	10.1109/iscas58744.2024.10558255
+V6D287NB	ARO: Autoregressive operator learning for transferable and m	10.1145/3676536.3676713
+NZVPMVYS	BPINN-EM: Fast stochastic analysis of electromigration damag	10.1145/3676536.3676705
+47D5BM9E	Building reasoning LLMs for hardware design generation via f	10.1109/iccad66269.2025.11240942
+I9X2FXMM	GenEDA: Towards generative netlist functional reasoning via 	10.1109/iccad66269.2025.11240762
+WYCTYU3E	TSO-flow: A topology synthesis and optimization workflow for	10.1145/3676536.3676693
+EAFUGZ23	EasyACIM: An end-to-end automated analog CIM with synthesiza	10.1145/3649329.3656229
+HKAY93TA	Late breaking results: Circuit-algorithm co-design for learn	10.1145/3649329.3663496
+KCRQSG5A	CircuitVAE: Efficient and scalable latent circuit optimizati	10.1145/3649329.3656543
+UKMG2HQM	BNN-YEO: An efficient bayesian neural network for yield esti	10.1145/3649329.3658242
+AUXABE28	Multi-agent yield analysis for circuit design	10.1109/dac63849.2025.11133334
+78J2TNSW	Hardware generation with high flexibility using reinforcemen	10.1109/dac63849.2025.11132897
+L3UY4ZV6	EVDMARL: Efficient value decomposition-based multi-agent rei	10.1145/3649329.3656523
+SSPV7QIP	PVTSizing: A TuRBO-RL-based batch-sampling optimization fram	10.1145/3649329.3661850
+EKGPY65Z	Performance-driven analog routing via heterogeneous 3DGNN an	10.1145/3649329.3658480
+K9CBIWFT	CDLS: Constraint driven generative AI framework for analog l	10.1145/3649329.3656232
+ZT27T3PU	Atelier: An automated analog circuit design framework via mu	10.36227/techrxiv.172668168.88938111/v2
+K3YZU5VV	Pushing the performance boundaries of MmWave and sub-THz tra	10.1109/MWSCAS60917.2024.10658735
+7D6RD472	FARFLAG: Fully automatic radio-frequency layout generation a	10.1109/TCAD.2026.3678197
+69MD8VT3	Physics-informed neural networks: A deep learning framework 	10.1016/j.jcp.2018.10.045
+ZAUWH8RZ	An efficient SRAM yield analysis using scaled-sigma adaptive	10.23919/DATE48585.2020.9116233
+ZD98CHA4	RELIC-FUN: Logic identification through functional signal co	10.1109/DAC18072.2020.9218616
+H7MJDH96	GCN-RL Circuit Designer: Transferable Transistor Sizing with	10.1109/dac18072.2020.9218757
+M9CPG8Z8	Design of SIW Filters in D-band Using Invertible Neural Nets	10.1109/ims30576.2020.9223952
+KWVC9B83	Automated Design of Complex Analog Circuits with Multiagent 	10.1109/dac56929.2023.10247909
+G65P5BL5	Explainable AI: Interpreting, Explaining and Visualizing Dee	10.1007/978-3-030-28954-6
+NGRUEL8F	Globally Reliable Variation-Aware Sizing of Analog Integrate	10.1109/tcad.2009.2030351
+3UVK4AC6	Robust Analog/RF Circuit Design With Projection-Based Perfor	10.1109/tcad.2006.882513
+B36NIQ6C	An Efficient Batch-Constrained Bayesian Optimization Approac	10.1109/tcad.2021.3054811
+RRARXM96	An Efficient Bayesian Optimization Approach for Automated Op	10.1109/tcsi.2017.2768826
+Q4ID2LEK	“Why Should I Trust You?”: Explaining the Predictions of Any	10.18653/v1/n16-3020
+U5N8J462	Interpreting Uncertainty in Model Predictions in Bayesian Ne	10.32920/24050724
+Y3WCHZXD	Invited Paper: CircuitOps: An ML Infrastructure Enabling Gen	10.1109/iccad57390.2023.10323611
+JRQAU5Q3	EDA-ML: Graph Representation Learning Framework for Digital 	10.1109/isqed60706.2024.10528675
+78QQN75F	Efficient Performance Trade-off Modeling for Analog Circuit 	10.1109/iccad45719.2019.8942174
+T44SNH4F	A Large Language Model-based Multi-Agent Framework for Analo	10.1109/iseda65950.2025.11101698
+HVBHDMHW	MenTeR: A fully-automated Multi-agenT workflow for end-to-en	10.1109/iclad65226.2025.00015
+SNUF7FTB	Graph Representation Learning for Parasitic Impedance Predic	10.1109/iscas46773.2023.10181447
+7ADWLCKQ	From Global Route to Detailed Route: ML for Fast and Accurat	10.1145/3551901.3556475
+9LG8X7YB	TAG	10.1145/3508352.3549384
+IQYFMWJV	AutoCkt: Deep Reinforcement Learning of Analog Circuit Desig	10.23919/date48585.2020.9116200
+G8XKV5WV	A customized graph neural network model for guiding analog I	10.1145/3400302.3415624
+4IX6C572	AI enabling discovery and design of radio and high-frequency	10.1109/MC.2025.3566789
+9YYLBSI3	Characterization and modeling of on-chip interconnects for s	10.32657/10356/4991
+YMQJZJ55	A Nonintuitively Frequency-Staggered Wideband mm-Wave Low-No	10.1109/ISSCC49663.2026.11409264
+I6RQMIYP	AI-powered terahertz VLSI testing technology for ensuring ha	10.1109/ACCESS.2021.3075429
+JXA3PPLG	Indoor coverage experiment with beam steering and hybrid-DNN	10.1109/VTC2025-Fall65116.2025.11310247
+K2TZ97WT	Deep learning-based device twin model and its testing applic	10.1109/WCCCT65447.2025.11027932
+R9HDD54V	Deep learning-assisted RFIC design with dual-metal-layer pas	10.23919/GeMiC64734.2025.10979102
+7C5VWXUM	A compact <i>E</i> -band load-modulation balanced power ampl	10.1109/jssc.2024.3404610
+B3ZRBCST	Multiobjective fitness functions with nonlinear switching fo	10.1109/ojap.2022.3178840
+QGC3FK8P	Ultralow noise figure and broadband CMOS LNA with three-wind	10.1109/tmtt.2024.3354908
+HQ8H4XFQ	A 4.4-mW 19–46-GHz low-noise amplifier with pole-converging 	10.1109/rfic61187.2024.10600028
+D7894E6Q	A 26-to-39GHz broadband ultra-compact high-linearity switchl	10.1109/isscc42614.2022.9731651
+R7JYJR4M	5.10 a 3.5mW mm-wave low-noise active bandpass filter employ	10.1109/isscc49661.2025.10904619
+JPTHRC5G	A blocker-tolerant mm-wave low-noise amplifier utilizing doh	10.1109/isscc49661.2025.10904630
+WC8Z8MV8	32.4 a 67.8-to-108.2GHz power amplifier with a three-coupled	10.1109/isscc49657.2024.10454503
+EPUR4AGF	A 10–110 GHz LNA with 19-25.5 dB gain and 4.8-5.3 dB NF for 	10.1109/rfic51843.2021.9490504
+EGF5CMGG	A power-efficient, F-band, 6.5-dB NF, staggered-tuned, inver	10.1109/ims40175.2024.10600407
+UDJYUQVI	A 300-GHz fundamental oscillator in 65-nm CMOS technology	10.1109/jssc.2011.2108122
+LM5CBAJL	Topology-optimized nonintuitive multilayered mm-wave power a	10.1109/rfic61188.2025.11082875
+MVLJJ5W8	Algorithmic design of nonintuitive on-chip multilayered pass	10.1109/ims40360.2025.11103811
+GZHLBTAI	Synthesis of integrated passive components for high-frequenc	10.1109/tcad.2011.2162067
+7X4J9NGN	Exploration of AI-powered undergraduate teaching of digital 	10.12677/ces.2026.142100
+DB52W3UK	Physics-informed machine learning for transformer condition 	10.23919/arwtr66130.2025.11261232
+4JKWLQN3	Advancing electric vehicle battery management: A data-driven	10.1109/tvt.2025.3565907
+YVHYY6HW	An efficient high-frequency linear RF amplifier synthesis me	10.1109/tcad.2012.2187207
+NGML4FD4	Representation learning: A review and new perspectives	10.1109/TPAMI.2013.50
+KQ4PKWJF	Cloud removal method for remote sensing images based on SAR-	10.1109/jstars.2025.3599162
+WMJW4L8U	PulseRF: Physics augmented ML modeling and synthesis for hig	10.1145/3676536.3676768
+CNKBS9ZK	Accurate systematic model-parameter extraction for on-chip s	10.1109/ted.2008.2005131
+62P7W2IH	AI-assisted template-seeded pixelated design for multi-metal	10.1109/IMS40360.2025.11103802
+TITRFAG2	Bayesian-based automated model generation method for neural 	10.1109/lmwc.2021.3087163
+L3S9ZXEV	Microwave and RF design (review of "microwave and RF DES GN"	10.1109/mmm.2014.2367958
+JWHIMX48	Transfer learning assisted fast design migration over techno	10.1109/IMS40175.2024.10600344
+L9EYG2PY	RFIC design methodology: Functional verification	10.1109/tpsd.2007.4380363
+UJBE34SI	Parametric modeling of EM behaviors of microwave components 	10.22215/etd/2017-12239
+M9FY7I3I	Parametric modeling of EM behavior of microwave components u	10.1109/tmtt.2015.2504099
+DAR43TUM	Artificial neural network (ANN) based fast and accurate indu	10.1109/ojpel.2020.3012777
+DQ4UK4IK	Review of on-chip inductor structures with magnetic films	10.1109/tmag.2009.2030590
+FWLUDL5J	Bayesian active learning for radiation pattern sampling over	10.1109/temc.2022.3172483
+S52C9FXB	8-shaped inductors: An essential addition to RFIC designers’	10.1109/OJSSCS.2024.3455269
+HL2WQWFK	Dall-EM: Generative AI with diffusion models for new design 	10.1109/ims40360.2025.11103838
+XKGJPQLB	34.4 a 9.05-to-37.0GHz LO generator with magnetic mode switc	10.1109/ISSCC49661.2025.10904644
+H7SMP6DP	PCIe 5.0 connector distributed physical-based circuit model 	10.1109/tmtt.2024.3479132
+6B2XQGCK	Machine learning-driven synthesis of on-chip 8-shaped induct	10.1109/ucmmt67044.2025.11286963
+8ZSN9DRJ	A D-band InP power amplifier featuring fully AI-generated pa	10.1109/LMWT.2025.3566666
+ILTXNHJG	Compact circuit simulation model for on-chip inductor and tr	10.1109/idt.2007.4437474
+8KVFUNA2	Adapting arbitrary normal mutation distributions in evolutio	10.1109/icec.1996.542381
+SXRD6QX3	A 27–46-GHz low-noise amplifier with dual-resonant input mat	10.1109/lmwc.2021.3059592
+PD7Y3SKX	Automated mmWave power amplifier design flow and a 28-GHz de	10.1109/ims40175.2024.10600192
+KNHH4DU4	Machine learning driven inverse design of devices and compon	10.1117/1.apn.5.1.014002
+D89MS2AZ	Causality-aware training of physics-informed neural networks	10.3390/math13071057
+6X78HGMI	Physics-informed neural network-enhanced model predictive te	10.1109/tie.2025.3634436
+5LSVN24S	Synthesis of optimal on-chip baluns	10.1109/cicc.2007.4405782
+5J5J6EXG	TraceFormer: S-parameter prediction framework for PCB traces	10.1145/3649329.3658484
+BLKPD658	A hybrid modelling approach for parameter estimation of anal	10.1109/case49439.2021.9551454
+CTWQNFPF	RF circuit design	10.1002/9781118309940.ch11
+6BCXKLXS	A 28-GHz flip-chip packaged chireix transmitter with on-ante	10.1109/jssc.2019.2898112
+RIBTHE6P	5G mm-wave front-end-module design with advanced SOI process	10.1109/ASICON.2017.8252651
+97BUPLME	Multi-objective design of compact RF/microwave components us	10.1109/eumic.2015.7345106
+67W8PJZP	Guest editorial: Special cluster on artificial intelligence 	10.1109/lawp.2025.3623344
+NCDJWILP	Optimization of antenna array configurations using deep lear	10.1109/ojap.2025.3578887
+NU8EFHUG	SiP‐system in package design and simulation: Mentor EE flow 	10.1002/9781119045991.ch17
+WHHZFBC5	Adaptive synthesis using hybrid genetic algorithm and partic	10.1109/TMTT.2023.3276212
+EFQQBDKF	A comprehensive review of machine learning approaches for se	10.1109/access.2025.3605856
+ICKXJRA7	Automated neural-network-based model generation algorithms f	10.1109/mmm.2024.3486596
+2UKQS26I	Multimodal issues and key technologies in ocean observation 	10.1109/jstars.2025.3591424
+BF6XM4WU	Physics-informed neural networks for control of single-phase	10.2139/ssrn.5177265
+XHXLDDWM	A diffusion model for multi-layered metasurface unit cell sy	10.1109/ojap.2023.3292149
+HVUCJ2YR	Radio‐frequency integrated‐circuit engineering	10.1002/9781118999745.ch8
+523WB77C	A novel deep-Q-network-based fine-tuning approach for planar	10.1109/lmwc.2021.3062874
+KBZWE6X5	Lene wacher lentz: Secret police investigations on the inter	10.18261/njsp.10.1.6
+Y4PUBS2I	Comparative study of surrogate modeling methods for signal i	10.1109/tcpmt.2021.3098666
+2Z7XJI8U	A comprehensive review on next-generation modeling and optim	10.1109/access.2025.3587721
+ZNTTQXXD	Bayesian updating using multi-fidelity active learning krigi	10.2139/ssrn.5497569
+NHBY73M7	Performance trends of on-chip spiral inductors for rfics	10.2528/pier03062303
+NZ6RVA2M	Advancements in speech recognition: A systematic review of d	10.1109/access.2025.3550855
+ZEL2KPZ6	AI-enabled RF-to-terahertz chip design beyond human intuitio	10.1364/ao.568476
+FUFELYDB	Solid-state circuits directions technical committee launches	10.1109/mssc.2024.3378188
+L5CCVH9B	Progression of motivation models in exercise science: Where 	10.1002/9781119568124.ch44
+JYS7R9PG	Rapid multi-objective inverse design of antenna via deep neu	10.36227/techrxiv.171742511.11489750/v1
+BEPTBLSP	Design and modeling of compact on-chip transformer/balun usi	10.1109/rfic.2001.935655
+QTD2FDXX	Multisensor diffusion-driven optical image translation for l	10.1109/jstars.2024.3506032
+XDERT677	Data-driven robust topology optimization using surrogate mod	10.1016/j.engappai.2025.113136
+T8BV5SAD	Adaptive impedance-matching techniques for ControllingLNetwo	10.1109/tcsi.2009.2023764
+UJ77TTT4	Application of machine learning in the design of electromagn	10.54337/aau770648027
+NQK672DT	Analysis and design of on-chip spiral inductors and transfor	10.14711/thesis-b612525
+YD32XTSY	On-chip spiral inductors with patterned ground shields for s	10.1109/4.668989
+UCYV8P49	Inverse design of on-chip interconnect via transfer learning	10.1109/tcpmt.2023.3290413
+P8ENHEY3	Solution of integral equations by physics-informed neural ne	10.36227/techrxiv.171502840.07574149/v1
+R4P2HYWA	Multiphysics parametric modeling of microwave components usi	10.1109/access.2019.2963409
+UHKCBJRH	A millimeter-wave four-way doherty power amplifier with over	10.1109/jssc.2024.3453321
+33V6TF6C	A millimeter-wave three-way doherty power amplifier for 5G N	10.1109/JSSC.2023.3238766
+P847AD5R	PatternPaint: Practical layout pattern generation using diff	10.1109/dac63849.2025.11132857
+HURIYU3C	Using drawing to diagnose children's scientific concept lear	10.31234/osf.io/umxfb
+DD2ABY3H	A reconfigurable linear RF analog processor for realizing mi	10.1109/TMTT.2023.3293054
+XGLQ4EKS	Bayesian active learning for optimization and uncertainty qu	10.1021/acs.jctc.0c00476.s001
+T7VM648A	MacroSimGNN: Efficient and accurate prediction of macromolec	10.1021/acs.macromol.5c03015.s001
+8KYNDHCQ	Global sensitivity analysis and uncertainty quantification o	10.1021/acs.iecr.7b05173.s001
+HA4WTDXT	ASP-DAC 2005 technical program committee	10.1109/aspdac.2005.1466103
+CFQ3IQ67	Best paper award candidates asia and south pacific design au	10.1109/aspdac.1995.486190
+KRNHXHDL	https://publ.icgbio.ru/wp-content/uploads/2024/09/BGRSSB_202	10.18699/bgrs2024-1.2-05
+KV3U7KPC	Machine learning and statistical modeling	10.1007/1-4020-8035-2_3

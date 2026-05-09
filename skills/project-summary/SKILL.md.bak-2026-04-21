@@ -1,0 +1,388 @@
+---
+name: project-summary
+description: Generate comprehensive project work summaries with thinking process insights and knowledge base linking. Use this skill when the user wants to summarize their work session, record project progress, log development activities, create session summaries, or says anything like "总结一下今天的工作" / "记录进度" / "save progress" / "create summary" / "/summary". This skill acts as an orchestrator: writes raw log first, then compiles to wiki source, and optionally creates synthesis if reusable insights are detected. It replaces the deprecated /devlog command.
+---
+
+# Project Summary Skill — 项目进展账本
+
+Generate comprehensive project work summaries that capture not just "what was done" but also "how we thought about it" and "what we learned."
+
+## 架构理念
+
+```
+/session 内容 + git 状态
+  ↓ Step 1-3: 内容提取
+  ↓ Step 4: 写入 raw（原始记录）
+  ↓ Step 5: 编译到 wiki source（规范化摘要）
+  ↓ Step 6: 洞见扫描 → 可选写入 synthesis（可复用洞见）
+```
+
+**三层职责**：
+| 层 | 路径 | 职责 | 格式 |
+|---|---|---|---|
+| raw | `raw/notes/projects/{项目}/logs/{YYYYMMDDHHmm}-{关键词}.md` | 原始记录，保留上下文 | 粗糙、时间序 |
+| wiki source | `wiki/sources/{项目slug}/logs/{YYYYMMDDHHmm}-{关键词}.md` | 规范化摘要，去噪、链接 | 结构化、可检索 |
+| synthesis | `wiki/synthesis/sessions/{日期}-{项目}-{洞见主题}.md` | 可复用洞见结晶 | 精炼、可迁移 |
+
+## 项目映射表
+
+用户输入的项目代号需要映射到 raw 目录名和 wiki source 目录名：
+
+| 用户输入代号 | raw 目录名 | wiki source slug | 关联 topic |
+|---|---|---|---|
+| `passive-modeling` / `无源建模` | `无源器件建模` | `passive-modeling` | `passive-device-modeling` |
+| `xbr818d` / `XBR818D` | `XBR818D` | `xbr818d` | `xbr818d` |
+| `xbr818c` / `XBR818C` / `kbr815` | `XBR818C` | `xbr818c` | `lna-design` |
+| `kbr815c` / `Ka波段LNA` | `Ka波段LNA_KBR815C` | `ka波段-lna-kbr815c` | `lna-design` |
+| `ai-lna` / `AI-LNA` | `AI-LNA研究` | `ai-lna-research` | `ai-ic-design` |
+| `sipo` / `SIPO` | `SIPO` | `sipo` | misc |
+| `piso` / `PISO` | `PISO` | `piso` | misc |
+| `nsfc` / `NSFC` | `2026-NSFC-射频集成电路` | `nsfc-射频集成电路` | misc |
+| `gds` / `GDS` | `GDS Generator` | `gds-generator` | misc |
+| `pixel` / `像素` | `像素化版图` | `pixel-layout` | misc |
+| `memos` / `备忘录` | `备忘录` | `memos` | misc |
+| `xiaomi` / `小米` | `小米-PDN快速算法` | `小米-pdn-快速算法` | misc |
+| `xinchi` / `心驰` | `毕设-心驰` | `thesis-心驰` | misc |
+| `chenquan` / `陈泉` | `毕设-陈泉` | `thesis-陈泉` | misc |
+| `network` / `网络科学` | `网络科学-PCB拓扑分析` | `网络科学-pcb-拓扑分析` | misc |
+
+**如果用户输入的代号不在表中**：
+1. 用 `search_vault_smart` 搜索项目
+2. 确认映射关系后再继续
+
+---
+
+## Workflow
+
+### Step 1: Project Matching
+
+Determine the target vault path: `/mnt/d/obsidian_wiki/`
+
+1. 从用户输入的 `{项目代号}` 查映射表，得到：
+   - `raw_project_dir`: raw 目录名
+   - `source_project_slug`: wiki source slug
+   - `topic`: 关联 topic（可选）
+
+2. 如果映射表中没有，用 `search_vault_smart` 搜索：
+```json
+{
+  "query": "{项目代号} 项目",
+  "filter": {
+    "folders": ["wiki/topics", "wiki/sources", "raw/notes/projects"],
+    "limit": 5
+  }
+}
+```
+
+**Match Decision:**
+- Score >= 0.7: High confidence → Use this mapping
+- Score 0.5-0.7: Medium confidence → Confirm with user
+- Score < 0.5: Low confidence → Ask user to clarify
+
+### Step 2: Ask About Git Analysis
+
+Before proceeding, ask the user:
+
+> "是否分析今日 Git commits？[Y/n]"
+
+- **Y**: Execute `git log --since="today" --oneline` and integrate commits into the summary
+- **n**: Skip Git analysis, use only conversation context
+
+### Step 3: Extract Content from Conversation
+
+Analyze the conversation context to extract five types of content:
+
+#### 3.1 操作摘要 (Operations Summary)
+- What was actually done in this session
+- 3-5 bullet points maximum
+- Focus on concrete actions and outcomes
+
+#### 3.2 思考过程 (Thinking Process)
+- How the problem was analyzed
+- Reasoning chains and decision logic
+- Why certain approaches were chosen
+
+#### 3.3 探索记录 (Exploration Records)
+- Paths that were tried but abandoned or failed
+- Record what didn't work and why
+
+#### 3.4 洞见提炼 (Insights)
+- Core takeaways and learnings from this session
+- What would be useful to remember for future work
+
+#### 3.5 后续方向 (Next Steps)
+- What to do next
+- Open questions
+- Items to follow up on
+
+#### 3.6 自动扫描可复用洞见（重要）
+
+在生成总结后，**必须主动分析本次 session 内容，判断是否存在可复用的设计洞见**。扫描以下模式：
+
+| 模式 | 触发条件 | 示例 |
+|------|----------|------|
+| 参数耦合规律 | 发现多个参数的联动关系 | "M1宽度增大时必须同时调退化电感" |
+| 工艺相关陷阱 | 特定工艺节点下的坑 | "SMIC 110nm 下 MIM 电容在 40GHz 时 Q 值骤降" |
+| 方法论沉淀 | 发现了可迁移的工作方法 | "先扫 S 参数再调匹配网络比直接调快 3 倍" |
+| 决策记录 | 重要技术选型的理由 | "选空间映射而非 ANN 因为采样点不够" |
+| 故障排除经验 | 解决了一个问题的完整路径 | "LVS 报错 → traced to 金属层编号错误 → 修复 proc 文件" |
+
+**判定标准**：
+- 满足 **2 个及以上**模式 → 标记为"可复用洞见"
+- 仅满足 1 个模式 → 标记为"待观察"
+- 不满足 → 不标记
+
+**如果检测到可复用洞见**：
+1. 标记 `has_insight: true`
+2. 在 Step 6 额外生成 synthesis 文件
+
+**如果没有检测到可复用洞见**：
+- 不生成 synthesis 文件
+- 在总结中注明"本次无可复用洞见"
+
+### Step 4: Link Knowledge Base
+
+Use `mcp__obsidian-mcp-tools__search_vault_smart` to find related notes in the vault:
+
+```json
+{
+  "query": "{关键词} {项目主题}",
+  "filter": {
+    "folders": ["wiki/topics", "wiki/entities", "wiki/sources"],
+    "limit": 5
+  }
+}
+```
+
+For each found note, generate a relevance explanation.
+
+---
+
+### Step 5: 三阶段写入
+
+#### Phase 5.1: 写入 raw（原始记录）
+
+**路径**: `raw/notes/projects/{raw_project_dir}/logs/{YYYYMMDDHHmm}-{关键词}.md`
+
+**Frontmatter**:
+```yaml
+---
+id: "raw-log-{YYYYMMDDHHmm}-{关键词}"
+type: raw_log
+project_code: "{用户输入的代号}"
+project_dir: "{raw_project_dir}"
+session_date: {YYYY-MM-DD}
+keyword: "{关键词}"
+compile_status: pending
+---
+```
+
+**内容**: 原始记录格式，保留上下文、git commits、探索过程等。
+
+#### Phase 5.2: 编译到 wiki source（规范化摘要）
+
+**路径**: `wiki/sources/{source_project_slug}/logs/{YYYYMMDDHHmm}-{关键词}.md`
+
+**Frontmatter**:
+```yaml
+---
+id: "{source_project_slug}-log-{YYYYMMDDHHmm}-{关键词}"
+type: source
+project: "{source_project_slug}"
+raw_ref: "raw/notes/projects/{raw_project_dir}/logs/{YYYYMMDDHHmm}-{关键词}.md"
+source_kind: progress-log
+created: {YYYY-MM-DD}
+compiled_at: {YYYY-MM-DD}
+tags: [summary, {source_project_slug}, {关键词}]
+derived: false
+---
+```
+
+**内容**: 规范化摘要，包含操作摘要、思考过程、探索记录、关联笔记。
+
+#### Phase 5.3: 可选写入 synthesis（可复用洞见）
+
+仅当 Step 3.6 判定 `has_insight: true` 时执行。
+
+**路径**: `wiki/synthesis/sessions/{YYYYMMDD}-{source_project_slug}-{洞见主题}.md`
+
+**Frontmatter**:
+```yaml
+---
+id: "crystallize-{YYYYMMDD}-{洞见主题}"
+type: synthesis
+project: "{source_project_slug}"
+source_ref: "wiki/sources/{source_project_slug}/logs/{YYYYMMDDHHmm}-{关键词}.md"
+raw_ref: "raw/notes/projects/{raw_project_dir}/logs/{YYYYMMDDHHmm}-{关键词}.md"
+insight_patterns: [命中的模式列表]
+crystallized_at: {YYYY-MM-DD}
+tags: [crystallize, {source_project_slug}, {洞见主题}]
+derived: true
+---
+```
+
+**内容**: 核心洞见（3-5 条）、关键决策和原因、值得记录的结论、适用边界。
+
+---
+
+### Step 6: 互相写引用
+
+1. **raw 文件末尾**添加：
+```markdown
+## 编译信息
+- 编译到: `wiki/sources/{source_project_slug}/logs/{YYYYMMDDHHmm}-{关键词}.md`
+- 洞见结晶: `wiki/synthesis/sessions/{YYYYMMDD}-{source_project_slug}-{洞见主题}.md`（如有）
+```
+
+2. **source 文件**的 `raw_ref` 已在前置步骤填写。
+
+3. **synthesis 文件**的 `source_ref` 和 `raw_ref` 已在前置步骤填写。
+
+---
+
+## Output Template — Raw 原始记录
+
+```markdown
+---
+id: "raw-log-{YYYYMMDDHHmm}-{关键词}"
+type: raw_log
+project_code: "{项目代号}"
+project_dir: "{raw_project_dir}"
+session_date: {YYYY-MM-DD}
+keyword: "{关键词}"
+compile_status: done
+---
+
+# {项目代号} {关键词} 原始记录
+
+## 会话内容
+
+{从对话中提取的操作、思考、探索}
+
+## Git 提交记录
+
+| Commit | 描述 |
+|--------|------|
+| abc123 | 描述信息 |
+
+## 后续方向
+
+- [ ] 下一步计划
+```
+
+## Output Template — Wiki Source 编译摘要
+
+```markdown
+---
+id: "{source_project_slug}-log-{YYYYMMDDHHmm}-{关键词}"
+type: source
+project: "{source_project_slug}"
+raw_ref: "raw/notes/projects/{raw_project_dir}/logs/{YYYYMMDDHHmm}-{关键词}.md"
+source_kind: progress-log
+created: {YYYY-MM-DD}
+compiled_at: {YYYY-MM-DD}
+tags: [summary, {source_project_slug}, {关键词}]
+derived: false
+has_insight: false
+---
+
+# {项目代号} {关键词} 进展摘要
+
+## 操作摘要
+
+- 完成的主要工作项（3-5条）
+
+## 思考过程
+
+分析问题的思路、推理链条。
+
+## 探索记录
+
+| 尝试方向 | 结果 | 原因 |
+|----------|------|------|
+| ... | 放弃/保留 | ... |
+
+## 洞见提炼
+
+本次工作的核心收获和认知。
+
+## 洞见扫描结果
+
+<!-- 自动扫描，不要手动填写 -->
+- **可复用洞见**: 有 / 无
+- **匹配模式**: 参数耦合 / 工艺陷阱 / 方法论 / 决策记录 / 故障排除（列出命中的）
+- **判定**: 可复用 / 待观察 / 无
+
+## 后续方向
+
+- [ ] 下一步计划1
+- [ ] 下一步计划2
+
+## 关联笔记
+
+- [[笔记A]] — 相关性说明
+- [[笔记B]] — 相关性说明
+```
+
+## Output Template — Synthesis 结晶文件（可选）
+
+```markdown
+---
+id: "crystallize-{YYYYMMDD}-{洞见主题}"
+type: synthesis
+project: "{source_project_slug}"
+source_ref: "wiki/sources/{source_project_slug}/logs/{YYYYMMDDHHmm}-{关键词}.md"
+raw_ref: "raw/notes/projects/{raw_project_dir}/logs/{YYYYMMDDHHmm}-{关键词}.md"
+insight_patterns: [命中的模式列表]
+crystallized_at: {YYYY-MM-DD}
+tags: [crystallize, {source_project_slug}, {洞见主题}]
+derived: true
+---
+
+# {洞见主题} — 可复用洞见
+
+## 核心洞见
+
+1. {洞见1}
+2. {洞见2}
+3. {洞见3}
+
+## 关键决策和原因
+
+{决策内容及理由}
+
+## 适用边界
+
+{什么情况下这个洞见成立}
+
+## 来源
+
+- raw: `raw/notes/projects/{raw_project_dir}/logs/{YYYYMMDDHHmm}-{关键词}.md`
+- source: `wiki/sources/{source_project_slug}/logs/{YYYYMMDDHHmm}-{关键词}.md`
+```
+
+---
+
+## Error Handling
+
+- **No vault accessible**: Ask user to ensure Obsidian MCP is connected
+- **Multiple good matches**: Present top 3 topics/entities for user selection
+- **No conversation context**: Ask user to describe what they worked on
+- **Path doesn't exist**: Create directories first if needed
+
+## Output Example
+
+Success response:
+```json
+{
+  "success": true,
+  "raw_path": "raw/notes/projects/XBR818D/logs/202604151430-lna-gain-optimization.md",
+  "source_path": "wiki/sources/xbr818d/logs/202604151430-lna-gain-optimization.md",
+  "synthesis_path": "wiki/synthesis/sessions/20260415-xbr818d-lna-matching-trick.md",
+  "project": "xbr818d",
+  "keyword": "lna-gain-optimization",
+  "related_notes_found": 3,
+  "has_insight": true,
+  "message": "工作总结已生成，raw 原始记录 + wiki source 编译摘要 + synthesis 洞见结晶"
+}
+```

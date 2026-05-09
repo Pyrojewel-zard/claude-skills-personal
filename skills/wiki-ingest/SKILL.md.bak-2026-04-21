@@ -1,0 +1,57 @@
+---
+name: wiki-ingest
+description: raw 证据入库 + typed 编译 + registry 更新。用于把论文/实验/工具/理论/日志素材转为可查询的 LLM Wiki 节点。
+---
+
+# wiki-ingest
+
+## Role
+
+`/wiki-ingest` 是唯一允许的入库入口。它执行：
+
+1. raw capture 校验
+2. smart search 去重
+3. typed node 编译
+4. registry 更新
+5. query_pack 刷新
+
+禁止旧模式：
+- 不直接复制 raw 正文到 `wiki/sources/`。
+- 不手工维护长 `source_refs`。
+- 不绕过 candidate 审核直接写入推断关系。
+
+## Inputs
+
+- `raw/` 下的文件或目录
+- 新文本（先落地到 `raw/`）
+- URL/PDF（先转为 raw 笔记）
+
+## Pipeline
+
+1. Classify
+   - `paper | experiment | procedure | theory | project-log | worklog | candidate`
+2. Retrieve
+   - 在 `wiki/sources|entities|procedures|claims|topics` 做 smart search。
+3. Fingerprint
+   - 基于类型 + 关键词 + 目标对象生成去重 key。
+4. Compile
+   - 生成或更新 typed node：
+     - `source` -> `wiki/sources/...`
+     - `entity` -> `wiki/entities/...`
+     - `procedure` -> `wiki/procedures/...`
+     - `claim` -> `wiki/claims/{status}/...`
+     - `synthesis` -> `wiki/synthesis/...`
+5. Register
+   - 更新：
+     - `wiki/_registry/nodes.jsonl`
+     - `wiki/_registry/edges.jsonl`
+     - `wiki/_registry/fingerprints.jsonl`
+     - `wiki/_registry/compile_log.jsonl`
+6. Refresh
+   - 刷新 `wiki/_registry/query_pack.md`。
+
+## Rules
+
+- Claim 必须可测试，且带 evidence edge。
+- graphify 发现关系先入 `wiki/candidates/graphify/`，再经 `/wiki-crystallize`。
+- 问题导向检索优先读 `query_pack` 和 accepted registry。

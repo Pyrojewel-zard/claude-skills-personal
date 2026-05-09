@@ -1,0 +1,47 @@
+key,title,doi,status,action_taken
+HUJMTUUW,Performance-oriented broadband inverse design of frequency-selective surfaces using multibranch autoencoders,10.1109/TMTT.2025.3633907,has_abstract,no_action_needed
+8AP3FDI2,A spectral convolutional net for co-optimization of integrated voltage regulators and embedded inductors,10.1109/ICCAD45719.2019.8942109,has_abstract,no_action_needed
+S6Q3CA53,Simulation and automated modeling of microwave circuits: State-of-the-art and emerging trends,10.1109/jmw.2020.3033780,has_abstract,no_action_needed
+SDKCCR8K,"Deep Learning-Enabled Inverse Design of 30–94 GHz P<sub>sat,3dB</sub> SiGe PA Supporting Concurrent Multiband Operation at Multi-Gb/s",10.1109/LMWC.2022.3161979,has_abstract,no_action_needed
+J7P6SBX3,Algorithmic design of nonintuitive on-chip multilayered passive networks,10.1109/IMS40360.2025.11103811,has_abstract,no_action_needed
+MGAZGNHU,End-to-end machine-learning framework for electromagnetic inverse design: From practical constraints to optimized structures,10.1109/TMTT.2025.3583316,has_abstract,no_action_needed
+RKJ62CL9,Deep-learning-based inverse-designed millimeter-wave passives and power amplifiers,10.1109/JSSC.2023.3276315,has_abstract,no_action_needed
+SFQ5SCTW,R-INN: An efficient reversible design model for microwave circuit design,10.1109/TMTT.2025.3581947,has_abstract,no_action_needed
+DQV3ZM5N,Inverse design of multilayered pixelated mm-wave power amplifiers,10.1109/JSSC.2026.3656334,has_abstract,no_action_needed
+UNU7967A,Independent Digital Predistortion Parameters Estimation Using Adaptive Principal Component Analysis,10.1109/TMTT.2018.2870420,has_abstract,no_action_needed
+SMPAJKRJ,Trade-off-aware Analog Circuit Sizing Based on A Multitask Surrogate Model-assisted Evolutionary Algorithm,10.1109/tcad.2026.3677769,has_abstract,no_action_needed
+3RIS25R5,An area efficient high turn ratio monolithic transformer for silicon RFIC,10.1109/RFIC.2008.4561410,has_abstract,no_action_needed
+M4U26NG9,Distributed modeling of six-port transformer for millimeter-wave SiGe BiCMOS circuits design,10.1109/TMTT.2012.2220563,has_abstract,no_action_needed
+7ICK8C24,Modeling and characterization of on-chip transformers,10.1109/iedm.1998.746414,has_abstract,no_action_needed
+5NVBDQA4,Monolithic transformers for silicon RF IC design,10.1109/4.868049,has_abstract,no_action_needed
+MDZBE6LN,Analysis and design of a CMOS LNA with transformer-based integrated notch filter for <i>ku</i> -band satellite communications,10.1109/TMTT.2021.3126858,has_abstract,no_action_needed
+4NSF8H3Y,Generative Methods in EDA: Innovations in Dataset Generation and EDA Tool Assistants,10.1145/3676536.3697122,has_abstract,no_action_needed
+IXDAZ2F3,A 22.4-to-35-GHz Two-Stage Low-Noise Amplifier With Triple-Coupled Transformer-Based Input Matching Technique in 65-nm CMOS,10.1109/tmtt.2025.3606989,has_abstract,no_action_needed
+IKUPBSSE,"An mm-Wave Full-Duplex Front End With Integrated LNA, PA, and Electrical Balance Duplexer",10.1109/tmtt.2025.3604338,has_abstract,no_action_needed
+ZYGZBBCE,"A Large-Scale, Low-Power, Compact 5G mm-Wave Phased-Array Transceiver in 45 nm RFSOI CMOS",10.1109/tmtt.2025.3544620,has_abstract,no_action_needed
+Q2IZ2UTR,A holistic methodology for system margining and jitter tolerance optimization in post-silicon validation,10.1109/tmtt.2015.2504099,no_pdf,cannot_extract
+99JRK7TA,"Machine Learning-Based Defect Detection, Output Matching Assessment, and Performance Recentering of a 79-GHz Four-Way CMOS Power Amplifier",10.1109/TMTT.2025.3619021,no_pdf,cannot_extract
+CSXKV7B4,Efficient Broadband Modeling of Microwave Devices with Machine Learning and Analytical Extension of Eigenvalues,10.1109/ICEAA49419.2022.9899975,no_pdf,cannot_extract
+XWCDXVUJ,INVITED: Reducing Time and Effort in IC Implementation: A Roadmap of Challenges and Solutions,10.1109/DAC.2018.8465871,no_pdf,cannot_extract
+6DAMSPUU,Feedback-Driven Differential Evolution Model for Device Sizing Optimization in Analog Circuit Design,10.1109/ACCESS.2026.3676156,no_pdf,cannot_extract
+DXXK35VK,RF Design-Oriented ACM Model Generation Using Parametric Test and Machine Learning Regression in 28nm FD-SOI CMOS Technology,10.1109/LASCAS67804.2026.11457152,no_pdf,cannot_extract
+X4E3HQFT,RX Equalization for a High-Speed Channel based on Bayesian Active Learning using Dropout,10.1109/EPEPS48591.2020.9231471,no_pdf,cannot_extract
+M267E3VC,A new nonlinear behavioral modeling technique for RF power transistors based on Bayesian inference,10.1109/MWSYM.2017.8058645,no_pdf,cannot_extract
+HXWGWVP9,Intelligent and Interactive Analog Layout Design Automation,10.1109/ICSICT55466.2022.9963217,no_pdf,cannot_extract
+625QWXEH,Application of Neural Networks to Reduce Distortion of RF Signals in Switch Mode Power Amplifiers,10.1109/EExPolytech50912.2020.9243973,no_pdf,cannot_extract
+A6Q3EH6X,Prediction of Active Implantable Medical Device Electromagnetic Models Using a Neural Network,10.1109/APS/URSI47566.2021.9704511,no_pdf,cannot_extract
+G6XCPP7B,Artificial Neural Network Modeling of Interdigital Capacitor Sensor for Oxygen Detection,10.1109/ICEST49890.2020.9232862,no_pdf,cannot_extract
+E9KSS6M6,An Efficient Neural Network Macro-model for Electromagnetic Radiation Spurious Emission from Voltage-Variable Capacitors,10.1109/EMCEUROPE48519.2020.9245803,no_pdf,cannot_extract
+P5ETR3IW,Automated E-circuit Designing and Characterization using Prominent Neural Network,10.1109/SCEECS48394.2020.85,no_pdf,cannot_extract
+MNIEUGTJ,Design Automation of CMOS Op-Amps Using Statistical Geometric Programming,10.1109/ISCAS48785.2022.9937871,no_pdf,cannot_extract
+TQ4PUCKP,An Intelligent Sensing Framework for Post-Manufacturing Performance Measurement and Healing of CSVCO,10.1109/TIM.2022.3225039,no_pdf,cannot_extract
+PHST2NPW,System and Component Design for Wireless Distributed Computing,10.1109/RFIT49453.2020.9226252,no_pdf,cannot_extract
+236NXRKK,Performance Estimate of Multi-Terminal Dielectric Array Radiator using Machine Learning Techniques,10.1109/GCWCN66157.2025.11448537,no_pdf,cannot_extract
+PEQQTPCD,A Neural Network-Based Model of Radio Frequency Energy Harvesting Characteristics in a Self-Powered Food Monitoring System,10.1109/JSEN.2019.2922346,no_pdf,cannot_extract
+CSPB5FGV,GCN-RL Circuit Designer: Transferable Transistor Sizing with Graph Neural Networks and Reinforcement Learning,10.1109/DAC18072.2020.9218757,no_pdf,cannot_extract
+9G2IMDTV,GCN-RL Circuit Designer: Transferable Transistor Sizing with Graph Neural Networks and Reinforcement Learning,10.1109/DAC18072.2020.9218757,no_pdf,cannot_extract
+XPFI8A5E,An Accuracy Improvement of the Neuromorphic Functional Models by Using the Parallel ANN Architecture,10.1109/EWDTS50664.2020.9225034,no_pdf,cannot_extract
+VAV6CMXF,A robust calibration and supervised machine learning reliability framework for digitally-assisted self-healing RFICs,10.1109/MWSCAS.2017.8053129,no_pdf,cannot_extract
+72W828SW,System Margining Surrogate-Based Optimization in Post-Silicon Validation,10.1109/TMTT.2017.2701368,no_pdf,cannot_extract
+3SMB4RRG,Digital Predistortion of RF Power Amplifiers With Decomposed Vector Rotation-Based Recurrent Neural Networks,10.1109/TMTT.2022.3209658,no_pdf,cannot_extract
+XBKEW3P9,Machine-Learning Prediction of RF Band-Pass Filter Performance Using Large-Scale Vendor Data,10.1109/ICSPED65817.2026.11448539,updated,abstract_extracted_from_pdf

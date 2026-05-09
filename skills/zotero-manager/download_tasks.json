@@ -1,0 +1,1105 @@
+{
+  "total": 122,
+  "completed": 122,
+  "failed": 0,
+  "papers": [
+    {
+      "key": "KE7M678Q",
+      "arnumber": "10856900",
+      "title": "A 49.8-mm² IR-UWB transmitter with co-designed power amplifier and antenna for neural implants with extended transmission range",
+      "url": "https://ieeexplore.ieee.org/document/10856900/",
+      "doi": "10.1109/JSSC.2025.3531234",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:24:02.043219"
+    },
+    {
+      "key": "ZGPZZI8R",
+      "arnumber": "10745442",
+      "title": "Fast ML-driven Analog Circuit Layout using Reinforcement Learning and Steiner Trees",
+      "url": "https://ieeexplore.ieee.org/document/10745442/",
+      "doi": "10.1109/SMACD61181.2024.10745442",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:24:36.916669"
+    },
+    {
+      "key": "AHC7W3KT",
+      "arnumber": "9887077",
+      "title": "Deep Learning based Modeling and Inverse Design for Arbitrary Planar Antenna Structures at RF and Millimeter-Wave",
+      "url": "https://ieeexplore.ieee.org/document/9887077/",
+      "doi": "10.1109/AP-S/USNC-URSI47032.2022.9887077",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:25:39.473030"
+    },
+    {
+      "key": "F4DQQVIZ",
+      "arnumber": "10600238",
+      "title": "A Novel Transfer Learning Approach for Efficient RF Device Behavior Model Parameter Extraction",
+      "url": "https://ieeexplore.ieee.org/document/10600238/",
+      "doi": "10.1109/IMS40175.2024.10600238",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:26:35.335425"
+    },
+    {
+      "key": "4ZSNQTPQ",
+      "arnumber": "10671957",
+      "title": "Residual Real-Valued Time-Delay Convolutional Neural Network for Behavioral Modeling and Digital Predistortion",
+      "url": "https://ieeexplore.ieee.org/document/10671957/",
+      "doi": "10.1109/ICMMT61774.2024.10671957",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:27:37.640082"
+    },
+    {
+      "key": "JQREGAEF",
+      "arnumber": "9618372",
+      "title": "Envelope Added Time-Delay Neural Network-based Digital Predistortion of Wideband Envelope Tracking Power Amplifiers",
+      "url": "https://ieeexplore.ieee.org/document/9618372/",
+      "doi": "10.1109/ICMMT52847.2021.9618372",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:28:45.166845"
+    },
+    {
+      "key": "A79TFA7J",
+      "arnumber": "11052472",
+      "title": "Solving Inverse Problems with Deep Learning",
+      "url": "https://ieeexplore.ieee.org/document/11052472/",
+      "doi": "10.23919/ACES66556.2025.11052472",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:29:40.977195"
+    },
+    {
+      "key": "AW9IJR8B",
+      "arnumber": "11092111",
+      "title": "Inverse Analog IC Sizing and Exploration through Diffusion Models and Structural Knowledge",
+      "url": "https://ieeexplore.ieee.org/document/11092111/",
+      "doi": "10.1109/SMACD65553.2025.11092111",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:30:55.467147"
+    },
+    {
+      "key": "RN92Q98A",
+      "arnumber": "10415962",
+      "title": "Determination of Channel Parameters of FinFET using Artificial Neural Networks in Current Mirror Applications",
+      "url": "https://ieeexplore.ieee.org/document/10415962/",
+      "doi": "10.1109/ELECO60389.2023.10415962",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:31:46.141259"
+    },
+    {
+      "key": "GEIVP8UF",
+      "arnumber": "9899485",
+      "title": "Analysis of offset spurs in phase-locked-loops employing harmonic-mixer-based feedback with sample-and-hold operation",
+      "url": "https://ieeexplore.ieee.org/document/9899485/",
+      "doi": "10.1109/TCSI.2022.3206837",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:32:44.311790"
+    },
+    {
+      "key": "RAPM3MHG",
+      "arnumber": "11387680",
+      "title": "Design of a Compact Dual-Frequency Impedance Matching Network Using Artificial Neural Network",
+      "url": "https://ieeexplore.ieee.org/document/11387680/",
+      "doi": "10.1109/IMAS66694.2025.11387680",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:33:50.275416"
+    },
+    {
+      "key": "F43U6UG5",
+      "arnumber": "9718317",
+      "title": "A Time-Domain Multi-Tone Distortion Model for Effective Design of High Power Amplifiers",
+      "url": "https://ieeexplore.ieee.org/document/9718317/",
+      "doi": "10.1109/ACCESS.2022.3153355",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:34:57.308328"
+    },
+    {
+      "key": "VF8F32VJ",
+      "arnumber": "9816195",
+      "title": "ANN-based Analog IC Floorplan Recommender with a Broader Topological Constraints Coverage",
+      "url": "https://ieeexplore.ieee.org/document/9816195/",
+      "doi": "10.1109/SMACD55068.2022.9816195",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:35:43.309616"
+    },
+    {
+      "key": "Z72NE6ES",
+      "arnumber": "10096989",
+      "title": "Machine Learning-Aided Piece-Wise Modeling Technique of Power Amplifier for Digital Predistortion",
+      "url": "https://ieeexplore.ieee.org/document/10096989/",
+      "doi": "10.1109/ICASSP49357.2023.10096989",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:36:47.091857"
+    },
+    {
+      "key": "X8BQ4E5P",
+      "arnumber": "10808909",
+      "title": "Towards Safe and Efficient Analog Circuit Design: Active Learning for Feasibility Region Exploration",
+      "url": "https://ieeexplore.ieee.org/document/10808909/",
+      "doi": "10.1109/APCCAS62602.2024.10808909",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:37:44.591166"
+    },
+    {
+      "key": "I85EXXMS",
+      "arnumber": "10389087",
+      "title": "A scalable model for on-chip spiral inductors by Space-mapping neural network",
+      "url": "https://ieeexplore.ieee.org/document/10389087/",
+      "doi": "10.1109/ISAP57493.2023.10389087",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:38:47.735541"
+    },
+    {
+      "key": "ZNFCV8M5",
+      "arnumber": "10612373",
+      "title": "Recognition of Hand-Drawn Designs of Electronic Analog Circuits",
+      "url": "https://ieeexplore.ieee.org/document/10612373/",
+      "doi": "10.23919/SpliTech61897.2024.10612373",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:39:46.158664"
+    },
+    {
+      "key": "NWC99UMN",
+      "arnumber": "11161102",
+      "title": "FEARL: AI-Assisted Energy-Aware Real-Time Receiver Adaptation to Dynamic Environments",
+      "url": "https://ieeexplore.ieee.org/document/11161102/",
+      "doi": "10.1109/ICC52391.2025.11161102",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:40:43.542824"
+    },
+    {
+      "key": "8Q8FW6UN",
+      "arnumber": "11409499",
+      "title": "Data-Driven Leakage Power Prediction and Optimization for Analog Circuits Via Machine Learning and Deep Neural Networks",
+      "url": "https://ieeexplore.ieee.org/document/11409499/",
+      "doi": "10.1109/EIECC67963.2025.11409499",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:41:51.545646"
+    },
+    {
+      "key": "8SXEBX85",
+      "arnumber": "10947698",
+      "title": "Machine Learning Algorithms Based on Variations of the Least Squares Method for Power Amplifier Distortion Compensation",
+      "url": "https://ieeexplore.ieee.org/document/10947698/",
+      "doi": "10.1109/IEEECONF64229.2025.10947698",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:42:51.665011"
+    },
+    {
+      "key": "QTSNBMPJ",
+      "arnumber": "10264117",
+      "title": "Ultra-Fast and Efficient Design Method Using Deep Learning for Capacitive Coupling WPT System",
+      "url": "https://ieeexplore.ieee.org/document/10264117/",
+      "doi": "10.1109/TPEL.2023.3319505",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:43:58.140852"
+    },
+    {
+      "key": "2SXISRHV",
+      "arnumber": "10107081",
+      "title": "An ASGC-Surrogate Model Based Yield Optimization for Passive Microwave Devices with Differential Evolution Algorithm",
+      "url": "https://ieeexplore.ieee.org/document/10107081/",
+      "doi": "10.1109/IMWS-AMP54652.2022.10107081",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:44:46.811006"
+    },
+    {
+      "key": "76PTCB5F",
+      "arnumber": "10736266",
+      "title": "Notice of Removal: An Ultra-wideband ADC using LSTM and Photonic Time Stretching",
+      "url": "https://ieeexplore.ieee.org/document/10736266/",
+      "doi": "10.1109/MWP62612.2024.10736266",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:45:48.196963"
+    },
+    {
+      "key": "MJRB32ZW",
+      "arnumber": "10299830",
+      "title": "Analog synthesis 3.0: AI/ML to synthesize and test analog ICs: hope or hype ?",
+      "url": "https://ieeexplore.ieee.org/document/10299830/",
+      "doi": "10.1109/MLCAD58807.2023.10299830",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:46:47.756834"
+    },
+    {
+      "key": "RCNQU5R9",
+      "arnumber": "10146180",
+      "title": "A PSO-Based Maximum Efficiency Optimization for Wireless Power Transfer Systems with Class-E Power Amplifier",
+      "url": "https://ieeexplore.ieee.org/document/10146180/",
+      "doi": "10.1109/ICACI58115.2023.10146180",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:47:51.840988"
+    },
+    {
+      "key": "K3MC3VXI",
+      "arnumber": "10920505",
+      "title": "A Novel Test Stimulus Generation Method Based On Ensemble Learners for Analog Circuits",
+      "url": "https://ieeexplore.ieee.org/document/10920505/",
+      "doi": "10.1109/ICSMD64214.2024.10920505",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:48:44.680006"
+    },
+    {
+      "key": "MW5NDBNB",
+      "arnumber": "10247991",
+      "title": "RoSE: Robust Analog Circuit Parameter Optimization with Sampling-Efficient Reinforcement Learning",
+      "url": "https://ieeexplore.ieee.org/document/10247991/",
+      "doi": "10.1109/DAC56929.2023.10247991",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:49:46.806682"
+    },
+    {
+      "key": "KXT55KC5",
+      "arnumber": "10458832",
+      "title": "Design of CMOS-Based Ring Oscillator for VCO Application Using Neural Network",
+      "url": "https://ieeexplore.ieee.org/document/10458832/",
+      "doi": "10.1109/MoSICom59118.2023.10458832",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:50:45.445314"
+    },
+    {
+      "key": "5WCXFSCU",
+      "arnumber": "10671093",
+      "title": "A Self-interference Canceller Design Based on Knowledge-driven Neural Network",
+      "url": "https://ieeexplore.ieee.org/document/10671093/",
+      "doi": "10.1109/ICEICT61637.2024.10671093",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:51:53.492340"
+    },
+    {
+      "key": "ZCT25CKP",
+      "arnumber": "11215387",
+      "title": "A Deepseek-Based Smart Behavioral Modeling Method for RF Power Transistor",
+      "url": "https://ieeexplore.ieee.org/document/11215387/",
+      "doi": "10.1109/NEMO62710.2025.11215387",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:52:44.022728"
+    },
+    {
+      "key": "9FUVZKDZ",
+      "arnumber": "10463927",
+      "title": "Physics Embedded Neural Network (PENN) Architecture for Solving Maxwell’s Equations towards Accelerated Microwave Modeling",
+      "url": "https://ieeexplore.ieee.org/document/10463927/",
+      "doi": "10.1109/MAPCON58678.2023.10463927",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:53:44.460110"
+    },
+    {
+      "key": "JK2KBN4Z",
+      "arnumber": "11401285",
+      "title": "An Effective Modelling of Optimized High-Speed VLSI Analog Circuit Layout using Fine-Tuned Deep Reinforcement Learning Framework",
+      "url": "https://ieeexplore.ieee.org/document/11401285/",
+      "doi": "10.1109/ICECER65523.2025.11401285",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:54:48.747478"
+    },
+    {
+      "key": "IXZS7A44",
+      "arnumber": "11321333",
+      "title": "Automated EM/IR-Drop Prediction Framework for Reliability-Aware Analog Layouts Using Deep Reinforcement Learning Technique",
+      "url": "https://ieeexplore.ieee.org/document/11321333/",
+      "doi": "10.1109/ICM66518.2025.11321333",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:55:50.919806"
+    },
+    {
+      "key": "DZTM34SB",
+      "arnumber": "9947095",
+      "title": "Analysis and Optimization of an Analog MOSFET with a Slit Well at Channel Center Towards Higher Output Resistance",
+      "url": "https://ieeexplore.ieee.org/document/9947095/",
+      "doi": "10.1109/ESSDERC55479.2022.9947095",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:56:47.735154"
+    },
+    {
+      "key": "B2HAKM6G",
+      "arnumber": "10176354",
+      "title": "Phase-Normalized Neural Network for Linearization of RF Power Amplifiers",
+      "url": "https://ieeexplore.ieee.org/document/10176354/",
+      "doi": "10.1109/LMWT.2023.3290980",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:58:11.248870"
+    },
+    {
+      "key": "5NR57EPA",
+      "arnumber": "10261952",
+      "title": "Towards a Machine Learning Based Method for Indirect Test Generation of Mixed-Signal Circuits",
+      "url": "https://ieeexplore.ieee.org/document/10261952/",
+      "doi": "10.1109/SBCCI60457.2023.10261952",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T10:59:04.287984"
+    },
+    {
+      "key": "95STP2NH",
+      "arnumber": "11340082",
+      "title": "Smart Stability: Advancing LDOs Through Loop Gain Modulated Architectures",
+      "url": "https://ieeexplore.ieee.org/document/11340082/",
+      "doi": "10.1109/ICE2CPT66440.2025.11340082",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:00:09.612437"
+    },
+    {
+      "key": "QJWZ74TH",
+      "arnumber": "11022936",
+      "title": "ChipMnd: LLMs for Agile Chip Design",
+      "url": "https://ieeexplore.ieee.org/document/11022936/",
+      "doi": "10.1109/VTS65138.2025.11022936",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:01:05.306678"
+    },
+    {
+      "key": "8HIXQ278",
+      "arnumber": "10929002",
+      "title": "Indirect Test Pattern Generation for Mixed-Signal Circuits Using Machine Learning",
+      "url": "https://ieeexplore.ieee.org/document/10929002/",
+      "doi": "10.1109/MDAT.2025.3551949",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:02:08.532953"
+    },
+    {
+      "key": "V55KJ6DS",
+      "arnumber": "10538719",
+      "title": "Artificial Intelligence Based High Power Calibration Method for RF Pulse Amplifiers",
+      "url": "https://ieeexplore.ieee.org/document/10538719/",
+      "doi": "10.1109/VTS60656.2024.10538719",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:03:02.730946"
+    },
+    {
+      "key": "7MDHD9JA",
+      "arnumber": "10964994",
+      "title": "Performance Analysis of CMOS Full Adder Using Machine Learning",
+      "url": "https://ieeexplore.ieee.org/document/10964994/",
+      "doi": "10.1109/ICETEMS64039.2024.10964994",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:04:18.386897"
+    },
+    {
+      "key": "K2JIXTN4",
+      "arnumber": "11413086",
+      "title": "Correlation-Guided Flexible Bayesian Optimization for Analog IC Sizing",
+      "url": "https://ieeexplore.ieee.org/document/11413086/",
+      "doi": "10.1109/ISRIMT67769.2025.11413086",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:05:17.568267"
+    },
+    {
+      "key": "RCF7SXBS",
+      "arnumber": "10745460",
+      "title": "Solving the Inverse Problem of Analog Integrated Circuit Sizing with Diffusion Models",
+      "url": "https://ieeexplore.ieee.org/document/10745460/",
+      "doi": "10.1109/SMACD61181.2024.10745460",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:06:17.117612"
+    },
+    {
+      "key": "GQDUCCD3",
+      "arnumber": "11319017",
+      "title": "AI-Driven Multi-Level Delta-Sigma Modulator for Software Defined Radios in 6G",
+      "url": "https://ieeexplore.ieee.org/document/11319017/",
+      "doi": "10.1109/ETECOM66111.2025.11319017",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:07:17.069798"
+    },
+    {
+      "key": "IQW68QS8",
+      "arnumber": "10421610",
+      "title": "Review on Analog Circuit Optimization Using Deep Learning Algorithm",
+      "url": "https://ieeexplore.ieee.org/document/10421610/",
+      "doi": "10.1109/MMS59938.2023.10421610",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:08:23.759065"
+    },
+    {
+      "key": "3BVWXUS6",
+      "arnumber": "10617532",
+      "title": "Automatic Design of Structural Parameters for GaN HEMT Using Genetic Algorithm and Artificial Neural Networks",
+      "url": "https://ieeexplore.ieee.org/document/10617532/",
+      "doi": "10.1109/ISEDA62518.2024.10617532",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:09:25.912000"
+    },
+    {
+      "key": "236NXRKK",
+      "arnumber": "11448537",
+      "title": "Performance Estimate of Multi-Terminal Dielectric Array Radiator using Machine Learning Techniques",
+      "url": "https://ieeexplore.ieee.org/document/11448537/",
+      "doi": "10.1109/GCWCN66157.2025.11448537",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:10:25.046929"
+    },
+    {
+      "key": "9S5M5P46",
+      "arnumber": "9908139",
+      "title": "Automated Deep Learning Platform for Accelerated Analog Circuit Design",
+      "url": "https://ieeexplore.ieee.org/document/9908139/",
+      "doi": "10.1109/SOCC56010.2022.9908139",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:11:20.851704"
+    },
+    {
+      "key": "HU6S3H94",
+      "arnumber": "10374432",
+      "title": "Machine Learning-Assisted Multiobjective Optimization of Advanced Node Gate-All-Around Transistor for Logic and RF Applications",
+      "url": "https://ieeexplore.ieee.org/document/10374432/",
+      "doi": "10.1109/TED.2023.3345288",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:12:22.845441"
+    },
+    {
+      "key": "Q87VTKZI",
+      "arnumber": "9998597",
+      "title": "Neural Network Model-based Self-interference Cancellers for True Full-duplex Systems",
+      "url": "https://ieeexplore.ieee.org/document/9998597/",
+      "doi": "10.1109/ISAP53582.2022.9998597",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:13:31.179098"
+    },
+    {
+      "key": "4SRTHNWR",
+      "arnumber": "9816265",
+      "title": "Accelerating Voltage-Controlled Oscillator Sizing Optimizations with ANN-based Convergence Classifiers and Frequency Guess Predictors",
+      "url": "https://ieeexplore.ieee.org/document/9816265/",
+      "doi": "10.1109/SMACD55068.2022.9816265",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:14:36.973869"
+    },
+    {
+      "key": "9KHNGQ3X",
+      "arnumber": "10958405",
+      "title": "Machine Learning Based Regression Model for Automated Analog Circuit Design over Different Transistor Regions",
+      "url": "https://ieeexplore.ieee.org/document/10958405/",
+      "doi": "10.1109/INDICON63790.2024.10958405",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:15:35.494233"
+    },
+    {
+      "key": "3M4DC3UV",
+      "arnumber": "10498785",
+      "title": "Research on Optimizing Coastal Water Quality Index Assessment using Machine Learning Algorithms",
+      "url": "https://ieeexplore.ieee.org/document/10498785/",
+      "doi": "10.1109/ICICACS60521.2024.10498785",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:16:49.559283"
+    },
+    {
+      "key": "45QKCD9E",
+      "arnumber": "9963294",
+      "title": "Autogenerating Training Set for Model Extraction of the behavioral model in RF Simulation Using Machine Learning Algorithm",
+      "url": "https://ieeexplore.ieee.org/document/9963294/",
+      "doi": "10.1109/ICSICT55466.2022.9963294",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:19:46.095916"
+    },
+    {
+      "key": "W6JDTNV2",
+      "arnumber": "10121556",
+      "title": "Improved Temperature- and Power-Dependent Convolutional NN-Based PA",
+      "url": "https://ieeexplore.ieee.org/document/10121556/",
+      "doi": "10.1109/LMWT.2023.3268796",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:20:50.413837"
+    },
+    {
+      "key": "DJJ3NKGC",
+      "arnumber": "10438599",
+      "title": "Transfer Learning Optimized PA Behavioral Modeling over 2D Operation States",
+      "url": "https://ieeexplore.ieee.org/document/10438599/",
+      "doi": "10.1109/RWS56914.2024.10438599",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:22:08.751485"
+    },
+    {
+      "key": "EXKUK5JW",
+      "arnumber": "10463784",
+      "title": "Data-Driven Model-Based Design Approach for Class EFJ Power Amplifier with Analog Predistortion Circuit",
+      "url": "https://ieeexplore.ieee.org/document/10463784/",
+      "doi": "10.1109/MAPCON58678.2023.10463784",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:23:05.773944"
+    },
+    {
+      "key": "VSW4934I",
+      "arnumber": "11375215",
+      "title": "Data-Driven Approach for Dynamic Comparator in Analog-to-Digital Conversion",
+      "url": "https://ieeexplore.ieee.org/document/11375215/",
+      "doi": "10.1109/TENCON66050.2025.11375215",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:23:54.363719"
+    },
+    {
+      "key": "6FD6DRD2",
+      "arnumber": "10503490",
+      "title": "A Dual-Band Millimeter Wave Cylindrical Dielectric Resonator Antenna Using Machine Learning Approach",
+      "url": "https://ieeexplore.ieee.org/document/10503490/",
+      "doi": "10.1109/IATMSI60426.2024.10503490",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:25:06.956035"
+    },
+    {
+      "key": "SNZ2PBJV",
+      "arnumber": "11092015",
+      "title": "Enhancing Reinforcement Learning for the Floorplanning of Analog ICs with Beam Search",
+      "url": "https://ieeexplore.ieee.org/document/11092015/",
+      "doi": "10.1109/SMACD65553.2025.11092015",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:26:09.535929"
+    },
+    {
+      "key": "RCS4TZGD",
+      "arnumber": "10440102",
+      "title": "A Graph Attention Network Based System for Robust Analog Circuits’ Structure Recognition Involving a Novel Data Augmentation Technique",
+      "url": "https://ieeexplore.ieee.org/document/10440102/",
+      "doi": "10.1109/ACCESS.2024.3367598",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:27:15.465509"
+    },
+    {
+      "key": "GEVE73JH",
+      "arnumber": "10382859",
+      "title": "A comprehensive generalization of a Graph-Attention-Network GAT based system towards real IP analog-mixed-signal AMS schematics structure recognition",
+      "url": "https://ieeexplore.ieee.org/document/10382859/",
+      "doi": "10.1109/ICECS58634.2023.10382859",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:28:25.474376"
+    },
+    {
+      "key": "C47VTSH7",
+      "arnumber": "10618176",
+      "title": "Brief Research of Traditional and AI-based Models for IMD2 Cancellation",
+      "url": "https://ieeexplore.ieee.org/document/10618176/",
+      "doi": "10.1109/PIERS62282.2024.10618176",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:29:41.408530"
+    },
+    {
+      "key": "E9I5C4JR",
+      "arnumber": "11392269",
+      "title": "Device-to-Package Electrothermal Performance Prediction of Power MOSFETs via Coupled Iterative Dual-Artificial Neural Networks",
+      "url": "https://ieeexplore.ieee.org/document/11392269/",
+      "doi": "10.1109/EPTC67330.2025.11392269",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:31:08.834964"
+    },
+    {
+      "key": "PJNZ4RC9",
+      "arnumber": "9677871",
+      "title": "Deep Neural Network Based Digital Predistorter of Power Amplifiers",
+      "url": "https://ieeexplore.ieee.org/document/9677871/",
+      "doi": "10.23919/ELECO54474.2021.9677871",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:32:20.764611"
+    },
+    {
+      "key": "K8HIXNR9",
+      "arnumber": "10906606",
+      "title": "Scalable Design of an Atomic Clock Stabilized and ML-Optimized RF Synthesizer",
+      "url": "https://ieeexplore.ieee.org/document/10906606/",
+      "doi": "10.1109/TIM.2025.3545529",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:33:31.504778"
+    },
+    {
+      "key": "MWUS4NRQ",
+      "arnumber": "11107059",
+      "title": "Predicting Digital Layout Success in Analog-on-Top Designs Using Machine Learning",
+      "url": "https://ieeexplore.ieee.org/document/11107059/",
+      "doi": "10.1109/NewCAS64648.2025.11107059",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:34:32.240849"
+    },
+    {
+      "key": "IHCUAH2E",
+      "arnumber": "10830994",
+      "title": "Automatically Device Sizing of Analog Circuit through Sequential Model-Based Optimization with Circuit Recognition",
+      "url": "https://ieeexplore.ieee.org/document/10830994/",
+      "doi": "10.1109/ICSICT62049.2024.10830994",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:35:32.598743"
+    },
+    {
+      "key": "FZ8IUXGQ",
+      "arnumber": "10980628",
+      "title": "Knowledge-Based Extrapolation of Neural Network Model for Transistor Modeling",
+      "url": "https://ieeexplore.ieee.org/document/10980628/",
+      "doi": "10.1109/LMWT.2025.3562538",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:36:51.360439"
+    },
+    {
+      "key": "HZJ69FF5",
+      "arnumber": "11121971",
+      "title": "Performance Prediction and Parameter Synthesis of OTFT Amplifiers Using Neural Networks",
+      "url": "https://ieeexplore.ieee.org/document/11121971/",
+      "doi": "10.1109/IWASI66786.2025.11121971",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:38:09.978997"
+    },
+    {
+      "key": "JWTXMR3T",
+      "arnumber": "10344057",
+      "title": "Advancing a Cascaded Machine Learning Approach for the Accurate Estimation of Antenna Parameters",
+      "url": "https://ieeexplore.ieee.org/document/10344057/",
+      "doi": "10.1109/ICSPIS60075.2023.10344057",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:39:07.118437"
+    },
+    {
+      "key": "B4UQ3QSG",
+      "arnumber": "11092187",
+      "title": "A Comparative Study on the Incorporation of PVT Corner Conditions within Reinforcement Learning-based Analog IC Sizing Approaches",
+      "url": "https://ieeexplore.ieee.org/document/11092187/",
+      "doi": "10.1109/SMACD65553.2025.11092187",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:40:37.915073"
+    },
+    {
+      "key": "Q4DQ97RE",
+      "arnumber": "11064185",
+      "title": "Assessing the Capabilities of Large Language Models to Comprehend Analog Integrated Circuits via Netlist Analysis",
+      "url": "https://ieeexplore.ieee.org/document/11064185/",
+      "doi": "10.1109/AICCONF64766.2025.11064185",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:41:45.828235"
+    },
+    {
+      "key": "VJ46FK8E",
+      "arnumber": "9706148",
+      "title": "Parametric Circuit Fault Diagnosis Through Oscillation-Based Testing in Analogue Circuits: Statistical and Deep Learning Approaches",
+      "url": "https://ieeexplore.ieee.org/document/9706148/",
+      "doi": "10.1109/ACCESS.2022.3149324",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:43:12.819163"
+    },
+    {
+      "key": "WZ4G6JK9",
+      "arnumber": "9859392",
+      "title": "Application Driven Rapid Synthesis for Analog BIST Components",
+      "url": "https://ieeexplore.ieee.org/document/9859392/",
+      "doi": "10.1109/MWSCAS54063.2022.9859392",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:44:07.417243"
+    },
+    {
+      "key": "47AQH8FN",
+      "arnumber": "10155324",
+      "title": "Algorithmic Optimization of Transistors Applied to Silicon LDMOS",
+      "url": "https://ieeexplore.ieee.org/document/10155324/",
+      "doi": "10.1109/ACCESS.2023.3287204",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:45:13.979416"
+    },
+    {
+      "key": "MNIEUGTJ",
+      "arnumber": "9937871",
+      "title": "Design Automation of CMOS Op-Amps Using Statistical Geometric Programming",
+      "url": "https://ieeexplore.ieee.org/document/9937871/",
+      "doi": "10.1109/ISCAS48785.2022.9937871",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:46:07.904216"
+    },
+    {
+      "key": "JFJXAIBE",
+      "arnumber": "11385676",
+      "title": "Enhancing Noise Immunity in Mixed-Signal Circuits for Biomedical Applications",
+      "url": "https://ieeexplore.ieee.org/document/11385676/",
+      "doi": "10.1109/IETACS68750.2025.11385676",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:47:18.309355"
+    },
+    {
+      "key": "CA9XKJ88",
+      "arnumber": "11286137",
+      "title": "AI-Enhanced Wide Supply Voltage Bandgap Voltage Reference Circuit With Multi-Objective Optimization for Automotive Applications",
+      "url": "https://ieeexplore.ieee.org/document/11286137/",
+      "doi": "10.1109/OJCAS.2025.3531412",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:48:29.833934"
+    },
+    {
+      "key": "FPPF6UCJ",
+      "arnumber": "10192204",
+      "title": "Reinforcement Learning for Analog Sizing Optimization",
+      "url": "https://ieeexplore.ieee.org/document/10192204/",
+      "doi": "10.1109/SMACD58065.2023.10192204",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:49:31.515514"
+    },
+    {
+      "key": "KWGMIEZ7",
+      "arnumber": "10247739",
+      "title": "Reinforcement Learning-based Analog Circuit Optimizer using g<sub>m</sub> /I<sub>D</sub> for Sizing",
+      "url": "https://ieeexplore.ieee.org/document/10247739/",
+      "doi": "10.1109/DAC56929.2023.10247739",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:50:34.431282"
+    },
+    {
+      "key": "3RG36BJX",
+      "arnumber": "10136894",
+      "title": "MA-Opt: Reinforcement Learning-based Analog Circuit Optimization using Multi-Actors",
+      "url": "https://ieeexplore.ieee.org/document/10136894/",
+      "doi": "10.23919/DATE56975.2023.10136894",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:51:26.694736"
+    },
+    {
+      "key": "BW8CW2X2",
+      "arnumber": "11187605",
+      "title": "A Ka-Band Broadband Doherty Power Amplifier with an Optimized Output Combining Network",
+      "url": "https://ieeexplore.ieee.org/document/11187605/",
+      "doi": "10.1109/ICMMT65948.2025.11187605",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:52:17.845999"
+    },
+    {
+      "key": "LM5CBAJL",
+      "arnumber": "11082875",
+      "title": "Topology-optimized nonintuitive multilayered mm-wave power amplifiers",
+      "url": "https://ieeexplore.ieee.org/document/11082875/",
+      "doi": "10.1109/rfic61188.2025.11082875",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:53:11.361704"
+    },
+    {
+      "key": "HSMV3DDG",
+      "arnumber": "11043434",
+      "title": "Accelerating Comprehensive Specification Optimization of Analog Circuits Using Transient Assertions and Graph Neural Networks",
+      "url": "https://ieeexplore.ieee.org/document/11043434/",
+      "doi": "10.1109/ISCAS56072.2025.11043434",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:54:18.695242"
+    },
+    {
+      "key": "72I9XHJN",
+      "arnumber": "11138058",
+      "title": "Decoupling Dynamic Memory and Instantaneous Non-Linearity: A Hybrid Recurrent Architecture for Power Amplifier Modeling",
+      "url": "https://ieeexplore.ieee.org/document/11138058/",
+      "doi": "10.1109/DMCIS65888.2025.11138058",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:55:23.574730"
+    },
+    {
+      "key": "JMI67RJ9",
+      "arnumber": "9712511",
+      "title": "Application of Deep Learning in Back-End Simulation: Challenges and Opportunities",
+      "url": "https://ieeexplore.ieee.org/document/9712511/",
+      "doi": "10.1109/ASP-DAC52403.2022.9712511",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:56:36.095543"
+    },
+    {
+      "key": "626GBGX4",
+      "arnumber": "10473977",
+      "title": "MACRO: Multi-agent Reinforcement Learning-based Cross-layer Optimization of Operational Amplifier",
+      "url": "https://ieeexplore.ieee.org/document/10473977/",
+      "doi": "10.1109/ASP-DAC58780.2024.10473977",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:57:57.809888"
+    },
+    {
+      "key": "RHWNIICQ",
+      "arnumber": "11075722",
+      "title": "Evaluating and Optimizing Conventional Training Circuits for Analog Fault Diagnosis via Transfer Learning",
+      "url": "https://ieeexplore.ieee.org/document/11075722/",
+      "doi": "10.1109/TIM.2025.3586376",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T11:59:08.074566"
+    },
+    {
+      "key": "FBDJRQX4",
+      "arnumber": "11406057",
+      "title": "High-Accuracy Propagation Delay Estimation in Analog Circuits Using Machine Learning Models",
+      "url": "https://ieeexplore.ieee.org/document/11406057/",
+      "doi": "10.1109/MAEIE68099.2025.11406057",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:00:03.906156"
+    },
+    {
+      "key": "5VW6RQA7",
+      "arnumber": "11136257",
+      "title": "A Generalized Surrogate Model of OAM Antennas for Varied Lens Sets and Loading Strategies",
+      "url": "https://ieeexplore.ieee.org/document/11136257/",
+      "doi": "10.1109/IMWS-AMP66175.2025.11136257",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:01:13.450579"
+    },
+    {
+      "key": "S3FK7BA9",
+      "arnumber": "11118128",
+      "title": "Intelligent Design of Superjunction Devices Based on Physics-Informed Neural Network",
+      "url": "https://ieeexplore.ieee.org/document/11118128/",
+      "doi": "10.23919/ISPSD62843.2025.11118128",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:02:25.393990"
+    },
+    {
+      "key": "GVQVGFQF",
+      "arnumber": "9521579",
+      "title": "Deep H-GCN: Fast Analog IC Aging-Induced Degradation Estimation",
+      "url": "https://ieeexplore.ieee.org/document/9521579/",
+      "doi": "10.1109/TCAD.2021.3107250",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:03:25.422081"
+    },
+    {
+      "key": "CRB7D429",
+      "arnumber": "11034282",
+      "title": "Machine Learning-Based Leakage Prediction in Analog Logic Gates under PVT Variations",
+      "url": "https://ieeexplore.ieee.org/document/11034282/",
+      "doi": "10.1109/EEICE65049.2025.11034282",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:04:24.994458"
+    },
+    {
+      "key": "888FWHXF",
+      "arnumber": "10719501",
+      "title": "A -28.5-dBm Sensitivity RF Energy Harvesting Interface with 3-D MPPT Achieving > 98% MPPT Accuracy and Good Temperature Consistency",
+      "url": "https://ieeexplore.ieee.org/document/10719501/",
+      "doi": "10.1109/ESSERC62670.2024.10719501",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:05:31.972809"
+    },
+    {
+      "key": "WP4AST2V",
+      "arnumber": "9792424",
+      "title": "Digital Signal Recovery With Transmitter Nonlinear State Tracking for Satellite Communications",
+      "url": "https://ieeexplore.ieee.org/document/9792424/",
+      "doi": "10.1109/TCSII.2022.3181785",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:06:26.343268"
+    },
+    {
+      "key": "SG4DJUX5",
+      "arnumber": "11044284",
+      "title": "A Linear-Regression-Assisted Trimming Scheme for CMOS Voltage Reference",
+      "url": "https://ieeexplore.ieee.org/document/11044284/",
+      "doi": "10.1109/ISCAS56072.2025.11044284",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:07:21.583282"
+    },
+    {
+      "key": "5DEGKMTE",
+      "arnumber": "10689372",
+      "title": "Enhancing Analog IC Security Using Randomized Obfuscation Circuits",
+      "url": "https://ieeexplore.ieee.org/document/10689372/",
+      "doi": "10.1109/TCAD.2024.3466810",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:08:20.014139"
+    },
+    {
+      "key": "DDETTPE3",
+      "arnumber": "10677072",
+      "title": "Integrating Neural Network Models for Advanced Automation in Analog Amplifier Circuit Design",
+      "url": "https://ieeexplore.ieee.org/document/10677072/",
+      "doi": "10.1109/CONECCT62155.2024.10677072",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:09:21.531752"
+    },
+    {
+      "key": "7FC27HT3",
+      "arnumber": "10672521",
+      "title": "A Novel TriNet Architecture for Enhanced Analog IC Design Automation",
+      "url": "https://ieeexplore.ieee.org/document/10672521/",
+      "doi": "10.1109/TVLSI.2024.3452032",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:10:16.192493"
+    },
+    {
+      "key": "6KTBGH4N",
+      "arnumber": "11337151",
+      "title": "Digital Pre-Distortion Modeling and Optimization Method Based on Sparse Residual GRU Neural Network",
+      "url": "https://ieeexplore.ieee.org/document/11337151/",
+      "doi": "10.1109/Ucom67224.2025.11337151",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:11:09.818551"
+    },
+    {
+      "key": "HXF9Q2PD",
+      "arnumber": "10618745",
+      "title": "A Low-cost Method for Identifying Pre-distortion Coefficients of RF Power Amplifiers Based on AE-GILC",
+      "url": "https://ieeexplore.ieee.org/document/10618745/",
+      "doi": "10.1109/PIERS62282.2024.10618745",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:12:10.527445"
+    },
+    {
+      "key": "3ANSBGUB",
+      "arnumber": "11307005",
+      "title": "Cyber Wolf: A Hybrid Optimization Framework Leveraging Heterogeneous Graphs and Multimodal Surrogate Simulators for Fast Analog Sizing",
+      "url": "https://ieeexplore.ieee.org/document/11307005/",
+      "doi": "10.1109/AEET66561.2025.11307005",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:13:14.328081"
+    },
+    {
+      "key": "STMJSEE6",
+      "arnumber": "10587151",
+      "title": "A Residual Selectable Modeling Method Based on Deep Neural Network for Power Amplifiers With Multiple States",
+      "url": "https://ieeexplore.ieee.org/document/10587151/",
+      "doi": "10.1109/LMWT.2024.3420398",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:14:16.470230"
+    },
+    {
+      "key": "KDG28UW6",
+      "arnumber": "10423509",
+      "title": "Modeling And Linearization of Radio Frequency Power Amplifiers Using Machine Learning Approaches",
+      "url": "https://ieeexplore.ieee.org/document/10423509/",
+      "doi": "10.1109/IEMENTech60402.2023.10423509",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:15:22.618182"
+    },
+    {
+      "key": "CP4G2MWE",
+      "arnumber": "11059089",
+      "title": "An Intelligent healthcare system for clinical decision making using Fuzzy neural networks",
+      "url": "https://ieeexplore.ieee.org/document/11059089/",
+      "doi": "10.1109/ICACCM61117.2024.11059089",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:16:27.626765"
+    },
+    {
+      "key": "CTRN4ICK",
+      "arnumber": "10828016",
+      "title": "Development of AI-Based Simulation Circuit Design and Assistance Systems",
+      "url": "https://ieeexplore.ieee.org/document/10828016/",
+      "doi": "10.1109/ICCASIT62299.2024.10828016",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:17:28.035478"
+    },
+    {
+      "key": "AMDFSTWB",
+      "arnumber": "10925225",
+      "title": "Optimization of the Far-Field Pattern of an X-Band Electronically Controlled Reflectarray Antenna Assisted by Machine Learning",
+      "url": "https://ieeexplore.ieee.org/document/10925225/",
+      "doi": "10.1109/EMTS57498.2023.10925225",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:18:23.605795"
+    },
+    {
+      "key": "BVN9G96T",
+      "arnumber": "10759335",
+      "title": "Deep Learning-Based Performance Testing for Analog Integrated Circuits",
+      "url": "https://ieeexplore.ieee.org/document/10759335/",
+      "doi": "10.1109/TVLSI.2024.3496777",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:19:28.113463"
+    },
+    {
+      "key": "HBJC7XFN",
+      "arnumber": "11197010",
+      "title": "Accelerated Design and Characterization of Inductive Position Sensors through AI-Driven Design Support System",
+      "url": "https://ieeexplore.ieee.org/document/11197010/",
+      "doi": "10.1109/TMAG.2025.3619032",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:20:36.926027"
+    },
+    {
+      "key": "CX6AMND6",
+      "arnumber": "9741844",
+      "title": "Stochastic Optimization of the CPL-Function-Based Model for RF Power Transistors",
+      "url": "https://ieeexplore.ieee.org/document/9741844/",
+      "doi": "10.1109/LMWC.2022.3149751",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:21:39.666782"
+    },
+    {
+      "key": "TFG2QBCT",
+      "arnumber": "10192208",
+      "title": "An Overview of the Optimization of RF Power Amplifiers using a Bayesian Algorithm : (Invited)",
+      "url": "https://ieeexplore.ieee.org/document/10192208/",
+      "doi": "10.1109/SMACD58065.2023.10192208",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:22:45.867318"
+    },
+    {
+      "key": "UAJXB93D",
+      "arnumber": "9712578",
+      "title": "Reinforcement Learning for Electronic Design Automation: Case Studies and Perspectives: (Invited Paper)",
+      "url": "https://ieeexplore.ieee.org/document/9712578/",
+      "doi": "10.1109/ASP-DAC52403.2022.9712578",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:23:50.366163"
+    },
+    {
+      "key": "TRP2C32X",
+      "arnumber": "9943132",
+      "title": "Industry Paper: Surrogate Models for Testing Analog Designs under Limited Budget – a Bandgap Case Study",
+      "url": "https://ieeexplore.ieee.org/document/9943132/",
+      "doi": "10.1109/CODES-ISSS55005.2022.00016",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:24:51.313911"
+    },
+    {
+      "key": "ZS2MHCGR",
+      "arnumber": "10538754",
+      "title": "Machine Learning Based Static and Dynamic Error Calibration in Data Converters",
+      "url": "https://ieeexplore.ieee.org/document/10538754/",
+      "doi": "10.1109/VTS60656.2024.10538754",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:26:12.788572"
+    },
+    {
+      "key": "AEHFFDHS",
+      "arnumber": "11022918",
+      "title": "Machine-learning based Blind Digital Calibration of Time-Interleaved ADC",
+      "url": "https://ieeexplore.ieee.org/document/11022918/",
+      "doi": "10.1109/VTS65138.2025.11022918",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:27:26.545957"
+    },
+    {
+      "key": "3AW4KTBD",
+      "arnumber": "11092178",
+      "title": "Hybrid AI-Optimization Method for Latent Defect Detection Through Test Transistor Insertion in Analog Circuits",
+      "url": "https://ieeexplore.ieee.org/document/11092178/",
+      "doi": "10.1109/SMACD65553.2025.11092178",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:28:24.069555"
+    },
+    {
+      "key": "QVUA2HXN",
+      "arnumber": "10558198",
+      "title": "Enhancing Performance of SAR ADC through Supervised Machine Learning",
+      "url": "https://ieeexplore.ieee.org/document/10558198/",
+      "doi": "10.1109/ISCAS58744.2024.10558198",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:29:37.842027"
+    },
+    {
+      "key": "CMSSUZTS",
+      "arnumber": "10463890",
+      "title": "AI/ML: A powerful tool for future microwave engineering problems",
+      "url": "https://ieeexplore.ieee.org/document/10463890/",
+      "doi": "10.1109/MAPCON58678.2023.10463890",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:30:41.669000"
+    },
+    {
+      "key": "42A3QHTG",
+      "arnumber": "10528072",
+      "title": "Intelligent Modeling of Circular Microstrip Antenna for RF Energy Harvesting Applications",
+      "url": "https://ieeexplore.ieee.org/document/10528072/",
+      "doi": "10.1109/WAMS59642.2024.10528072",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:31:44.240422"
+    },
+    {
+      "key": "I9FF6PDI",
+      "arnumber": "10293468",
+      "title": "Genetic Algorithm for Microwave Computer-Aided Design: The State of the Art",
+      "url": "https://ieeexplore.ieee.org/document/10293468/",
+      "doi": "10.1109/AFRICON55910.2023.10293468",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:32:48.752140"
+    },
+    {
+      "key": "XYFNMM99",
+      "arnumber": "10061612",
+      "title": "Design of a 0.4–3.9-GHz wideband high-efficiency power amplifier based on a novel bandwidth extended matching network",
+      "url": "https://ieeexplore.ieee.org/document/10061612/",
+      "doi": "10.1109/TCSII.2023.3253551",
+      "status": "completed",
+      "downloaded_at": "2026-04-28T12:33:48.968800"
+    }
+  ]
+}

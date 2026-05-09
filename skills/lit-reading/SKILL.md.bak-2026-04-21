@@ -1,0 +1,214 @@
+---
+name: lit-reading
+description: 分级阅读编排。对论文列表执行检视→粗读→精读三层阅读，双写输出到 LIT_REVIEW.md 和 wiki。
+argument-hint: "[论文列表 JSON] --shallow-read-max: 20 --deep-read-top: 5 --output-dir: idea-stage/"
+allowed-tools: Agent, Read, Write, Edit, mcp__chrome-devtools__*, mcp__obsidian-vault__*
+---
+
+# Literature Reading Orchestration
+
+分级阅读编排 + 双写输出。
+
+## Constants
+
+- **SHALLOW_READ_MAX = 20** — 粗读最大数量
+- **DEEP_READ_TOP = 5** — 精读数量
+- **OUTPUT_DIR = `idea-stage/`** — 输出目录
+- **DEEP_READ_TIMEOUT = 300000** — 精读 subagent 超时（5 分钟，毫秒）
+
+## Workflow
+
+### Step 1: 解析参数
+
+从 `$ARGUMENTS` 提取：
+- `papers`: 论文元数据列表（JSON 格式，由 ieee-lit-search 或 research-lit 传入）
+- `shallow_read_max`: 粗读最大数量（可选，默认 20）
+- `deep_read_top`: 精读数量（可选，默认 5）
+- `output_dir`: 输出目录（可选，默认 idea-stage/）
+
+### Step 2: 检视层（Inspectional）
+
+对每篇论文的 abstract 进行相关性判断：
+
+```
+for each paper in papers:
+    if abstract is empty or not relevant to research topic:
+        mark as skipped
+    else:
+        mark as candidate
+```
+
+**相关性判断标准**：
+- abstract 中包含研究方向的关键术语
+- 研究问题与目标领域相关
+- 排除明显不相关的论文（不同应用领域、纯理论等）
+
+输出：候选论文列表 + 跳过列表
+
+### Step 3: 粗读层（Cursory）
+
+对候选论文获取全文并提取结构化摘要：
+
+```
+candidates_limited = candidates[:shallow_read_max]
+
+for each candidate in candidates_limited:
+    # 按来源路由全文获取
+    if paper.source == "ieee":
+        fullcontent = /ieee-paper-fullcontent {arnumber}
+        if fullcontent is null or fullcontent.error:
+            mark as "paywalled" or "unavailable"
+            continue
+    elif paper.source == "arxiv":
+        # arXiv 论文保留链接，不强制获取全文
+        paper.arxiv_id = extract_arxiv_id(paper.doi or paper.url)
+        mark as "arxiv-only"
+        continue
+    else:
+        mark as "unknown-source"
+        continue
+
+    # LLM 提取结构化摘要
+    structured_summary = LLM 提取 from fullcontent:
+        - 研究问题（一句话）
+        - 核心方法（1-2 句）
+        - 关键结果（数字/指标）
+        - 局限性
+        - relevance: direct / related / background
+```
+
+**超过 shallow_read_max 的候选只保留 abstract**。
+
+### Step 4: 精读层（Deep）
+
+对 top-N 论文调用 deep-reader subagent：
+
+```
+top_papers = select top-N by relevance + citations
+
+for each top_paper:
+    if paper.source != "ieee":
+        mark as "arXiv: {arxiv_id}" and skip deep-read
+        continue
+
+    # 获取全文和元数据
+    fullcontent = /ieee-paper-fullcontent {arnumber}
+    if fullcontent is null:
+        mark as "paywalled or unavailable" and skip
+        continue
+
+    detail = /ieee-paper-detail {arnumber}
+
+    # Dispatch 精读 subagent（5 分钟超时）
+    try:
+        deep_summary = Agent({
+            subagent_type: "general-purpose",
+            model: "sonnet",
+            prompt: "
+                你是 deep-reader 精读 agent。
+
+                论文元数据：{detail}
+                论文全文：{fullcontent}
+
+                请按以下格式提取核心思路：
+
+                # {paper_title}
+
+                ## 核心问题
+                [一句话描述论文要解决什么问题]
+
+                ## 核心方法
+                [1-2 句描述方法的关键思路，不含实现细节]
+
+                ## 关键结果
+                | 指标 | 值 | 对比基准 |
+                |------|-----|---------|
+
+                ## 方法论启发
+                [该方法对我们研究的可借鉴之处]
+
+                ## 局限性
+                [方法的前提假设、适用范围、未解决的问题]
+
+                ## 与我们的关系
+                - [ ] 可直接引用
+                - [ ] 方法可借鉴
+                - [ ] 结果可对比
+                - [ ] 无直接相关
+
+                ## 后续行动
+                [如需深入：要读的参考文献、要复现的实验、要对比的基线]
+            "
+        })
+    except TimeoutError:
+        # 超时降级为粗读
+        deep_summary = {
+            "title": paper.title,
+            "summary": cursory_summary,
+            "status": "deep-read-timeout"
+        }
+```
+
+### Step 5: 双写输出
+
+**a. 写入 LIT_REVIEW.md：**
+
+```markdown
+# 文献综述
+
+> 生成时间：{timestamp}
+> 研究方向：{query}
+
+## 检视统计
+- 总数：{total}
+- 候选：{candidates}
+- 跳过：{skipped}
+- 粗读：{cursory_count}
+- 精读：{deep_count}
+
+## 粗读摘要表
+| # | 论文 | Venue | Year | 方法 | 关键结果 | 相关性 | 来源 |
+|---|------|-------|------|------|----------|--------|------|
+
+## 精读笔记
+{for each deep_summary}
+### {title}
+{deep_summary content}
+
+## arXiv 补充论文
+{for each arxiv paper}
+- [{title}]({url}) — arXiv: {arxiv_id}
+
+## 研究趋势/空白分析
+{synthesis from all readings}
+```
+
+**b. 入库 wiki（如果 research-wiki/ 存在）：**
+
+```
+if research-wiki/ directory exists:
+    for each deep_summary:
+        slug = python3 tools/research_wiki.py slug "{title}" --author "{last}" --year {year}
+        create research-wiki/papers/{slug}.md
+        python3 tools/research_wiki.py add_edge research-wiki/ --from "paper:{slug}" --to ...
+    Rebuild query pack:
+        python3 tools/research_wiki.py rebuild_query_pack research-wiki/
+```
+
+**c. 入库 Obsidian wiki（可选）：**
+
+```
+if wiki-ingest available:
+    raw_path = write to raw/notes/papers/{date}-{slug}.md
+    wiki-ingest(raw_path) → wiki/sources/lit-review/
+```
+
+## 失败处理
+
+| 条件 | 处理 |
+|------|------|
+| 精读超时 | 降级为粗读，标记 "deep-read-timeout" |
+| 全文不可用 | 保留 abstract，标记 "paywalled" |
+| wiki 不存在 | 跳过 wiki 入库 |
+| LIT_REVIEW.md 已存在 | 追加时间戳版本，保留历史 |
+| 输出目录不存在 | 自动创建 |

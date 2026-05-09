@@ -1,0 +1,26 @@
+{
+  "skill_name": "docx-redline-reviewer",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "sentence-level-replacement-with-comments",
+      "prompt": "You have a Word document at /tmp/test_docx_redline/original.docx with 3 paragraphs:\n1. '地下室是城市化过程中形成的一种特殊的空间。'\n2. '论文围绕新时期北京城市小说中的地下室书写展开。'\n3. '本研究采用文本细读与空间理论相结合的方法。'\n\nYou need to produce a reviewed version at /tmp/test_docx_redline/reviewed.docx with these tracked changes:\n- In paragraph 1, replace '地下室是城市化过程中形成的一种特殊的空间' with '地下空间是城市化过程中进入新时期小说的重要空间意象'\n- In paragraph 2, replace '论文围绕新时期北京城市小说中的地下室书写展开' with '新时期北京城市小说中的地下空间书写呈现出一个核心张力'\n\nEach replacement must appear as Word tracked changes (red strikethrough deletion + blue underline insertion), and each inserted text must have an AI comment explaining why the change was made. Use author name 'AI审阅助手'.",
+      "expected_output": "A docx file at /tmp/test_docx_redline/reviewed.docx containing w:ins and w:del markup plus comment parts",
+      "files": []
+    },
+    {
+      "id": 2,
+      "eval_name": "batch-json-pipeline",
+      "prompt": "You have a Word document at /tmp/test_docx_redline/original.docx with 3 paragraphs:\n1. '地下室是城市化过程中形成的一种特殊的空间。'\n2. '论文围绕新时期北京城市小说中的地下室书写展开。'\n3. '本研究采用文本细读与空间理论相结合的方法。'\n\nCreate a JSON file /tmp/test_docx_redline/replacements.json with two replacements, then use the bundled script at /home/holmes/.cc-switch/skills/docx-redline-reviewer/scripts/apply_diff_revisions.py to produce /tmp/test_docx_redline/reviewed.docx. Each replacement should have paragraph_index, search, replace, and comment fields. The output must contain both revision markup and comments.",
+      "expected_output": "reviewed.docx generated via the bundled script, containing both tracked changes and AI comments",
+      "files": []
+    },
+    {
+      "id": 3,
+      "eval_name": "whole-paragraph-replacement",
+      "prompt": "You have a Word document at /tmp/test_docx_redline/original.docx with 3 paragraphs:\n1. '地下室是城市化过程中形成的一种特殊的空间。'\n2. '论文围绕新时期北京城市小说中的地下室书写展开。'\n3. '本研究采用文本细读与空间理论相结合的方法。'\n\nReplace the ENTIRE text of paragraph 2 with '新时期小说通过地下空间书写，呈现出压迫与庇护并存的核心张力。' as a tracked change, and attach a comment to the inserted text explaining that this rewrites the abstract-style opening into an objective academic statement. Save to /tmp/test_docx_redline/reviewed.docx.",
+      "expected_output": "Paragraph 2 fully replaced via tracked change, with an AI comment anchored to the inserted text",
+      "files": []
+    }
+  ]
+}
