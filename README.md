@@ -34,6 +34,9 @@ The accepted user-facing flow is:
 - `skills/code-inventory`
 - `skills/inspectional-reading`
 - `skills/marker-pdf`
+- `skills/wiki-capture`
+- `skills/wiki-compile`
+- `skills/wiki-refine`
 - `skills/wiki-ingest`
 - `skills/docx-redline-reviewer`
 - `skills/lit-reading`
