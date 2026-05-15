@@ -1,0 +1,23 @@
+{
+  "skill_name": "session-log-crystallizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "提炼 /mnt/c/obsidian_wiki/inbox/notes/projects/28956/logs/2026-04-26-64a723e6-session.md 这个 session 的核心工作成果",
+      "expected_output": "生成结构化的结晶文件，包含工作成果、问题排查、学习要点",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "批量处理 XBR818C 项目的所有 session logs，生成项目级总结",
+      "expected_output": "合并多个 session 为一个结晶文件，关联项目计划",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "分析这个 session 并找出与项目计划的关联: inbox/notes/projects/XBR818D/logs/2026-04-21-xxx-session.md",
+      "expected_output": "识别 session 推进了哪些计划项，生成关联报告",
+      "files": []
+    }
+  ]
+}

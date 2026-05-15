@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "prompt": "查询 wiki：如何配置群晖 NAS 和 Linux 虚拟机的互联？",
+    "expected": "搜索 wiki/procedures/，返回群晖配置步骤，引用相关 wiki 页面"
+  },
+  {
+    "id": 2,
+    "prompt": "wiki 中有哪些关于 passive-device-modeling 的内容？",
+    "expected": "搜索 wiki/，返回无源器件建模相关的 entities、concepts、procedures"
+  }
+]

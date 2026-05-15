@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "prompt": "处理 /mnt/c/obsidian_wiki/inbox/群晖和虚拟机互联.md，将其转换为 raw 文件",
+    "expected": "检测类型为 procedure（有步骤），搜索是否有类似的群晖/虚拟机配置文档，决定 new/append/existing，写入 raw/procedure/ 目录"
+  },
+  {
+    "id": 2,
+    "prompt": "处理 inbox 中的 purpose.md，这是研究方向定义文档",
+    "expected": "检测类型为 note 或 concept，包含研究方向定义，写入 raw/note/ 或 raw/procedure/ 目录"
+  }
+]

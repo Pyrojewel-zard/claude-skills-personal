@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "prompt": "提炼 /mnt/c/obsidian_wiki/inbox/notes/projects/andrej-karpathy-skills/logs/2026-04-18-ada27894-session.md 这个 session 的核心工作成果，找出可复用的 skill 和 hook 模式",
+    "expected": "生成结晶文件，包含：1) 提取的 skill/hook 模式列表 2) 与现有 skill 生态的关联 3) 优先级建议",
+    "session_file": "/mnt/c/obsidian_wiki/inbox/notes/projects/andrej-karpathy-skills/logs/2026-04-18-ada27894-session.md"
+  },
+  {
+    "id": 2,
+    "prompt": "批量处理 andrej-karpathy-skills 项目的所有 session logs，追踪项目方向演进，合并到现有项目文档",
+    "expected": "方向式处理：1) 用 smart search 找到现有项目文档 2) 追踪方向演进（从哪来→到哪去→为什么）3) 合并到现有文档而非创建独立文件 4) 生成演进时间线",
+    "session_files": "/mnt/c/obsidian_wiki/inbox/notes/projects/andrej-karpathy-skills/logs/*-session.md"
+  },
+  {
+    "id": 3,
+    "prompt": "分析 andrej-karpathy-skills 项目 3 个 session 的方向演进，提取用户分析和 CC 回答中的可复用知识",
+    "expected": "方向演进分析：1) 识别用户的方向判断 2) 学习 CC 的回答作为可复用知识 3) 追踪迭代脉络 4) 合并到项目日志而非独立结晶文件",
+    "project": "andrej-karpathy-skills"
+  }
+]

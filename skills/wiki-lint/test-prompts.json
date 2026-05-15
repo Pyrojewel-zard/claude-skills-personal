@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "prompt": "检查 wiki 的健康状态，找出孤立页面和断链",
+    "expected": "扫描 wiki/，报告 orphan pages、broken links、missing pages"
+  },
+  {
+    "id": 2,
+    "prompt": "lint wiki，检查是否有矛盾的内容",
+    "expected": "结构 lint + 语义 lint，报告 contradictions、stale content"
+  }
+]

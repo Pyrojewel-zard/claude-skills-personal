@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "prompt": "研究 Transformer 架构的注意力机制原理",
+    "expected": "网络搜索，综合信息，生成 wiki/queries/research-transformer-attention.md"
+  },
+  {
+    "id": 2,
+    "prompt": "查找 passive device modeling 的最新研究进展",
+    "expected": "搜索相关论文和资料，保存到 wiki/queries/"
+  }
+]
