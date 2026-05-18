@@ -1,12 +1,92 @@
 [
   {
     "id": 1,
-    "prompt": "处理 /mnt/c/obsidian_wiki/inbox/群晖和虚拟机互联.md，将其转换为 raw 文件",
-    "expected": "检测类型为 procedure（有步骤），搜索是否有类似的群晖/虚拟机配置文档，决定 new/append/existing，写入 raw/procedure/ 目录"
+    "prompt": "处理 inbox 队列，先筛掉无效 session，再把有价值的文档和 session 整理进 raw。重点不要把 transcript 原文直接搬进去。",
+    "expected": "先做批量扫描和分类；对 session 进入专门的 Session Intake Gate；明确 reject / skip-duplicate / merge-only / promote-session-summary 四类决策；说明会调用 session-log-crystallizer，而不是直接写 raw transcript。",
+    "category": "session-gating"
   },
   {
     "id": 2,
-    "prompt": "处理 inbox 中的 purpose.md，这是研究方向定义文档",
-    "expected": "检测类型为 note 或 concept，包含研究方向定义，写入 raw/note/ 或 raw/procedure/ 目录"
+    "prompt": "处理 inbox，发现多个 Slurm 文档和几个 Virtuoso session，要求用 smart search 找相似内容并做重组过滤。",
+    "expected": "对普通文档执行 similarity clustering 和 topic-based merge；对 session 单独走专用 lane；报告 merge groups、session decisions、net reduction 和 preserved wikilinks/images。",
+    "category": "mixed-batch"
+  },
+  {
+    "id": 3,
+    "prompt": "整理 inbox，但我只想保留可复用的 debug 经验和关键决策，不要保留大段代码、命令输出和闲聊。",
+    "expected": "明确 raw 不是 archive-everything；强调过滤后保存；说明哪些内容保留、哪些内容压缩或 reject；对 session 使用 structured summary sections 而不是原始对话。",
+    "category": "knowledge-density"
+  },
+  {
+    "id": 4,
+    "prompt": "处理一个已经很完整的年度计划 MOC 页面，不要过度重写，只做必要整理后进入 raw。",
+    "expected": "识别为 well-structured MOC/index lane，优先 minimal transformation，而不是强行重组为普通笔记。",
+    "category": "moc-lane"
+  },
+  {
+    "id": 5,
+    "prompt": "处理一个超过 2000 turns 的大 session，自动模式下只保留高价值部分，并避免把整段 transcript 写进 raw。",
+    "expected": "先做大 session 预估与高价值分段，再调用 session-log-crystallizer；若结果仍接近原文，应触发失败或 manual-review，而不是成功入 raw。",
+    "category": "large-session-guard"
+  },
+  {
+    "id": 6,
+    "prompt": "自动处理 inbox 队列（AUTO_PROCEED=true），包含 15 个 session 文件，不要逐个确认。",
+    "expected": "识别 AUTO_PROCEED 模式；对模糊 session 默认 merge-only 而非 promote-session-summary；跳过交互确认但输出最终报告；项目映射不清时使用 _shared fallback。",
+    "category": "auto-proceed-batch"
+  },
+  {
+    "id": 7,
+    "prompt": "处理 inbox，发现 12 个 session 文件分布在 3 个项目中，其中 automodel 项目有 7 个 session。",
+    "expected": "按项目分别计数；automodel 项目超过 5 个 session 阈值，应触发确认检查点；其他项目未超阈值可继续；跨项目计数独立判断。",
+    "category": "batch-threshold-cross-project"
+  },
+  {
+    "id": 8,
+    "prompt": "session-log-crystallizer 调用失败，返回错误，请正确处理失败情况。",
+    "expected": "不写入成功记录到 processed registry；写入失败记录到 raw/.inbox-failed.jsonl；在报告中标记需要 manual review；不自动重试。",
+    "category": "failure-recording"
+  },
+  {
+    "id": 9,
+    "prompt": "处理一个 20000 行的 session，前 500 行包含 Zotero collection 调试、IEEE 链接提取工作流设计、/loop 架构决策，后 19500 行是重复的 /ieee-download-one 调用和下载确认。",
+    "expected": "识别为 mixed-density session（高密度前段 + 重复执行尾段）；决策应为 promote-session-summary 而非 reject；保留前 500 行的调试知识、工作流设计、架构决策；将执行尾段压缩为一句话统计；不要让重复尾段覆盖前段知识。",
+    "category": "mixed-density-automation"
+  },
+  {
+    "id": 10,
+    "prompt": "处理一个批量下载 session，其中包含：设计 pivot（从 inline sleep 改为 /loop 1m）、任务队列模式（download_tasks.json）、去重逻辑（duplicate arnumber 检测）、最终统计（464 篇下载成功）。",
+    "expected": "识别为 automation session with durable workflow knowledge；保留设计 pivot、任务队列模式、去重逻辑、最终统计；丢弃重复的 skill 加载和逐篇下载确认；输出结构化摘要而非 transcript replay。",
+    "category": "automation-workflow-preservation"
+  },
+  {
+    "id": 11,
+    "prompt": "处理一个包含两个独立下载批次的 session：批次 A 从 Nopdf collection CRNQYAWV 提取 464 条 IEEE 链接并完成下载（464/464）；之后用户重新生成队列，批次 B 有 122 篇 IEEE 论文并完成下载（122/122）。请正确路由到 session-log-crystallizer。",
+    "expected": "识别为 multi-batch-automation session；调用 session-log-crystallizer 时传递批次上下文；期望输出包含 ### 批次 A 和 ### 批次 B 两个独立小节；禁止 crystallizer 合并为 '586 篇' 一个数字；验证输出结构正确后再写入 raw。",
+    "category": "multi-batch-automation"
+  },
+  {
+    "id": 12,
+    "prompt": "处理 inbox，发现两个 session 文件：2026-05-15-5a6cb262-session.md 和 2026-05-16-5a6cb262-session.md，两者 frontmatter 中的 session_id 都是 5a6cb262-ae52-469a-98dc-df05be76671a。",
+    "expected": "识别为 same-session-id duplicate；第二个文件是 restart/continuation，不是新 session；决策应为 skip-duplicate；在 registry 中记录 session_id 去重原因；不要当作两个独立 session 分别处理。",
+    "category": "session-id-duplicate"
+  },
+  {
+    "id": 13,
+    "prompt": "处理 inbox 中的 Codex delegate reviewer sessions：T1R-spec、T1R-quality、T2R-spec、T2R-quality、T3R-spec、T3R-quality。已知对应的实现 raw 已存在（2026-05-15-pso-local-box-implementation.md、2026-05-16-t2-retrieval-turnkey-fix.md）。",
+    "expected": "识别为 Codex delegate reviewer sessions；实现 raw 已存在，reviewer sessions 应 merge-only 而非 promote-session-summary；按 task_id 匹配 merge target：T1R-* → pso-local-box-implementation，T2R-* → t2-retrieval-turnkey-fix；不要为每个 reviewer session 创建独立 raw。",
+    "category": "delegate-reviewer-family"
+  },
+  {
+    "id": 14,
+    "prompt": "处理 inbox 中的 session family：T1 implementer session + T1R-spec + T1R-quality。T1 实现已入 raw，T1R sessions 是后续 review。",
+    "expected": "识别为 workflow/task family；按 task_id 成组判断；T1 实现已入 raw → T1R sessions 默认 merge-only；成组处理而非独立判断每个 reviewer session；merge target 是 T1 实现的 raw。",
+    "category": "workflow-family-grouping"
+  },
+  {
+    "id": 15,
+    "prompt": "处理一个 reviewer session，其 frontmatter 缺少 workflow_id 和 task_id，但 transcript body 开头有 'WorkflowId: wf-pso-audit-2026-05-16' 和 'Task: T1R-spec review of 180100'。",
+    "expected": "从 transcript body 推断 metadata；提取 workflow_id=wf-pso-audit-2026-05-16，task_id=T1R，role=spec-review；使用推断的 metadata 进行 family grouping 和 merge target 匹配；不要因为 frontmatter 不完整就跳过 metadata 提取。",
+    "category": "metadata-from-transcript-body"
   }
 ]

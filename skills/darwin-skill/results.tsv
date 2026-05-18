@@ -1,0 +1,19 @@
+timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
+2026-05-14T14:40	baseline	session-log-crystallizer	-	66.4	baseline	-	初始评估	full_test
+2026-05-14T14:45	improved	session-log-crystallizer	66.4	74.5	keep	边界条件+检查点	添加异常处理和用户确认	full_test
+2026-05-14T16:30	improved	session-log-crystallizer	79.8	83.0	keep	边界条件+检查点+指令具体性	添加大session分段处理机制	full_test
+2026-05-14T16:45	improved	session-log-crystallizer	83.0	85.2	keep	指令具体性+检查点	添加内容价值判断机制和质量审计	full_test
+2026-05-14T17:00	final	session-log-crystallizer	85.2	86.0	keep	Frontmatter	补充中英文触发词	full_test
+2026-05-14T23:25	improved	inbox-prepare	-	-	keep	集成+颗粒度	更新session-log集成描述和颗粒度标准	full_test
+2026-05-14T23:45	improved	inbox-prepare	-	-	keep	Obsidian格式保留	添加双链引用和图片处理规则	full_test
+2026-05-15T00:00	flow-test	inbox-prepare	61.0	61.0	verified	流程验证	使用docker-volume-backup文档验证完整流程	full_test
+2026-05-15T00:00	flow-test	wiki-query	57.0	57.0	verified	流程验证	查询docker volume备份恢复验证完整流程	full_test
+2026-05-15T00:15	improved	wiki-query	57.0	65.0	keep	资源整合度+Obsidian格式	添加工具引用路径和格式保留规则	full_test
+2026-05-15T01:00	improved	wiki-capture	59.0	70.0	keep	检查点+工具引用+Obsidian格式	添加Capture Checkpoint和完整工具表	full_test
+2026-05-15T01:10	improved	wiki-compile	65.0	72.0	keep	检查点+工具引用+Obsidian格式	添加Compile Checkpoint和完整工具表	full_test
+2026-05-15T01:20	improved	wiki-crystallize	71.0	78.0	keep	检查点+工具引用+Obsidian格式	添加Crystallization Checkpoint和完整工具表	full_test
+2026-05-15T01:30	improved	wiki-ingest	73.0	78.0	keep	工具引用+边界条件	完善工具引用表和边界条件处理	full_test
+2026-05-15T01:40	deleted	wiki-compile-merged	68.0	-	deleted	移除冗余skill	功能已由wiki-compile覆盖	full_test
+2026-05-15T02:00	improved	wiki-research	73.0	80.0	keep	工具引用+Obsidian格式+边界条件	完善工具引用表和格式规则	full_test
+2026-05-15T02:10	improved	wiki-lint	72.0	80.0	keep	工具引用+Obsidian格式+边界条件	完善工具引用表和格式规则	full_test
+2026-05-17T21:17	improved	darwin-skill	-	-	keep	结构+效果	精简SKILL.md、添加test-prompts.json、拆分docs	dry_run

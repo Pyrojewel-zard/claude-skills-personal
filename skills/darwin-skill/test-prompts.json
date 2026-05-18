@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "prompt": "评估 inbox-prepare 这个skill的质量",
+    "expected": "输出8维度评分、总分、结构短板和效果短板",
+    "category": "evaluate-single"
+  },
+  {
+    "id": 2,
+    "prompt": "优化 session-log-crystallizer 这个skill",
+    "expected": "输出基线评分、改进方案、执行改进、优化后评分、决策(keep/revert)",
+    "category": "optimize-single"
+  },
+  {
+    "id": 3,
+    "prompt": "评估所有 wiki 相关 skills 的质量",
+    "expected": "输出评分表，按分数排序，标注平均分",
+    "category": "evaluate-batch"
+  },
+  {
+    "id": 4,
+    "prompt": "看看 skill 优化历史",
+    "expected": "读取并展示 results.tsv，按时间倒序",
+    "category": "view-history"
+  },
+  {
+    "id": 5,
+    "prompt": "优化 wiki-query 这个skill，只评估不改",
+    "expected": "输出基线评分和短板分析，不进入优化循环",
+    "category": "evaluate-only"
+  }
+]

@@ -1,20 +1,92 @@
 [
   {
     "id": 1,
-    "prompt": "提炼 /mnt/c/obsidian_wiki/inbox/notes/projects/andrej-karpathy-skills/logs/2026-04-18-ada27894-session.md 这个 session 的核心工作成果，找出可复用的 skill 和 hook 模式",
-    "expected": "生成结晶文件，包含：1) 提取的 skill/hook 模式列表 2) 与现有 skill 生态的关联 3) 优先级建议",
-    "session_file": "/mnt/c/obsidian_wiki/inbox/notes/projects/andrej-karpathy-skills/logs/2026-04-18-ada27894-session.md"
+    "prompt": "提炼 /mnt/c/obsidian_wiki/inbox/autoModel/logs/2026-05-16-707dc8db-session.md 这个 session，只保留可复用的 debug 路径、根因和有效结论，不要保留整段 transcript。",
+    "expected": "给出 reject / merge-only / promote-session-summary 之一的判断；若保留则输出结构化摘要，包含背景、问题、排查路径、关键观察、结论、可复用经验，而不是逐轮对话。",
+    "category": "debug-distillation"
   },
   {
     "id": 2,
-    "prompt": "批量处理 andrej-karpathy-skills 项目的所有 session logs，追踪项目方向演进，合并到现有项目文档",
-    "expected": "方向式处理：1) 用 smart search 找到现有项目文档 2) 追踪方向演进（从哪来→到哪去→为什么）3) 合并到现有文档而非创建独立文件 4) 生成演进时间线",
-    "session_files": "/mnt/c/obsidian_wiki/inbox/notes/projects/andrej-karpathy-skills/logs/*-session.md"
+    "prompt": "这个 session 里主要是命令尝试、失败输出和一些无效来回，请判断它是否应该进入 raw。",
+    "expected": "优先做价值判断；若没有 durable lesson，则输出 reject 或 skip-duplicate；说明为什么大段命令输出和噪声对话不该进入 raw。",
+    "category": "noise-rejection"
   },
   {
     "id": 3,
-    "prompt": "分析 andrej-karpathy-skills 项目 3 个 session 的方向演进，提取用户分析和 CC 回答中的可复用知识",
-    "expected": "方向演进分析：1) 识别用户的方向判断 2) 学习 CC 的回答作为可复用知识 3) 追踪迭代脉络 4) 合并到项目日志而非独立结晶文件",
-    "project": "andrej-karpathy-skills"
+    "prompt": "批量处理某个项目最近 4 个 session，提炼出可合并到项目 log 的要点，并指出哪些值得单独形成 session summary。",
+    "expected": "区分 merge-only 与 promote-session-summary；给出紧凑的 merge payload 或 dedicated summary 方案；保留项目上下文和后续可复用经验。",
+    "category": "batch-session-intake"
+  },
+  {
+    "id": 4,
+    "prompt": "一个超大 session 横跨两个主题：前半段是 Zotero 清洗，后半段是 IEEE 下载自动化。请不要混成一锅粥。",
+    "expected": "优先按语义边界切分；若需要保留，拆成多个 merge payload 或一个分节清晰的 summary；明确说明多工作流处理方式。",
+    "category": "multi-workstream"
+  },
+  {
+    "id": 5,
+    "prompt": "这个 session 前面走了很多错误假设，后面才找到真正根因。请提炼时保留必要上下文，但以最终正确结论为主。",
+    "expected": "保留被证伪假设作为简短上下文，突出最终根因和有效排查路径，不要把整段错误探索原样保留。",
+    "category": "corrected-hypothesis"
+  },
+  {
+    "id": 6,
+    "prompt": "自动处理一个超大 session（超过 3000 turns），AUTO_PROCEED=true，不要逐段确认。",
+    "expected": "使用 chunk utility 分段处理；默认 merge-only 而非 promote-session-summary；输出结构化摘要而非 transcript replay；报告 confidence level。",
+    "category": "large-session-auto-proceed"
+  },
+  {
+    "id": 7,
+    "prompt": "这个 session 的项目归属不明，路径中没有项目名，内容涉及多个工具。",
+    "expected": "尝试 frontmatter、路径、内容关键词推断项目；若仍无法确定，使用 _shared fallback 路径 raw/notes/_shared/YYYY-MM-DD-session-summary.md；不虚构项目名。",
+    "category": "project-inference-fallback"
+  },
+  {
+    "id": 8,
+    "prompt": "批量处理 6 个 session，其中 3 个值得 promote-session-summary，3 个适合 merge-only。",
+    "expected": "逐个评估并区分决策；promote-session-summary 的生成独立摘要；merge-only 的合并到项目 log；报告每个 session 的决策和 confidence。",
+    "category": "batch-decision-split"
+  },
+  {
+    "id": 9,
+    "prompt": "提炼一个 20000 行的 IEEE 批量下载 session：前 500 行包含 Zotero collection ID 调试（发现 3IAWNQYQ 空的，正确的是 CRNQYAWV）、IEEE 链接提取到 CSV、从 inline sleep 改为 /loop 1m 的架构决策、download_tasks.json 任务队列模式；后 19500 行是重复的 /ieee-download-one 调用。",
+    "expected": "识别为 mixed-density session；决策 promote-session-summary；保留：Zotero collection 调试结论、IEEE 链接提取工作流、/loop 架构决策、任务队列模式；压缩执行尾段为：批量下载 464 篇 PDF，耗时 7.7 小时；丢弃所有重复的 skill 加载和下载确认。",
+    "category": "mixed-density-automation"
+  },
+  {
+    "id": 10,
+    "prompt": "判断一个 automation session 是否值得保留：它包含设计 pivot（从方案 A 改为方案 B）、去重逻辑（检测 duplicate arnumber）、checkpoint 机制（download_tasks.json 状态文件），但 95% 的行是重复执行日志。",
+    "expected": "识别为值得保留的 automation session；决策 promote-session-summary；保留设计 pivot、去重逻辑、checkpoint 机制；将 95% 重复执行日志压缩为一句话统计；不要因为执行日志占比高就整体 reject。",
+    "category": "automation-workflow-value"
+  },
+  {
+    "id": 11,
+    "prompt": "提炼一个包含两个独立下载批次的 session：批次 A 从 Nopdf collection CRNQYAWV 提取 464 条 IEEE 链接，用 /loop 1m /ieee-download-one 完成全部下载（464/464）；之后用户重新检索 NoPDF 生成新队列，批次 B 有 122 篇 IEEE 论文，同样用 /loop 1m /ieee-download-one 完成下载（122/122）。",
+    "expected": "识别为 multi-batch-automation session；决策 promote-session-summary；输出结构必须包含两个独立批次：### 批次 A（464 篇）和 ### 批次 B（122 篇）；每个批次有独立的队列来源、下载统计、完成状态；禁止合并为 '586 篇下载' 一个数字；保留批次间的队列重新生成事件。",
+    "category": "multi-batch-automation"
+  },
+  {
+    "id": 12,
+    "prompt": "提炼两个 session：2026-05-15-5a6cb262-session.md 和 2026-05-16-5a6cb262-session.md。两者 frontmatter 的 session_id 都是 5a6cb262-ae52-469a-98dc-df05be76671a，内容 95% 相同。",
+    "expected": "识别为 same-session-id duplicate；第二个是 restart/continuation，不是新 session；决策 skip-duplicate；说明 session_id 去重规则；不要为第二个 session 生成独立输出。",
+    "category": "session-id-duplicate"
+  },
+  {
+    "id": 13,
+    "prompt": "提炼 Codex delegate reviewer session T1R-spec（7 turns），已知 T1 实现已入 raw（2026-05-15-pso-local-box-implementation.md）。",
+    "expected": "识别为 Codex delegate reviewer session；实现 raw 已存在 → 决策 merge-only；输出 compact merge payload 而非 dedicated summary；merge target 是 T1 实现的 raw；不要创建独立 session-summary raw。",
+    "category": "delegate-reviewer-merge"
+  },
+  {
+    "id": 14,
+    "prompt": "批量提炼 session family：T1 implementer + T1R-spec + T1R-quality。T1 实现已入 raw，T1R sessions 是后续 review。",
+    "expected": "识别为 workflow/task family；按 task_id 成组判断；T1 实现已入 raw → T1R sessions 默认 merge-only；成组处理而非独立判断；输出两个 merge payload，都指向 T1 实现的 raw。",
+    "category": "workflow-family-grouping"
+  },
+  {
+    "id": 15,
+    "prompt": "提炼一个 reviewer session，其 frontmatter 缺少 workflow_id 和 task_id，但 transcript body 开头有 'WorkflowId: wf-pso-audit-2026-05-16' 和 'Task: T1R-spec review of 180100'。",
+    "expected": "从 transcript body 推断 metadata；提取 workflow_id=wf-pso-audit-2026-05-16，task_id=T1R，role=spec-review；使用推断的 metadata 进行 family grouping；不要因为 frontmatter 不完整就跳过 metadata 提取或使用 _shared fallback。",
+    "category": "metadata-from-transcript-body"
   }
 ]

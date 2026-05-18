@@ -1,518 +1,462 @@
 ---
 name: session-log-crystallizer
-description: "提炼 session logs 的核心工作成果，通过语义匹配合并到现有项目文档，追踪项目方向演进。触发词：session、会话记录、对话总结、提炼工作成果、方向演进、迭代脉络、结晶、session log、conversation summary、extract insights、project timeline、方向式处理。当用户提到这些词或需要处理 session 文件时使用此 skill。"
+description: "提炼 session logs 的可复用工程知识，用于 inbox->raw intake 或后续结晶。不要转抄完整对话；重点抽取 debug 路径、根因、决策、可复用经验。触发词：session 提炼、会话整理、debug 经验抽取、对话降噪、session 总结、session distill、session summary、debug extraction、transcript cleanup、crystallize session。"
 ---
 
 # Session Log Crystallizer
 
-将 session logs 转化为项目迭代脉络，通过语义匹配合并到现有项目文档。
+Convert noisy AI session transcripts into compact, reusable engineering knowledge.
 
-## 核心理念
+This skill is the dedicated session lane used by `inbox-prepare`. Its job is **not** to archive the conversation.
+Its job is to decide what is worth preserving and express it as structured raw knowledge.
 
-Session logs 不是孤立的对话记录，而是项目迭代的足迹。本 skill 的任务是：
+## Hard Rules
 
-1. **语义匹配定位** — 用 smart search 找到 session 内容应该合并到哪个现有文档
-2. **方向式处理** — 追踪项目方向如何演进，而不是孤立提取知识点
-3. **学习 CC 回答** — AI 助手的响应是可复用知识的重要来源
-4. **捕获用户分析** — 用户明确指出的方向演进需要被记录
-5. **迭代脉络** — 把多个 session 串联成项目演进时间线
+1. **Do not copy the full transcript into raw.**
+2. **Do not preserve large code blocks unless they are necessary evidence for the lesson learned.**
+3. **Do not preserve repetitive assistant planning text, command chatter, or long execution output by default.**
+4. **Prefer debugging lessons, root causes, decision rationale, and reusable commands over conversational chronology.**
+5. **If the session yields no durable learning, reject it or reduce it to merge-only bullets.**
 
-## 输入输出
+## Intended Uses
 
-**输入**：
-- Session log 文件路径（`*-session.md`）
-- 项目目录路径（可选，用于限定搜索范围）
+Use this skill in two modes:
 
-**输出**：
-- 更新现有项目文档（追加/合并），而非创建独立文件
-- 更新项目方向演进记录
+### Mode A: Inbox Intake Mode
+Used from `inbox-prepare`.
 
-## 处理流程
+Output decisions:
+- `reject`
+- `skip-duplicate`
+- `merge-only`
+- `promote-session-summary`
 
-### Step 1: 读取 Session Log
+### Mode B: Later Crystallization Mode
+Used after a session-derived raw note already exists and you want a higher-level synthesis.
 
-读取 session log 文件，解析 frontmatter：
-- `session_id`: 会话唯一标识
-- `project`: 所属项目
-- `created`: 创建时间
-- `turns`: 对话轮次
-
-**异常处理**：
-- 文件不存在 → 报告错误，跳过该文件
-- 文件超过 50000 tokens → 触发大 session 分段处理机制（见 Step 1.5）
-- frontmatter 缺失 → 尝试从文件名推断 project 和 date
-
-### Step 1.5: 大 Session 分段处理机制
-
-当 session 文件超过 50000 tokens 时，采用分层摘要策略：
-
-#### 1.5a. 分段读取
-
-按对话轮次（turns）分段读取，每段约 10000-15000 tokens：
-
-```
-段 1: frontmatter + 早期对话（问题提出、初始探索）
-段 2: 中期对话（方案讨论、决策过程）
-段 3: 后期对话（实施、验证、总结）
-段 N: 剩余部分
-```
-
-**分段依据**：
-- 优先在 `### 👤 用户` 处切分（用户提问是自然边界）
-- 每段保留上下文：前段末尾 + 当前段 + 后段开头
-
-#### 1.5b. 分层摘要
-
-对每段生成结构化摘要：
-
-| 层级 | 内容 | 输出格式 |
-|------|------|----------|
-| **段摘要** | 该段核心事件、决策、产出 | 200-300 字 + 关键引文 |
-| **全局摘要** | 整合所有段摘要，识别方向演进 | 方向演进图 + 跨段落决策链 |
-
-**段摘要模板**：
-
-```markdown
-## 段 <N> 摘要（<turns 范围>）
-
-### 核心事件
-- <事件 1>
-- <事件 2>
-
-### 关键决策
-- <决策 1>：依据 <理由>
-
-### 用户分析
-- <用户的方向判断>
-
-### CC 回答亮点
-- <可复用知识>
-
-### 与其他段的关联
-- 承接段 <N-1>：<关联内容>
-- 铺垫段 <N+1>：<关联内容>
-```
-
-#### 1.5c. 方向演进整合
-
-跨段落识别方向变化：
-
-```
-段 1: 问题提出 → 初始方向
-段 2: 方案讨论 → 方向调整？
-段 3: 实施 → 方向确认
-段 N: 总结 → 最终方向
-```
-
-**整合检查点**：
-- 检查相邻段之间是否有方向变化
-- 记录变化触发点（用户分析/CC 回答/外部信息）
-- 生成完整的方向演进轨迹
-
-#### 1.5d. 处理流程
-
-```
-1. 估算文件大小 → 确定分段数 N
-2. 逐段读取 → 生成段摘要
-3. 整合段摘要 → 生成全局摘要
-4. 执行 Step 2-7（使用全局摘要代替完整内容）
-```
-
-**⚠️ 用户确认检查点**：
-- 分段处理前：告知用户将分 N 段处理，询问是否继续
-- 每段处理后：展示段摘要，询问是否需要调整
-- 全局摘要生成后：确认方向演进分析是否准确
-
-### Step 2: 提取 Session 核心内容
-
-遍历对话记录，识别并提取：
-
-#### 2a. 内容价值判断标准
-
-**高价值内容（保留）**：
-
-| 类型 | 特征 | 提取内容 |
-|------|------|----------|
-| **用户分析** | 用户长段论述、方向判断、决策理由 | 方向演进判断、为什么这样走 |
-| **CC 洞见** | 原创解释、深度分析、可复用方法论 | 技术技巧、避坑指南、最佳实践 |
-| **问题排查** | "排查"、"错误"、"报错"、"解决" | 问题描述 + 解决方案 + 根因分析 |
-| **决策讨论** | "决定"、"选择"、"方案"、"权衡" | 决策内容 + 决策依据 + 替代方案 |
-| **知识传授** | "Insight"、"注意"、"建议"、"最佳实践" | 知识要点 + 适用场景 |
-
-**低价值内容（舍弃）**：
-
-| 类型 | 特征 | 处理 |
-|------|------|------|
-| **工具调用日志** | 大量 Read/Bash/Grep 输出 | 仅保留结论，舍弃过程日志 |
-| **重复确认** | "好的"、"明白"、"继续" | 舍弃 |
-| **格式化输出** | 纯表格/列表展示，无分析内容 | 舍弃或压缩为 1 句总结 |
-| **错误尝试** | 已被后续修正的错误路径 | 仅保留"尝试 X 失败，改用 Y"的结论 |
-| **上下文加载** | "让我先读取..."、"现在我来查看..." | 舍弃 |
-| **通用建议** | 无具体场景的泛泛而谈 | 舍弃 |
-
-#### 2b. 洞见识别信号
-
-**强信号（必保留）**：
-- 用户明确表示"这个很重要"、"记下来"
-- CC 回答中包含 "关键洞察"、"核心原则"、"避坑指南"
-- 决策有明确的 "依据" 和 "替代方案"
-- 问题排查有完整的 "根因分析"
-
-**弱信号（可压缩）**：
-- 单纯的信息查询（"什么是 X"）
-- 代码片段（除非有解释价值）
-- 配置参数（除非有选择理由）
-
-**噪音信号（舍弃）**：
-- 纯执行日志
-- 工具调用的原始输出
-- 重复已确认的内容
-
-#### 2c. 内容提取流程
-
-```
-for each 对话轮次:
-  1. 判断内容类型（用户分析/CC回答/工具调用/其他）
-  2. 应用价值判断标准
-  3. 高价值 → 提取核心内容
-  4. 低价值 → 舍弃或压缩
-  5. 记录提取理由（便于审计）
-```
-
-**重点提取用户分析**：
-- 用户对项目方向的判断
-- 用户指出的下一步应该怎么走
-- 用户对之前决策的修正或确认
-
-### Step 3: Smart Search 语义匹配
-
-**关键步骤**：使用 `search_vault_smart` 找到应该合并到的现有文档。
-
-```json
-mcp__obsidian-mcp-tools__search_vault_smart({
-  "query": "<session 核心关键词>",
-  "filter": {
-    "folders": ["raw/notes/projects/<project>/", "wiki/sources/projects/<project>/"],
-    "limit": 10
-  }
-})
-```
-
-**关键词提取**：
-- 项目名称
-- 核心技术术语
-- 讨论的主要问题
-- 用户分析中提到的方向关键词
-
-**匹配策略**：
-
-| 匹配结果 | 处理方式 |
-|----------|----------|
-| 找到高度相关文档（>80% 主题匹配） | 追加到该文档 |
-| 找到部分相关文档（50-80%） | 创建新段落并链接到相关文档 |
-| 无匹配结果 | 创建新的项目日志文档 |
-
-**⚠️ 索引缓存验证**：搜索结果可能包含过期缓存。在决定 `existing` 前，用 `readFile` 验证目标文件确实存在。
-
-### Step 4: 方向演进分析
-
-分析 session 中体现的项目方向演进：
-
-1. **识别方向变化**：
-   - 用户是否修正了之前的方向？
-   - 是否有新的技术路线被提出？
-   - 是否有决策被推翻？
-
-2. **记录演进轨迹**：
-   - 从哪来（之前的状态）
-   - 到哪去（新的方向）
-   - 为什么（用户的分析/判断）
-
-3. **链接到项目计划**：
-   - 查找项目 `docs/` 目录下的计划文件
-   - 更新计划的状态或下一步行动
-
-### Step 5: 合并到现有文档
-
-根据 Step 3 的匹配结果，执行合并操作：
-
-#### 5a. 追加到现有文档
-
-当找到高度相关的现有文档时：
-
-```markdown
 ---
 
-## <YYYY-MM-DD> — <session 摘要>
+## Value Hierarchy
 
-### 方向演进
-<用户分析中关于方向判断的内容>
+### Always Prefer Preserving
+- debugging hypotheses and how they were tested
+- narrowed root causes
+- why a solution worked / failed
+- reusable troubleshooting sequences
+- decision trade-offs and rationale
+- environment/configuration facts that changed the outcome
+- “what to check first next time” guidance
 
-### 本次进展
-<完成的任务、解决的问题>
+### Usually Compress Aggressively
+- assistant scaffolding text
+- repeated confirmations
+- repeated command attempts with no learning
+- raw terminal spam
+- installation / build output with no insight
+- large code patches that can be summarized in one sentence
 
-### 学习要点（来自 CC 回答）
-<可复用的知识、方法、技巧>
+### Preserve Only as Minimal Evidence
+- short command snippets that are part of the final fix
+- one or two representative error messages
+- one concise code fragment if it explains the failure or fix
 
-### 下一步
-<session 中明确指出的下一步行动>
+---
 
-<!-- Session: <session_id> -->
-<!-- Appended on: YYYY-MM-DD -->
+## Decision Gate
+
+### Step 1: Read Session Metadata
+Extract:
+- `session_id`
+- `project`
+- `workflow_id`
+- `task_id`
+- `role` (implementer, spec-review, quality-review)
+- `created`
+- source path
+- whether the session belongs to a known project or tool bucket
+
+**Metadata from transcript body:** When frontmatter lacks `workflow_id`, `task_id`, or `role`, extract from structured delegate prompt text:
+- `workflow_id` — look for "WorkflowId: xxx" or "workflow: xxx" patterns
+- `task_id` — look for "TaskId: xxx" or task file references in delegate prompt
+- `role` — detect from prompt patterns: "spec compliance review" → spec-review, "quality review" → quality-review, implementer keywords → implementer
+- `review_target` — look for implementation file references or task IDs being reviewed
+
+**Project inference fallback:** If project is unclear, try in order:
+1. frontmatter `project` field
+2. path components (e.g., `inbox/notes/projects/<project>/logs/...`)
+3. repo/workspace context from neighboring files
+4. content keywords matching known project names
+
+If still unclear after all attempts, route to `_shared` fallback: `raw/notes/_shared/YYYY-MM-DD-session-summary.md` instead of inventing a project name.
+
+### Step 1b: Session Family Detection
+
+When batch-processing sessions, detect session families that should be evaluated together:
+
+**Family grouping criteria:**
+- Same `workflow_id` — all sessions in the same workflow
+- Same `task_id` — implementer + reviewers for the same task
+- Implementer/reviewer pairing — T1 + T1R-spec + T1R-quality form a family
+- Same implementation raw target — all sessions that would merge into the same raw
+
+**Family-aware processing:**
+- Process implementation sessions first
+- Reviewer sessions should reference the implementation's raw target
+- When the implementation raw already exists, reviewer sessions default to `merge-only`
+- Do not evaluate reviewer sessions independently when their implementation is already captured
+
+### Step 2: Segment the Session
+Break the session into:
+- goal / request setup
+- exploration
+- debugging / investigation
+- implementation / command execution
+- conclusion / next step
+
+For large sessions, chunk before deep extraction:
+- prefer semantic boundaries first: user turn boundaries, task switches, file/module switches, debugging phase changes, or explicit milestone changes
+- only fall back to rough size slicing when semantic boundaries are unavailable
+- default chunk size: about `8,000-12,000` Chinese characters or equivalent token-sized slice
+- overlap: `500-1,000` characters between adjacent chunks when needed to preserve reasoning continuity
+- keep chunk-local notes only for reusable signals, then merge the notes into one final decision/output
+- never concatenate chunk summaries into a transcript replay
+
+**Chunk utility:** For sessions exceeding the size threshold, use the chunking script:
+```
+python .codex/session_intake_shards/20260517/chunk_session_file.py --file <session_path> --lines 300 --out-dir <output_dir>
+```
+Process each chunk sequentially, extracting notes, then merge into one final output. Adjust `--lines` based on session density; denser sessions may need smaller chunks.
+
+### Step 2b: Same-Session-Id Duplicate Detection
+
+If the session's `session_id` matches a session already processed or already represented in raw:
+
+**Detection signals:**
+- Same `session_id` in frontmatter
+- File name pattern suggests continuation (e.g., same hash suffix on different dates)
+- Content is 90%+ identical to an already-processed session
+
+**Decision rule:**
+- Same `session_id` with no new durable knowledge → `skip-duplicate`
+- Same `session_id` with clear new value beyond existing raw → evaluate as normal, but reference the existing raw as context
+- Continuation sessions that merely restart the same work → `skip-duplicate`
+
+**Example:** `2026-05-15-5a6cb262-session.md` and `2026-05-16-5a6cb262-session.md` share session_id `5a6cb262-ae52-469a-98dc-df05be76671a`. The second is a restart/continuation, not a new session. Decision: `skip-duplicate`.
+
+### Step 3: Score Durable Value
+Use this quick rubric:
+
+| Signal | Question |
+|---|---|
+| Debug value | Did the session teach a reusable way to investigate or fix something? |
+| Decision value | Did it contain a stable choice or rationale worth keeping? |
+| Knowledge delta | Would future-you learn something not already obvious from raw/project state? |
+| Evidence quality | Can the lesson be supported with concise evidence instead of transcript bulk? |
+
+Also assign a confidence level to the final decision: `high`, `medium`, or `low`. Low-confidence cases should default toward `merge-only` or manual review rather than aggressive promotion.
+
+### Step 3b: Mixed-Density Session Handling
+
+**Critical rule**: Do not reject a session solely because the majority of lines are repetitive execution noise. Evaluate each meaningful segment independently.
+
+#### High-Density Front-Loaded Segments
+
+If a session has a high-density setup / design / debugging segment followed by a long stable execution tail:
+
+1. **Preserve the reusable workflow / decision / debugging knowledge** from the early segment
+2. **Compress the execution tail** to minimal evidence (e.g., "downloaded 464 PDFs over 7.7 hours, 0 failures")
+3. **Do not let the repetitive tail erase the earlier durable knowledge**
+
+#### Repetitive Loop Pattern Detection
+
+Once a repeated loop pattern is established (e.g., same skill invoked 10+ times with near-identical output):
+
+- Later near-identical iterations count as **execution noise**
+- Preserve only: design pivots, task-queue patterns, dedupe logic, checkpointing/state management, failure mode changes, and final outcome statistics
+- Drop: repeated skill loading, identical progress reports, unchanged confirmation messages
+
+#### Automation Session Preservation Checklist
+
+For long-running automation sessions (batch downloads, bulk processing, repeated tool invocations):
+
+| Preserve | Drop |
+|----------|------|
+| Design pivots (e.g., "switched from inline sleep to /loop 1m") | Repeated skill definition loading |
+| Task-queue / state-file patterns (e.g., `download_tasks.json`) | Identical progress reports |
+| Dedupe logic (e.g., duplicate arnumber detection) | Unchanged confirmation messages |
+| Checkpointing strategy | Successful individual iterations |
+| Failure mode changes and fixes | Routine execution noise |
+| Final outcome statistics | Intermediate status updates |
+
+#### Segment-Level Decision Rule
+
+```
+if any segment contains durable knowledge:
+  preserve that segment + compress execution tail
+else:
+  reject entire session
 ```
 
-#### 5b. 创建新段落并链接
+**Example**: A 20000-line session where:
+- Lines 1-500: Zotero collection ID debugging, IEEE link extraction workflow, `/loop` architecture design
+- Lines 501-20000: Repeated `/ieee-download-one` invocations with near-identical output
 
-当找到部分相关文档时：
+**Decision**: `promote-session-summary` with:
+- Full preservation of lines 1-500 knowledge
+- Execution tail compressed to: "Batch downloaded 464 IEEE PDFs over 7.7 hours using /loop 1m /ieee-download-one pattern"
+- Drop all 19500 lines of repetitive download confirmations
 
-1. 在现有文档末尾添加链接段落
-2. 创建新的项目日志文档
+### Step 4: Choose a Decision
 
-#### 5c. 创建新文档
+#### `reject`
+Use when the session is mostly:
+- empty planning
+- generic Q&A
+- command spam
+- no conclusion
+- no reusable lesson
 
-当无匹配结果时，创建新的项目日志：
+#### `skip-duplicate`
+Use when:
+- the same conclusions are already present in existing raw notes
+- same `session_id` as an already-processed session (restart/continuation)
+- content is 90%+ identical to existing raw or processed session
+
+#### `merge-only`
+Use when there are 1-3 useful takeaways, but not enough for a dedicated raw note.
+Output a compact merge payload for an existing project log.
+
+**Codex delegate reviewer sessions:** Short reviewer sessions (spec-review, quality-review) default to `merge-only` when:
+- The implementation being reviewed already has a corresponding raw note
+- Review findings complement but don't warrant a separate raw
+- Merge target is identified by `task_id` matching (T1R-* → T1 implementation raw)
+
+#### `promote-session-summary`
+Use when the session contains enough durable value for its own structured raw summary.
+
+If the session spans multiple projects or clearly separate workstreams, prefer one of:
+- split into multiple merge-only payloads by project/workstream, or
+- one promoted summary with explicit subsections per workstream
+Do not blur multiple unrelated threads into one flat summary.
+
+---
+
+## Output Contracts
+
+### Contract A: Merge-Only Payload
+
+Use when the knowledge delta is small.
+
+```markdown
+## Session Intake Summary
+- 背景：<one sentence>
+- 关键观察：<1-2 bullets>
+- 结论：<1 bullet>
+- 可复用经验：<1-2 bullets>
+- 来源：[[inbox/...-session.md]]
+```
+
+### Contract B: Session Summary Raw Note
+
+Use when the session deserves a dedicated raw note.
 
 ```markdown
 ---
 type: project-log
-project: <project-name>
-created: YYYY-MM-DD
-tags: [project-log, session, <extracted-tags>]
-sources: ["inbox/notes/projects/<project>/logs/<session-file>"]
+source_kind: session-log-summary
+session_id: <session-id>
+project: <project>
+created: <date>
+sources:
+  - "inbox/...-session.md"
+prepared_by: session-log-crystallizer
 ---
 
-# <YYYY-MM-DD> — <session 摘要>
+# <curated session title>
 
-## 项目方向
-
-<用户分析中关于方向判断的内容>
-
-## 本次进展
-
-### 完成的任务
-- <task-1>
-- <task-2>
-
-### 问题排查
-| 问题 | 根因 | 解决方案 |
-|------|------|----------|
-| <issue> | <cause> | <solution> |
-
-## 学习要点（来自 CC 回答）
-
-### 技术技巧
-- <tip-1>
-- <tip-2>
-
-### 避坑指南
-- <pitfall-1>
-
-## 下一步
-
-- <suggestion-1>
-
-<!-- Crystallized from: inbox/notes/projects/<project>/logs/<session-file> -->
-<!-- Created on: YYYY-MM-DD -->
+## 背景
+## 问题 / 目标
+## 排查路径
+## 关键观察
+## 根因 / 结论
+## 可复用经验
+## 后续动作
+## 极简证据
 ```
 
-### Step 6: 更新项目演进时间线
+### Contract C: Later Crystallized Summary
 
-维护项目的演进时间线文件：
+If used after raw already exists, a higher-level synthesis may include:
+- 工作成果
+- 问题排查汇总
+- 决策记录
+- 学习要点
+- 与项目计划的关联
 
-```
-raw/notes/projects/<project>/timeline.md
-```
+### Contract D: Skip-Duplicate Audit Record
 
-格式：
+When the session adds no new durable knowledge because its conclusions already exist in raw, return a concise audit result:
 
 ```markdown
-# 项目演进时间线
-
-## <YYYY-MM-DD> — <session 摘要>
-
-**方向变化**：<描述方向演进>
-
-**关键决策**：<本次 session 的关键决策>
-
-**进展**：<完成的任务>
-
-**下一步**：<明确的下一步行动>
-
----
+Decision: skip-duplicate
+Reason: existing raw already captures the same debugging conclusion / decision
+Closest raw target: <raw path>
+Source: [[inbox/...-session.md]]
 ```
-
-### Step 7: 用户确认
-
-生成合并预览并询问用户：
-
-1. 展示将要合并到的目标文档
-2. 展示合并后的预览内容
-3. 确认方向演进分析是否准确
-4. 确认是否执行合并
-
-**确认后才写入文件，避免覆盖已有内容。**
-
-### Step 7.5: 内容质量审计
-
-在合并前，对提取的内容进行质量审计：
-
-#### 审计检查点
-
-| 检查项 | 标准 | 处理 |
-|--------|------|------|
-| 洞见密度 | 高价值内容占比 > 30% | 过低时警告，建议重新提取 |
-| 噪音残留 | 无工具调用日志、重复确认 | 发现时自动删除 |
-| 用户分析覆盖 | 方向判断是否被捕获 | 缺失时补充 |
-| CC 洞见提取 | 可复用知识是否被识别 | 缺失时补充 |
-| 决策完整性 | 有决策必有依据 | 缺失时标注"依据未明确" |
-
-#### 审计输出
-
-```markdown
-## 内容质量审计报告
-
-**Session**: <session_id>
-**审计时间**: YYYY-MM-DD
-
-### 统计
-- 总对话轮次: N
-- 高价值轮次: M (占比: P%)
-- 舍弃轮次: K (占比: Q%)
-
-### 提取内容
-| 类型 | 数量 | 质量 |
-|------|------|------|
-| 用户分析 | N1 | 高/中/低 |
-| CC 洞见 | N2 | 高/中/低 |
-| 决策记录 | N3 | 高/中/低 |
-| 问题排查 | N4 | 高/中/低 |
-
-### 舍弃内容
-| 类型 | 数量 | 原因 |
-|------|------|------|
-| 工具调用日志 | K1 | 纯执行过程 |
-| 重复确认 | K2 | 无信息增量 |
-| 格式化输出 | K3 | 无分析内容 |
-
-### 建议
-- <改进建议>
-```
-
-**⚠️ 质量阈值**：
-- 洞见密度 < 20% → 警告"内容质量过低，建议人工审核"
-- 用户分析缺失 → 警告"方向演进可能不完整"
-
-## 批量处理
-
-当处理多个 session logs 时：
-
-### 分组与排序
-
-```
-1. 按 project 字段分组
-2. 每组内按 created 时间排序（升序）
-3. 按时间顺序处理，保证演进时间线的正确性
-```
-
-### 合并策略
-
-处理同一项目的多个 session 时：
-
-1. **第一个 session**：创建或更新基础文档
-2. **后续 session**：追加到同一文档，形成时间线
-3. **方向变化**：在时间线中明确标注方向演进点
-
-### 检查点
-
-- 处理超过 5 个 session 时，先展示分组统计
-- 每处理完一个 session，询问是否继续
-
-## 质量原则
-
-1. **语义匹配优先** — 不创建孤立文件，合并到现有文档
-2. **方向演进为核心** — 追踪项目如何演进，而非孤立知识点
-3. **学习 CC 回答** — AI 助手的响应是重要知识来源
-4. **捕获用户分析** — 用户的方向判断需要被记录
-5. **时间线连贯** — 多个 session 应形成连贯的演进轨迹
-
-## 异常处理
-
-| 场景 | 处理方式 |
-|------|----------|
-| Session 文件不存在 | 跳过，记录到日志 |
-| Session 超过 50000 tokens | 执行 Step 1.5 分层摘要机制：分段读取 → 段摘要 → 全局摘要 |
-| 项目无现有文档 | 创建新的项目日志文档 |
-| 无法识别项目名 | 使用 `unknown-project` 作为 fallback |
-| Smart search 失败 | 回退到文件名匹配 |
-| 分段处理中断 | 保留已生成的段摘要，记录中断点，支持断点续处理 |
-
-## 使用示例
-
-**单个 session 处理**：
-```
-/session-log-crystallizer inbox/notes/projects/XBR818C/logs/2026-04-26-xxx-session.md
-```
-
-**批量处理**：
-```
-/session-log-crystallizer inbox/notes/projects/XBR818C/logs/*.md
-```
-
-**按项目处理**：
-```
-/session-log-crystallizer --project XBR818C
-```
-
-## 与 inbox-prepare 的集成
-
-当 `inbox-prepare` 检测到 `*-session.md` 文件时：
-
-1. 调用 `session-log-crystallizer` skill
-2. session-log-crystallizer 执行上述流程
-3. 返回合并结果给 inbox-prepare
-4. inbox-prepare 继续处理其他 inbox 文件
-
-## 输出位置
-
-Session 内容合并到以下位置（按优先级）：
-
-1. `raw/notes/projects/<project>/logs/YYYY-MM-DD-<project>-log.md` — 项目日常日志
-2. `raw/notes/projects/<project>/timeline.md` — 项目演进时间线
-3. `wiki/sources/projects/<project>/` — 编译后的项目知识页面
-
-**不创建独立的 `crystallized/` 目录文件。**
 
 ---
 
-## Tools to Use
+## Extraction Rules
 
-| Tool | Purpose | When | 完整路径 |
-|------|---------|------|----------|
-| `Read` | 读取 session log 文件 | Step 1 | `/mnt/c/obsidian_wiki/inbox/notes/projects/<project>/logs/*-session.md` |
-| `Write` | 创建新项目日志 | Step 5c | `/mnt/c/obsidian_wiki/raw/notes/projects/<project>/logs/YYYY-MM-DD-<project>-log.md` |
-| `Edit` | 追加到现有项目日志 | Step 5a | `/mnt/c/obsidian_wiki/raw/notes/projects/<project>/logs/*.md` |
-| `mcp__obsidian-mcp-tools__search_vault_smart` | 语义匹配现有文档 | Step 3 | 见下方调用示例 |
+### 1. Debugging Sessions
+Preserve:
+- starting symptom
+- hypotheses tested
+- decisive observations
+- actual root cause
+- final fix
+- reusable checklist for next time
 
-### search_vault_smart 调用示例
+### 2. Build / Run / Command Sessions
+Do not keep the full command stream.
+Keep only:
+- final working command
+- why earlier attempts failed
+- environment assumptions that mattered
 
-```json
-mcp__obsidian-mcp-tools__search_vault_smart({
-  "query": "<session 核心关键词>",
-  "filter": {
-    "folders": ["raw/notes/projects/<project>/", "wiki/sources/projects/<project>/"],
-    "limit": 10
-  }
-})
-```
+### 3. Code-Heavy Sessions
+Do not dump the patch.
+Instead record:
+- module/file touched
+- nature of change
+- why it fixed the issue
+- any validation result worth remembering
 
-**关键词提取规则**：
-- 项目名称
-- 核心技术术语
-- 讨论的主要问题
-- 用户分析中提到的方向关键词
+### 4. Design / Decision Sessions
+Preserve:
+- decision made
+- options considered
+- reason for choosing this path
+- constraints that shaped the choice
 
-### 相关 Skill 路径
+---
 
-| Skill | 路径 | 用途 |
-|-------|------|------|
-| inbox-prepare | `/home/holmes/.claude/skills/inbox-prepare/SKILL.md` | 入口调用方 |
+## Integration with inbox-prepare
+
+When invoked from `inbox-prepare`, follow this strict sequence:
+
+1. classify the session value
+2. choose `reject` / `skip-duplicate` / `merge-only` / `promote-session-summary`
+3. emit only the structured output required by that decision
+4. avoid transcript carry-over
+5. keep the resulting raw text concise and reusable
+
+If `merge-only`, prefer appending to:
+- `raw/notes/projects/<project>/logs/YYYY-MM-DD-<project>-log.md`
+
+If `promote-session-summary`, prefer writing to:
+- `raw/notes/projects/<project>/logs/YYYY-MM-DD-<project>-session-summary.md`
+
+**Invocation syntax expectation:** when called by another skill, the caller should explicitly provide `session_path`, inferred `project`, desired `decision_target`, and optional `existing_raw_target`.
+
+Use project-normalized naming where possible.
+
+---
+
+## User Confirmation Checkpoints
+
+Ask for confirmation when:
+- a large session could reasonably be either `merge-only` or `promote-session-summary`
+- the project mapping is unclear
+- the session appears to contain sensitive or misleading material
+- more than 5 sessions are being batch-processed for one project
+
+**AUTO_PROCEED mode handling:** When invoked with `auto_proceed=true` (from `inbox-prepare` batch processing):
+- default ambiguous sessions to `merge-only` (not `promote-session-summary`)
+- default unclear project mapping to `_shared` fallback
+- never auto-upgrade a noisy transcript into `promote-session-summary` without clear reusable value
+- still emit a structured output, but skip interactive confirmation prompts
+- report the decision confidence level (`high`, `medium`, `low`) in the output metadata
+
+---
+
+## Quality Target
+
+A good session-derived raw note should:
+- be much shorter than the transcript,
+- preserve the engineering lesson,
+- make future debugging faster,
+- and avoid transcript noise.
+
+Target density:
+- dedicated summary note: usually 300-1200 Chinese characters
+- merge-only payload: usually 4-10 bullets
+
+## Batch Guidance
+
+For `2-5` sessions in one project:
+- evaluate each session individually first
+- combine only the `merge-only` takeaways into one project log append if they share the same topic/day
+- keep `promote-session-summary` sessions separate if they have distinct debugging narratives
+
+For `>5` sessions in one project:
+- show a grouping proposal first
+- group by one of these concrete heuristics: same day, same error/root-cause thread, same milestone, or same subsystem/file cluster
+- avoid one giant merged transcript-derived note
+- when a session mostly implements an already-captured spec or commit sequence, prefer `merge-only` with a pointer instead of a full promoted summary
+
+## Repeated Or Reopened Automation Batches
+
+When a session contains multiple automation batches for the same pipeline (e.g., two separate download runs), preserve each batch as a distinct subsection rather than merging all counts into one flat statistic.
+
+### Detection Criteria
+
+Identify separate batches when:
+- The same automation pipeline is restarted with **materially different inputs** (new queue, refreshed collection, different counts)
+- A **fresh execution round** begins after the previous batch completed
+- The queue is **regenerated or refreshed** between runs
+- **New failure modes or fixes** appear in later batches
+
+### Preservation Rules
+
+| Preserve Separately | Merge/Compress |
+|---------------------|----------------|
+| Batch A with count X, Batch B with count Y | Identical restarts with no new knowledge |
+| Different queue sources per batch | Same queue re-run with same outcome |
+| New failure handling in later batch | Pure repetition of earlier execution |
+| Design pivots between batches | Routine execution noise |
+
+### Output Structure
+
+Use subsections such as `### 批次 A` and `### 批次 B` under the investigation/observations sections when multiple batches warrant separate treatment.
+
+**Example**: A session with:
+- Batch A: 464 IEEE papers downloaded via `/loop 1m /ieee-download-one` (completed 464/464)
+- Queue regenerated from fresh NoPDF collection
+- Batch B: 122 IEEE papers downloaded via same pattern (completed 122/122)
+
+**Decision**: Preserve both batches separately with distinct counts, not "586 papers downloaded" as one merged statistic.
+
+## Failure Handling
+
+| Situation | Action |
+|---|---|
+| transcript too large | chunk and extract only the valuable segments |
+| no clear project | infer from path; if still unclear, ask user or use manual-review / `_shared` fallback |
+| no durable value | `reject` |
+| duplicate conclusions | `skip-duplicate` using Contract D |
+| earlier hypotheses were disproved later in the same session | keep only the disproved hypothesis as brief context; preserve the final corrected understanding |
+| minor but useful insight | `merge-only` |
+| multiple automation batches in one session | preserve each batch as separate subsection with distinct counts |
+
+## Examples of Good Preservation
+
+Good:
+- “问题最终定位为环境变量未注入，导致子进程读到默认配置。”
+- “有效排查顺序：先查路径映射，再查 session id，再查 registry 记录。”
+- “最终有效命令是 X；之前失败是因为 Y。”
+
+Bad:
+- “下面是 200 行终端输出。”
+- “以下完整保留 30 轮对话。”
+- “把所有运行代码直接贴进 raw。”
