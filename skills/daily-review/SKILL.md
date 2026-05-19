@@ -45,4 +45,4 @@ raw/notes/projects/{project}/logs/YYYY-MM-DD-{project}-log.md
 - Do not use grep for `status: unprocessed` as the authority.
 - Do not compile every tiny fragment independently; prefer daily project logs compiled once at end of day.
 - Use `project-daily-capture` for short in-day capture.
-- `raw/notes/daily/YYYY-MM-DD.md` is a work record and is usually not a direct ingest target.
+- `daily/YYYY-MM-DD.md` is a work record in the root personal layer and is not a wiki ingest target.
