@@ -1,240 +1,291 @@
 ---
 name: ieee-research
-description: Systematic IEEE literature research agent. Searches venues, extracts full content from papers, analyzes relevance, and archives findings. Use for comprehensive literature surveys across multiple journals/conferences.
-argument-hint: "[venue, keywords, year range]"
+description: "IEEE Xplore 文献检索全流程。支持：基础搜索、高级搜索（字段过滤）、期刊浏览、论文详情提取、全文提取、PDF 下载。触发词：ieee、IEEE Xplore、检索、下载、详情。"
+argument-hint: "[搜索关键词或操作描述]"
+user_invocable: true
 ---
 
-# IEEE Research Agent
+# IEEE Research: IEEE Xplore 文献检索全流程
 
-Systematic literature research across IEEE Xplore venues. Combines search, full-content extraction, and relevance analysis.
+一站式 IEEE 文献检索：搜索 → 详情/全文 → 下载。
 
-## Overview
+## 模式
 
-This agent orchestrates the complete research workflow:
-1. Search IEEE Xplore for papers matching criteria
-2. Extract full content from high-relevance papers using `ieee-paper-fullcontent`
-3. Analyze and score relevance
-4. Archive findings to knowledge base
+根据 `$ARGUMENTS` 自动选择模式：
 
-## Required Sub-Skills
+| 模式 | 触发条件 | 操作 |
+|------|----------|------|
+| **search** | 提供关键词 | 搜索论文 |
+| **advanced** | 包含过滤条件（作者、期刊、年份） | 高级搜索 |
+| **browse** | "浏览期刊"、"browse journal" | 期刊/会议浏览 |
+| **detail** | 提供 DOI 或 article number | 提取论文详情 |
+| **fulltext** | "全文"、"fulltext" | 提取全文内容 |
+| **download** | "下载"、"download" | 下载 PDF |
 
-- `ieee-search` - For initial paper discovery
-- `ieee-paper-fullcontent` - For deep content extraction (NOT `ieee-paper-detail`)
-- `ieee-export` - For citation export (optional)
+## 常量
 
-## Workflow
+- **BASE_URL** = `https://ieeexplore.ieee.org`
+- **MAX_RESULTS** = 25（单页结果数）
+- **RATE_LIMIT** = 30s（请求间隔，避免 429）
 
-### Phase 1: Search Papers
-
-Use `ieee-search` to find papers in target venue:
-
-```
-navigate_page({
-  url: "https://ieeexplore.ieee.org/xpl/conhome.jsp?punumber=1234567", // Conference/journal home
-  initScript: "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-})
-
-// Use ieee-search skill with venue-specific keywords
-```
-
-**Search Strategy per Venue:**
-
-| Venue | Keywords | Time Range |
-|-------|----------|------------|
-| TCAD | "machine learning" AND "analog" AND "design" | 2024-2026 |
-| DAC | "AI" AND "EDA" AND "analog" | 2024-2026 |
-| ICCAD | "generative" AND "circuit" | 2024-2026 |
-| MLCAD | "LLM" AND "CAD" | 2024-2026 |
-| T-MTT | "mm-wave" AND "passive" | 2024-2026 |
-| RFIC | "mm-wave LNA" | 2024-2026 |
-| JSSC | "mm-wave" AND "LNA" | 2024-2026 |
-
-### Phase 2: Extract Full Content
-
-For each high-relevance paper, use `ieee-paper-fullcontent`:
-
-**REQUIRED:** Use full content extraction, not just detail extraction.
-
-```
-// From ieee-paper-fullcontent skill:
-navigate_page({
-  url: "https://ieeexplore.ieee.org/document/{arnumber}",
-  initScript: "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-})
-
-// Scroll to trigger lazy loading
-evaluate_script(async () => {
-  window.scrollTo(0, document.body.scrollHeight);
-  await new Promise(r => setTimeout(r, 1000));
-  window.scrollTo(0, 0);
-  return { scrolled: true };
-})
-
-// Extract full content
-evaluate_script(function() {
-  // ... (full extraction code from ieee-paper-fullcontent)
-})
-```
-
-### Phase 3: Relevance Analysis
-
-Score each paper on these criteria:
-
-| Criterion | Weight | Questions |
-|-----------|--------|-----------|
-| **Technical Relevance** | 40% | Does it directly address your research topic? |
-| **Methodology Value** | 30% | Can the method be adapted/extended? |
-| **Novelty** | 20% | Is the approach new or incremental? |
-| **Reproducibility** | 10% | Are code/data available? |
-
-**Relevance Scoring:**
-- 8-10: Must read - directly applicable
-- 6-7: Should read - relevant but needs adaptation
-- 4-5: Optional - tangentially relevant
-- 0-3: Skip - not relevant
-
-### Phase 4: Archive Findings
-
-Save results to knowledge base:
-
-```markdown
----
-title: "{Venue} Literature Search - {Date}"
-date: YYYY-MM-DD
-venue: {venue}
-keywords: [{keywords}]
-total_papers: N
-high_relevance: M
 ---
 
-## Search Parameters
-- Venue: {venue}
-- Keywords: {keywords}
-- Time Range: {years}
+## Phase 1: 搜索
 
-## High Relevance Papers (Score >= 7)
-
-| # | Title | Authors | Year | Score | DOI | Full Text Summary |
-|---|-------|---------|------|-------|-----|-------------------|
-| 1 | ... | ... | ... | 8.5 | ... | Key findings... |
-
-## Medium Relevance (Score 5-6)
-
-| # | Title | Authors | Year | Score | DOI |
-|---|-------|---------|------|-------|-----|
-| ... | ... | ... | ... | ... | ... |
-
-## Key Insights
-
-- [Insight 1 from full-text analysis]
-- [Insight 2 from full-text analysis]
-
-## Figure URLs for Multi-Modal Analysis
-
-- [Paper 1 Fig 1]({url}) - Circuit schematic
-- [Paper 1 Fig 2]({url}) - Layout diagram
-```
-
-## Rate Limiting
-
-**CRITICAL:** IEEE Xplore has rate limits. Follow these rules:
-
-1. **Wait 30 seconds between requests**
-2. **Wait 60 seconds if 429 error**
-3. **Process papers serially, NOT in parallel**
-4. **Limit to 50 papers per session**
-
-## Implementation Template
+### 1.1 基础搜索
 
 ```javascript
-// Main research function
-async function researchPapers(venue, keywords, years) {
-  const results = [];
+// 构造 URL
+const url = `${BASE_URL}/search/searchresult.jsp?newsearch=true&queryText=${encodeURIComponent(QUERY)}`;
 
-  // 1. Search
-  const papers = await searchIEEE(venue, keywords, years);
+// 导航
+navigate_page({ url, initScript: "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})" })
 
-  // 2. Process each paper serially
-  for (const paper of papers.slice(0, 50)) {
-    // Extract full content
-    const fullText = await extractFullContent(paper.arnumber);
-
-    // Score relevance
-    const score = analyzeRelevance(fullText, keywords);
-
-    // Store if relevant
-    if (score >= 5) {
-      results.push({ ...paper, fullText, score });
-    }
-
-    // Rate limiting
-    await sleep(30000);
+// 提取结果（单次 evaluate_script，内置等待）
+async () => {
+  for (let i = 0; i < 30; i++) {
+    if (document.querySelectorAll('.List-results-items .result-item').length > 0) break;
+    await new Promise(r => setTimeout(r, 500));
   }
 
-  // 3. Archive
-  await archiveResults(results, venue);
+  const items = document.querySelectorAll('.List-results-items .result-item');
+  const papers = [];
 
-  return results;
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const titleLink = item.querySelector('h3 a[href*="/document/"]');
+    const authors = [...item.querySelectorAll('.author a[href*="/author/"]')].map(a => a.textContent.trim());
+    const pubLink = item.querySelector('.description a[href*="/xpl/"]');
+    const infoText = item.querySelector('.publisher-info-container')?.textContent?.trim() || '';
+    const yearMatch = infoText.match(/Year:\s*(\d{4})/);
+    const docNumber = titleLink?.href?.match(/\/document\/(\d+)/)?.[1] || '';
+    const citedByMatch = item.textContent.match(/Cited by:.*?(\d+)/);
+
+    papers.push({
+      rank: i + 1,
+      title: titleLink?.textContent?.trim() || '',
+      arnumber: docNumber,
+      authors,
+      publication: pubLink?.textContent?.trim() || '',
+      year: yearMatch ? yearMatch[1] : '',
+      citedBy: citedByMatch ? citedByMatch[1] : ''
+    });
+  }
+
+  const resultCount = document.querySelector('.Dashboard-header span')?.textContent?.trim() || '';
+  return { papers, resultCount, url: location.href };
 }
 ```
 
-## Key Differences from ieee-paper-detail
+### 1.2 高级搜索（字段过滤）
 
-| Feature | ieee-paper-detail | ieee-research (with fullcontent) |
-|---------|-------------------|----------------------------------|
-| Content | Metadata only | **Full text + sections + figures** |
-| Analysis | Limited | **Deep - can analyze circuits** |
-| Figures | Count only | **URLs extracted for screenshot** |
-| Equations | ❌ | **✅ Extracted and counted** |
-| Multi-modal | ❌ | **✅ Can analyze schematics** |
-| Use case | Quick lookup | **Systematic research** |
+IEEE 支持布尔命令搜索：
 
-## Error Handling
+| 字段 | 语法 | 示例 |
+|------|------|------|
+| 标题 | `"Document Title":term` | `"Document Title":transformer` |
+| 作者 | `"Authors":name` | `"Authors":Hinton` |
+| 期刊 | `"Publication Title":name` | `"Publication Title":IEEE Access` |
+| 摘要 | `"Abstract":term` | `"Abstract":neural network` |
+| DOI | `"DOI":value` | `"DOI":10.1109/TPAMI.2024.1234567` |
+| 年份 | `ranges=2020_2025_Year` | URL 参数 |
 
-| Condition | Action |
-|-----------|--------|
-| No full text | Skip and note "PDF only" |
-| Subscription required | Log DOI for later access |
-| Rate limit (429) | Wait 60s, retry |
-| Extraction timeout | Skip, mark as failed |
-
-## Output Format
-
-Final output should include:
-
-1. **Summary Statistics**
-   - Total papers searched
-   - High/medium/low relevance counts
-   - Processing time
-
-2. **Ranked Paper List**
-   - Sorted by relevance score
-   - Include full-text summaries for top papers
-
-3. **Knowledge Base Archive**
-   - Path to saved markdown file
-   - Links to extracted figures
-   - Zotero collection (if exported)
-
-## Example Usage
-
+**布尔组合**：
 ```
-User: "Research TCAD 2024-2026 for machine learning analog design papers"
-
-Agent:
-1. Search TCAD with keywords "machine learning" AND "analog" AND "design"
-2. For top 20 results:
-   - Extract full content using ieee-paper-fullcontent
-   - Score relevance (0-10)
-   - Extract figure URLs
-3. Archive papers with score >= 7
-4. Generate summary report
+("Document Title":deep learning AND "Authors":LeCun)
+("Abstract":transformer OR "Abstract":attention) AND "Publication Title":IEEE TPAMI
 ```
 
-## Notes
+**URL 构造**：
+```
+{BASE_URL}/search/searchresult.jsp?action=search&matchBoolean=true&queryText={BOOLEAN_QUERY}&ranges={YEAR_RANGE}&contentType={TYPE}
+```
 
-- Always use **serial processing** to respect rate limits
-- Full content extraction enables **circuit analysis** via screenshots
-- Archive results immediately - don't wait for all papers
-- Use Obsidian MCP to save to knowledge base
-- Consider Zotero export for bibliography management
+### 1.3 期刊浏览
+
+```javascript
+// 导航到期刊首页
+navigate_page({ url: `${BASE_URL}/xpl/RecentIssue.jsp?punumber=${PUNUMBER}` })
+
+// 或浏览期刊列表
+navigate_page({ url: `${BASE_URL}/xpl/topAccessedArticles.jsp` })
+```
+
+---
+
+## Phase 2: 详情/全文提取
+
+### 2.1 论文详情（元数据）
+
+```javascript
+// 导航到论文页
+navigate_page({
+  url: `${BASE_URL}/document/${ARNUMBER}`,
+  initScript: "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+})
+
+// 提取详情
+async () => {
+  await new Promise(r => setTimeout(r, 2000));
+  window.scrollTo(0, document.body.scrollHeight);
+  await new Promise(r => setTimeout(r, 1000));
+
+  return {
+    title: document.querySelector('.document-title span')?.textContent?.trim(),
+    authors: [...document.querySelectorAll('.authors span a')].map(a => a.textContent.trim()),
+    abstract: document.querySelector('.abstract-text')?.textContent?.trim(),
+    keywords: [...document.querySelectorAll('.keywords span a')].map(a => a.textContent.trim()),
+    publication: document.querySelector('.publication-title a')?.textContent?.trim(),
+    year: document.querySelector('.doc-pub-date')?.textContent?.match(/\d{4}/)?.[0],
+    doi: document.querySelector('.doc-doi')?.textContent?.trim(),
+    arnumber: ARNUMBER,
+    citedBy: document.querySelector('.cited-by-count')?.textContent?.trim(),
+    figures: document.querySelectorAll('.figure-img').length,
+    url: location.href
+  };
+}
+```
+
+### 2.2 全文提取（深度版）
+
+```javascript
+// 滚动触发懒加载
+async () => {
+  window.scrollTo(0, document.body.scrollHeight);
+  await new Promise(r => setTimeout(r, 2000));
+  window.scrollTo(0, 0);
+  await new Promise(r => setTimeout(r, 1000));
+
+  // 提取全文
+  const sections = [];
+  document.querySelectorAll('.article-section').forEach(sec => {
+    const heading = sec.querySelector('h2, h3')?.textContent?.trim();
+    const content = sec.querySelector('.section-content')?.textContent?.trim();
+    if (heading && content) {
+      sections.push({ heading, content: content.substring(0, 2000) });
+    }
+  });
+
+  // 提取图片 URL
+  const figures = [...document.querySelectorAll('.figure-img img, .figure-container img')].map(img => ({
+    url: img.src,
+    alt: img.alt
+  }));
+
+  // 提取公式数量
+  const equations = document.querySelectorAll('.formula, .equation, [class*="math"]').length;
+
+  return {
+    sections,
+    figures,
+    equations,
+    fullTextLength: document.body.innerText.length
+  };
+}
+```
+
+---
+
+## Phase 3: PDF 下载
+
+### 3.1 单篇下载（优化路径：2 tool calls）
+
+IEEE PDF URL 模式：
+```
+{BASE_URL}/stampPDF/getPDF.jsp?tp=&arnumber={ARNUMBER}&ref=
+```
+
+**直接导航到 PDF**：
+
+```javascript
+// 1. 导航到 PDF
+navigate_page({
+  url: `${BASE_URL}/stampPDF/getPDF.jsp?tp=&arnumber=${ARNUMBER}&ref=`,
+  initScript: "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+})
+
+// 2. 触发下载
+(arnumber, title) => {
+  if (document.contentType === 'application/pdf') {
+    const safeName = (title || '').replace(/[^\w\s-]/g, '').replace(/\s+/g, '_').substring(0, 60);
+    const filename = arnumber + (safeName ? '-' + safeName : '') + '.pdf';
+    const a = document.createElement('a');
+    a.href = window.location.href;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    return { downloaded: true, filename };
+  }
+  return { downloaded: false, error: 'Not a PDF. Access may be denied.' };
+}
+```
+
+### 3.2 批量下载
+
+```javascript
+// 顺序下载，间隔 3 秒
+for (const arnumber of arnumbers) {
+  await downloadPaper(arnumber);
+  await new Promise(r => setTimeout(r, 3000));
+}
+```
+
+---
+
+## Phase 4: 结果归档
+
+输出格式：
+
+```markdown
+## IEEE 检索结果
+
+**查询**: {query}
+**结果数**: {total}
+**时间**: {timestamp}
+
+### 高相关论文
+
+| # | 标题 | 作者 | 期刊 | 年份 | 引用 |
+|---|------|------|------|------|------|
+| 1 | ... | ... | ... | ... | ... |
+
+### 详情提取
+
+- **DOI**: ...
+- **摘要**: ...
+- **关键词**: ...
+```
+
+---
+
+## 错误处理
+
+| 条件 | 处理 |
+|------|------|
+| 验证码 | 告知用户在浏览器中完成验证 |
+| 无权限 | 告知用户检查机构登录状态 |
+| 429 限流 | 等待 60 秒后重试 |
+| 页面超时 | 跳过并记录 |
+
+---
+
+## 注意事项
+
+- **必须使用 initScript** 绕过 webdriver 检测
+- **请求间隔 30 秒** 避免 429 错误
+- **串行处理** 论文，不要并行
+- **单次最多 50 篇**，超过需分批
+
+---
+
+## 快速示例
+
+\`\`\`
+/ieee-research deep learning                    # 基础搜索
+/ieee-research author:LeCun deep learning       # 高级搜索
+/ieee-research browse TCAD                      # 浏览 TCAD 期刊
+/ieee-research detail 10.1109/TPAMI.2024.123    # 详情（DOI）
+/ieee-research fulltext 8876906                 # 全文提取
+/ieee-research download 8876906                 # 下载 PDF
+\`\`\`
