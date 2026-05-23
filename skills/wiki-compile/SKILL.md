@@ -1,32 +1,32 @@
 ---
 name: wiki-compile
 description: |
-  Use when raw notes or external material are stable enough to be compiled into a readable wiki page with deduplication, registry updates, and optional later refinement.
+  Two-phase ingest: Phase 1 reads raw, deduplicates, writes source page, produces compile-plan manifest;
+  Phase 2 creates/updates entity/concept/procedure/claim pages and maintains hot.md/index.md/log.md.
   Triggers on: "compile", "编译", "入库", "ingest", "process raw", "处理raw", "convert to wiki".
 user_invocable: true
 ---
 
-# wiki-compile
+# wiki-compile (两阶段 Ingest)
 
 运行 `/wiki-compile <path|url|file> --intent "<一句话意图>"`。
 
 ## 目标
 
-把稳定 raw 或外部材料编译成完整可读 wiki 页面。
+将稳定 raw 或外部材料编译为完整 wiki 知识网络：1 个 source 页 + N 个 entity/concept/procedure/claim 页，并维护 hot.md/index.md/log.md。
 
-这是三入口 flow 的主入口：
+## 两阶段架构
 
-`wiki-capture -> wiki-compile -> wiki-refine`
+```
+Phase 1: raw → 分析 → source 页面 → compile-plan 清单
+Phase 2: compile-plan → 逐项创建/更新 entity/concept/procedure/claim → 维护 hot/index/log
+```
 
-## 默认适用
+Phase 1 和 Phase 2 可在同一 agent 会话内顺序执行。当材料特别复杂（>5 个提取项）时，Phase 2 应逐项处理避免上下文溢出。
 
-- 完整 session 汇总
-- 项目阶段总结
-- 完整仿真记录
-- 论文 DOI / URL / PDF / Markdown
-- 课程讲演录与章节总结
+---
 
-## 执行步骤
+## Phase 1: 分析 + Source 页面 + Compile-Plan
 
 ### Step 1: 识别输入类型
 
@@ -45,7 +45,7 @@ user_invocable: true
 mcp__obsidian-mcp-tools__search_vault_smart({
   "query": "<核心标题/关键词>",
   "filter": {
-    "folders": ["wiki/sources", "wiki/entities", "wiki/procedures", "wiki/claims", "wiki/topics"],
+    "folders": ["wiki/sources", "wiki/entities", "wiki/concepts", "wiki/procedures", "wiki/claims", "wiki/topics"],
     "limit": 10
   }
 })
@@ -53,53 +53,190 @@ mcp__obsidian-mcp-tools__search_vault_smart({
 
 ### Step 3: 判断去重决策
 
-报告搜索关键词、candidate hits、dedupe decision：
-
 | 决策 | 条件 | 行为 |
 |------|------|------|
 | `duplicate` | fingerprint 相同或标题完全匹配 | 更新现有节点 |
 | `update` | 高度相似（>70% 关键词重叠） | 补充新内容 |
 | `new` | 无匹配或部分相似（<30%） | 创建新页面 |
 
-### Step 4: 调用 wiki-ingest
+### Step 4: 写 Source 页面
 
-执行底层编译流程，生成完整可读 wiki 页面。
+写入 `wiki/sources/<route>/<slug>/<slug>.md`，包含完整 frontmatter：
 
-### Step 5: 更新 Registry
+```yaml
+id: source:<slug>
+type: source
+source_kind: paper|experiment|tool-note|course-note|project-log|worklog|external-article
+raw_ref: "[[raw/...]]"
+raw_path: raw/...
+raw_sha256: "<sha256>"
+compiled_at: YYYY-MM-DDTHH:MM:SS
+compiler_version: llm-wiki-v2-two-phase
+fingerprint: "<typed fingerprint>"
+stale: false
+```
 
-更新：
-- `wiki/_registry/nodes.jsonl`
-- `wiki/_registry/edges.jsonl`
-- `wiki/_registry/fingerprints.jsonl`
-- `wiki/_registry/compile_log.jsonl`
-- `wiki/_registry/query_pack.md`
+Source 页面正文规则：
+- 中文为主，技术术语保留英文
+- 长度约束 100-300 行；超过则拆分为多个 source
+- 引用已存在的 entity/concept 用 `[[页面名]]`，不存在的用反引号
+- 标注矛盾和空白用 Obsidian callout：
+
+```markdown
+> [!contradiction] 标题
+> 描述矛盾内容和来源
+
+> [!gap] 标题
+> 描述缺失信息和需要补充的方向
+```
+
+### Step 5: 产出 Compile-Plan 清单
+
+Phase 1 最后产出 YAML 格式的 compile-plan，作为 Phase 2 的交接件：
+
+```yaml
+compile_plan:
+  source_id: "source:<slug>"
+  source_path: "wiki/sources/<route>/<slug>/<slug>.md"
+
+  extractions:
+    - type: entity          # entity | concept | procedure | claim
+      action: create        # create | update | merge
+      slug: vector-fitting
+      name: Vector Fitting
+      reason: "核心参数化方法，多篇论文引用"
+      entity_type: method   # method | tool | device | material | metric
+
+    - type: concept
+      action: create
+      slug: transfer-function-parameterization
+      name: 传递函数参数化
+      reason: "从 neuro-tf 和 vector-fitting 抽象的共同思想"
+
+    - type: claim
+      action: create
+      slug: cross-process-modeling-gap
+      name: 跨工艺建模是无人区
+      claim_type: insight   # insight | decision | constraint
+      evidence_type: gap    # experimental | constraint | precedent | gap
+      reason: "所有综述均未涉及跨工艺泛化"
+
+  contradictions:
+    - description: "论文 A 的 X 结论与论文 B 的 Y 结论矛盾"
+      sources: ["source:a", "source:b"]
+
+  gaps:
+    - description: "缺少 Z 方向的验证数据"
+      related_entities: ["entity:xxx"]
+
+  maintenance:
+    hot_update: true
+    index_update: true
+    log_entry: "compile | <slug> | 新增 N entity, M concept, K claim"
+```
+
+**Compile Checkpoint**：产出 compile-plan 后，如果提取项 >5 或有 contradictions，暂停向用户确认决策后再进入 Phase 2。
 
 ---
 
-## ⚠️ Compile Checkpoint（重要）
+## Phase 2: 逐项提取 + 维护持久层
 
-**在写入 wiki 前，确认编译决策：**
+### Step 6: 按 compile-plan 逐项创建/更新页面
 
-当材料涉及多个可能目标或去重判断复杂时，暂停并询问：
+对 compile-plan 中每个 extraction 项：
 
+**Entity 页面** (`wiki/entities/<slug>.md`)：
+```yaml
+id: entity:<slug>
+type: entity
+entity_type: method|tool|device|material|metric
+created_at: YYYY-MM-DD
+sources: ["source:xxx"]
 ```
-Compile 编译决策：
+- 正文描述该实体的定义、核心特征、使用场景
+- 与其他 entity/concept 的 `[[双链]]`
+- 长度 100-300 行
 
-| 输入 | 搜索结果 | 决策 | 目标 |
-|------|----------|------|------|
-| raw/session-2026-05-15.md | 2 个相似页面 | update | wiki/sources/projects/lna-design/ |
-| raw/paper-xxx.md | 无匹配 | new | wiki/sources/papers/lna-design/ |
-
-关键词：LNA 增益、匹配网络、调试
-相似页面：
-- wiki/sources/projects/lna-design/session-2026-05-14.md (70% 重叠)
-- wiki/entities/matching-network.md (相关实体)
-
-确认决策？或调整？
+**Concept 页面** (`wiki/concepts/<slug>.md`)：
+```yaml
+id: concept:<slug>
+type: concept
+created_at: YYYY-MM-DD
+sources: ["source:xxx", "source:yyy"]
+entities: ["entity:aaa", "entity:bbb"]
 ```
+- 正文描述抽象思想、从哪些 entity 提炼、适用范围
+- 长度 50-200 行
+
+**entity vs concept 判定规则**：
+- 有具体出处可引用（论文、工具、器件）= entity
+- 从多个 entity 抽象出的思想/模式 = concept
+
+**Procedure 页面** (`wiki/procedures/<slug>.md`)：
+```yaml
+id: procedure:<slug>
+type: procedure
+created_at: YYYY-MM-DD
+sources: ["source:xxx"]
+```
+- 正文包含可复用的工程步骤
+
+**Claim 页面** (`wiki/claims/<slug>.md`)：
+```yaml
+id: claim:<slug>
+type: claim
+claim_type: insight|decision|constraint
+evidence_type: experimental|constraint|precedent|gap
+created_at: YYYY-MM-DD
+sources: ["source:xxx"]
+```
+- claim_type:decision 用于工程决策，evidence 回答"为什么不选替代方案"
+- 正文包含主张、证据、反驳风险
+
+**去重检查**：每个 extraction 执行前，必须 `search_vault_smart` 搜索是否已存在同类页面。已存在则 action 改为 update。
+
+### Step 7: 更新 Registry
+
+更新：
+- `wiki/_registry/nodes.jsonl` — 所有新/更新节点
+- `wiki/_registry/edges.jsonl` — source→entity/concept/claim 关系
+- `wiki/_registry/fingerprints.jsonl` — 去重指纹
+- `wiki/_registry/compile_log.jsonl` — 编译日志
+- `wiki/_registry/query_pack.md` — 查询上下文
+
+### Step 8: 维护 hot.md / index.md / log.md
+
+**任何 skill 写入 wiki 页面后，必须同步更新以下三个文件。**
+
+**hot.md** (`wiki/hot.md`)：
+- 更新 `updated` 时间戳
+- 更新 "Key Recent Facts" 和 "Recent Changes"
+- 更新 "Active Threads"
+- 总长度 < 500 字
+
+**index.md** (`wiki/index.md`)：
+- 在对应 type 分区添加新条目
+- 格式：`- [[slug]] — 一句话描述`
+- 更新 `updated` 日期
+
+**log.md** (`wiki/log.md`)：
+- prepend 新条目（新条目在顶部）
+- 格式：`## [YYYY-MM-DD] compile | <slug>`
+- 列出本次创建/更新的所有页面
+
+---
+
+## ⚠️ Compile Checkpoint
+
+**在 Phase 1 → Phase 2 之间，如果满足以下任一条件，暂停确认：**
+
+- 提取项 > 5
+- 存在 contradictions
+- 去重决策不明确（update vs merge）
+- 用户未指定完整路径且目标不唯一
 
 **跳过检查点条件：**
-- 单一明确目标
+- 单一明确目标，提取项 ≤ 3
 - 无相似页面
 - 用户已指定完整路径
 
@@ -107,88 +244,53 @@ Compile 编译决策：
 
 ## 规则
 
-- 默认输出完整可读 wiki 页面
-- typed 抽取是可选增强，不是强制目标
-- 是否合并到已有 project/source，不靠 Smart Search 单独决定，而是 `smart search + fingerprint + LLM judgment`
-- stable ID 可带冒号，但文件名和页面名不能带 `* " \\ / < > : | ?`
-- 禁止输出 `[[entity:...]]`、`[[procedure:...]]` 这类 typed-id 伪双链
-- 目标页存在时使用合法双链；目标页不存在时用反引号保留 stable ID
+- Source 页面必须完整可读，不退化成 raw 副本或纯 bullet 摘要
+- 每个编译页面可追溯、可重建、可审计
+- typed 抽取是 Phase 2 的核心目标，不是可选增强
+- stable ID 只用于 frontmatter/registry，文件名用 kebab-case
+- 禁止 `[[entity:...]]` typed-id 伪双链
+- 目标页存在用 `[[页面名]]`，不存在用反引号
+- Page 长度约束 100-300 行，超过则拆分
+- 必须维护 hot.md / index.md / log.md
 
 ## Obsidian 格式保留
 
-### 双链引用
-
-**必须保留的双链格式**：
-- `[[页面名]]` — 标准双链
-- `[[页面名|显示文本]]` — 带别名的双链
-- `[[目录/页面名]]` — 带路径的双链
-
-**禁止**：
-- 将 `[[页面名]]` 转换为 `[页面名](url)` 格式
-- 输出 typed-id 伪双链（如 `[[entity:xxx]]`）
-
-### 图片处理
-
-**必须保留的图片格式**：
-- `![[image.png]]` — Obsidian 内部图片
-- `![[目录/image.png]]` — 带路径的内部图片
-- `![](url)` — 外部图片链接
-
-**禁止**：
-- 将 `![[image.png]]` 转换为 `<img>` 标签
-- 修改图片的显示尺寸参数
+- `[[页面名]]` 标准双链，`[[页面名|显示文本]]` 带别名
+- `![[image.png]]` 内部图片
+- 禁止转换为 `[text](url)` 或 `<img>` 格式
+- `> [!contradiction]` 和 `> [!gap]` callout 标注矛盾和空白
 
 ## 边界
 
-- 不直接处理纯碎片输入
-- 不把 marker 输出或 raw 正文直接当最终事实页
-- 不默认升格 claim / procedure / entity
+- 不直接处理纯碎片输入（用 wiki-capture）
+- 不把 raw 正文直接当最终事实页
+- Phase 2 不创建 topic/synthesis/query（这些由专门 skill 处理）
 
 ---
 
 ## Tools to Use
 
-| Tool | Purpose | When | 完整路径 |
-|------|---------|------|----------|
-| `Read` | 读取 raw 文件 | Step 1 | `/mnt/c/obsidian_wiki/raw/...` |
-| `Write` | 创建 wiki 页面 | Step 4 | `/mnt/c/obsidian_wiki/wiki/...` |
-| `Edit` | 更新现有 wiki 页面 | Step 4 | `/mnt/c/obsidian_wiki/wiki/...` |
-| `mcp__obsidian-mcp-tools__search_vault_smart` | 智能搜索去重 | Step 2 | 见上方调用示例 |
-| `Skill` | 调用 wiki-ingest | Step 4 | `wiki-ingest` |
+| Tool | Purpose | When |
+|------|---------|------|
+| `Read` | 读取 raw 文件 | Phase 1 Step 1 |
+| `Write` | 创建 wiki 页面 | Phase 1 Step 4, Phase 2 Step 6 |
+| `Edit` | 更新现有 wiki 页面 | Phase 2 Step 6 |
+| `mcp__obsidian-mcp-tools__search_vault_smart` | 智能搜索去重 | Phase 1 Step 2, Phase 2 Step 6 |
+| `mcp__obsidian-mcp-tools__create_vault_file` | 创建新 vault 文件 | Phase 2 Step 6, 8 |
+| `mcp__obsidian-mcp-tools__patch_vault_file` | 增量编辑 | Phase 2 Step 8 |
 
-### search_vault_smart 调用示例
+### search_vault_smart 调用规范
 
-```json
-mcp__obsidian-mcp-tools__search_vault_smart({
-  "query": "<核心标题/关键词>",
-  "filter": {
-    "folders": ["wiki/sources", "wiki/entities", "wiki/procedures", "wiki/claims", "wiki/topics"],
-    "limit": 10
-  }
-})
-```
-
-**⚠️ 重要**：`filter` 必须是 JSON 对象，不能是字符串。
-
----
-
-## 边界条件处理
-
-| 情况 | 处理方式 |
-|------|----------|
-| 搜索结果包含过期缓存 | 用 Read 验证文件存在 |
-| 多个相似页面冲突 | 提示用户选择合并策略 |
-| Registry 文件损坏 | 修复或重建 |
-| 输入文件损坏 | 报告错误，跳过 |
-| 并发写入冲突 | 使用 Edit 而非 Write |
+`filter` 必须是 JSON 对象，不能是字符串。
 
 ---
 
 ## 相关 Skill
 
-| Skill | 路径 | 用途 |
-|-------|------|------|
-| wiki-capture | `/home/holmes/.cc-switch/skills/wiki-capture/SKILL.md` | 低密度捕获 |
-| wiki-ingest | `/mnt/c/obsidian_wiki/.claude/commands/wiki-ingest.md` | 底层编译引擎 |
-| wiki-refine | `/mnt/c/obsidian_wiki/.claude/commands/wiki-refine.md` | 高价值提炼 |
-| wiki-crystallize | `/home/holmes/.cc-switch/skills/wiki-crystallize/SKILL.md` | candidate 审核 |
+| Skill | 用途 |
+|-------|------|
+| wiki-capture | 低密度捕获 → raw |
+| wiki-refine | 高价值提炼 → claim/procedure/entity（用户明确要求时） |
+| wiki-crystallize | candidate 审核与提升 |
+| wiki-lint | 健康检查（含 hot/index/log） |
+| wiki-query | hot → index → pages 三步查询 |

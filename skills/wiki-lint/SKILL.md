@@ -34,8 +34,9 @@ wiki/ → [wiki-lint] → Lint Report
 Use `Glob` to scan `wiki/` recursively.
 
 Collect all `.md` files, excluding:
-- `index.md` (index page)
-- `log.md` (activity log)
+- `index.md` (index page, but must check existence and format)
+- `log.md` (activity log, but must check existence and recent date)
+- `hot.md` (cache page, but must check existence and <500 chars)
 
 #### 1b. Build Page Index
 
@@ -429,8 +430,9 @@ def page_exists(link, slug_map):
 1. **Conservative on semantic issues** — Avoid false positives
 2. **Actionable recommendations** — Every issue should have a suggested fix
 3. **Prioritize warnings** — Address broken links and contradictions first
-4. **Exclude index/log** — These are special pages
+4. **Exclude index/log from orphan check** — These are special pages
 5. **Case-insensitive links** — [[Transformer]] matches transformer.md
+6. **Check persistence layer** — hot.md (<500 字), index.md (格式正确), log.md (最新条目日期 ≤7 天)
 
 ---
 

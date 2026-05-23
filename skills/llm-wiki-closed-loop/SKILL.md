@@ -63,8 +63,8 @@ capture low-density material
 
 - 先做 Obsidian Smart Search 查重
 - 再做 `duplicate / update / new` 判断
-- 默认产出完整可读 wiki 页面
-- typed 抽取是可选增强，不是强制目标
+- 两阶段 ingest：Phase 1 产出 source + compile-plan，Phase 2 逐项创建 entity/concept/procedure/claim
+- 任何 skill 写入 wiki 页面后必须同步更新 `wiki/hot.md`、`wiki/index.md`、`wiki/log.md`
 
 ### 3. `/wiki-refine`
 
@@ -87,6 +87,7 @@ capture low-density material
 
 - `wiki/sources`
 - `wiki/entities`
+- `wiki/concepts`
 - `wiki/procedures`
 - `wiki/claims`
 - `wiki/topics`
@@ -112,8 +113,11 @@ capture low-density material
    - Smart Search 查重，结合 registry / fingerprint 判断是否已有节点。
 3. Compile
    - 通过 `/wiki-ingest` 生成或更新可读 source / synthesis / typed node。
+   - 两阶段 ingest：Phase 1 分析+清单，Phase 2 逐项写入 entity/concept/procedure/claim。
 4. Registry
    - 更新 `wiki/_registry/{nodes,edges,fingerprints,compile_log}`。
+5. Maintain
+   - 更新 `wiki/hot.md`（近况缓存）、`wiki/index.md`（目录）、`wiki/log.md`（操作日志）。
 5. Refine
    - 仅在确有结构化价值时提炼 typed node。
 6. Discover
@@ -138,5 +142,6 @@ capture low-density material
 - `entity:slug`、`procedure:slug`、`claim:slug`、`topic:slug` 只用于 frontmatter/registry，不直接作为正文双链目标。
 - 禁止输出 `[[entity:...]]`、`[[procedure:...]]` 这类 typed-id 伪双链。
 - 目标页存在时用合法双链；目标页不存在时用反引号保留 stable ID。
+- 任何 skill 写入 wiki 页面后必须同步更新 hot.md/index.md/log.md。
 - raw 中已有 Obsidian 双链必须保留，尤其 `![[...]]` 图片引用不得改写为 `![](...)`。
 - source 如果需要引用 raw 图片/附件，优先使用原始 Obsidian 双链格式。

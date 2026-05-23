@@ -18,10 +18,11 @@ Answer questions from compiled wiki knowledge with grounded citations. This skil
 ```
 User question → [wiki-query] → Grounded answer with citations
                      ↓
-              - Search wiki pages
-              - Expand via wikilinks
-              - Generate answer
-              - (Optional) Save query
+              1. hot.md → 近况缓存（500 字近期上下文）
+              2. index.md → 按 type 分区导航
+              3. pages → 搜索具体页面 + graph expansion
+              4. Generate answer
+              5. (Optional) Save query
 ```
 
 **Pipeline position:** `capture → inbox-prepare → compile → crystallize → query`
@@ -498,7 +499,7 @@ try {
 mcp__obsidian-mcp-tools__search_vault_smart({
   "query": "<关键词>",
   "filter": {
-    "folders": ["wiki/sources/", "wiki/entities/", "wiki/procedures/", "wiki/claims/", "wiki/topics/", "wiki/synthesis/", "wiki/queries/", "wiki/_registry/", "wiki/candidates/graphify/"],
+    "folders": ["wiki/sources/", "wiki/entities/", "wiki/concepts/", "wiki/procedures/", "wiki/claims/", "wiki/topics/", "wiki/synthesis/", "wiki/queries/", "wiki/_registry/", "wiki/candidates/graphify/"],
     "limit": 20
   }
 })

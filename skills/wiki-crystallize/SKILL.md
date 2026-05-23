@@ -46,7 +46,7 @@ user_invocable: true
 mcp__obsidian-mcp-tools__search_vault_smart({
   "query": "<候选关键词>",
   "filter": {
-    "folders": ["wiki/sources", "wiki/entities", "wiki/procedures", "wiki/claims", "wiki/topics"],
+    "folders": ["wiki/sources", "wiki/entities", "wiki/concepts", "wiki/procedures", "wiki/claims", "wiki/topics"],
     "limit": 10
   }
 })
@@ -171,7 +171,7 @@ Crystallization 审核决策：
 mcp__obsidian-mcp-tools__search_vault_smart({
   "query": "<候选关键词>",
   "filter": {
-    "folders": ["wiki/sources", "wiki/entities", "wiki/procedures", "wiki/claims", "wiki/topics"],
+    "folders": ["wiki/sources", "wiki/entities", "wiki/concepts", "wiki/procedures", "wiki/claims", "wiki/topics"],
     "limit": 10
   }
 })
