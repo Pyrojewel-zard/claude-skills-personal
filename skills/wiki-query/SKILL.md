@@ -279,6 +279,11 @@ tags: [query, <domain>]
 - [[source-2]]
 ```
 
+**保存后必须维护 hot/index/log**：
+1. **hot.md**：更新近期上下文，含本次查询摘要
+2. **index.md**：在 queries 分区添加新条目
+3. **log.md**：prepend 操作记录
+
 ---
 
 ### Step 8: Report Results
@@ -317,42 +322,20 @@ tags: [query, <domain>]
 
 ### Token Extraction
 
-```python
-def tokenize_query(query):
-    tokens = []
-    raw = query.lower().split(/[\s,，。！？、；：""''（）()\-_/\\]+/)
-    
-    for token in raw:
-        if len(token) <= 1: continue
-        if token in STOP_WORDS: continue
-        
-        if has_cjk(token) and len(token) > 2:
-            # Add bigrams
-            chars = list(token)
-            for i in range(len(chars) - 1):
-                tokens.append(chars[i] + chars[i+1])
-            # Add individual chars
-            tokens.extend(chars)
-            # Add original
-            tokens.append(token)
-        else:
-            tokens.append(token)
-    
-    return unique(tokens)
-```
+将查询拆分为搜索关键词：
+
+1. 小写化，按空格和标点拆分
+2. 移除停用词（的/是/了/what/how/the/is 等）
+3. CJK 词汇：额外生成 bigram 和单字变体
+4. 保留技术术语原样（LNA、EMX、S-parameter 等不拆分）
 
 ### RRF Fusion
 
-```python
-def reciprocal_rank_fusion(lists, k=60):
-    scores = {}
-    for lst in lists:
-        for rank, item in enumerate(lst):
-            path = item.path
-            rrf_score = 1 / (k + rank + 1)
-            scores[path] = scores.get(path, 0) + rrf_score
-    return scores
-```
+对多个搜索结果列表做融合排序：
+
+1. 每个列表中的结果按排名计算 RRF 分数：`1 / (k + rank + 1)`，k=60
+2. 同一结果出现在多个列表时，分数累加
+3. 按总分降序排列，取 top 20
 
 ---
 

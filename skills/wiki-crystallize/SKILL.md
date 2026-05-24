@@ -84,6 +84,19 @@ mcp__obsidian-mcp-tools__search_vault_smart({
 
 更新 `wiki/_registry/query_pack.md`。
 
+### Step 9: 维护 hot/index/log
+
+**必须执行**（任何 wiki 页面写入后）：
+
+1. **hot.md** (`wiki/hot.md`)：更新前 500 字近期上下文，含本次 crystallize 摘要
+2. **index.md** (`wiki/index.md`)：确认提升后的节点在对应 type 分区有入口
+3. **log.md** (`wiki/log.md`)：prepend 操作记录
+
+```
+log.md prepend 模板：
+**YYYY-MM-DDTHH:MM** | crystallize | {操作} | {节点ID} | {一句话说明}
+```
+
 ---
 
 ## ⚠️ Crystallization Checkpoint（重要）
@@ -187,8 +200,12 @@ mcp__obsidian-mcp-tools__search_vault_smart({
 |------|----------|
 | 候选文件损坏 | 跳过，记录错误 |
 | fingerprint 冲突 | 提示用户选择合并或拒绝 |
-| 目标页面已存在 | 更新而非覆盖 |
+| 目标页面已存在 | 用 Edit 补充而非覆盖 |
 | Registry 文件损坏 | 修复或重建 |
+| 候选列表为空 | 报告"无待审核候选"，不执行后续 |
+| 提升目标涉及不存在的节点 | 标记 `orphan` 暂搁 |
+| 用户拒绝提升 | 标记 `rejected`，保留候选 |
+| hot/index/log 更新失败 | 记录错误但不阻断主流程 |
 
 ---
 

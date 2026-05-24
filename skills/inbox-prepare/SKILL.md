@@ -402,7 +402,10 @@ The report must include:
 - merge groups created
 - net raw outputs created
 - preserved images / wikilinks count
-- handoff recommendations for `wiki-compile`
+- handoff recommendations for `wiki-compile`：
+  - 列出本次新增的 raw 文件路径
+  - 对每个 raw 文件建议是否适合立即 compile（判断标准：内容稳定、有明确主题、长度 >500 字）
+  - 给出建议的 compile 命令：`/wiki-compile <raw_path> --intent "<一句话>"`
 
 ---
 

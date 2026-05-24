@@ -3,6 +3,7 @@ name: wiki-capture
 description: |
   Use when the material is still low-density or provisional and should first be appended into raw notes before any compile or typed knowledge promotion.
   Triggers on: "capture", "记录到raw", "碎片记录", "临时笔记", "quick note", "append to raw".
+  Does NOT write accepted wiki directly — that is wiki-compile's job.
 user_invocable: true
 ---
 
@@ -18,21 +19,27 @@ user_invocable: true
 
 `wiki-capture -> wiki-compile -> wiki-refine`
 
-## 默认适用
-
-- Claude Code / Codex 对话洞见
-- 项目推进碎片
-- Virtuoso 仿真截图与单次观察
-- 课程片段
-- 论文相关性提醒
-
 ## 执行步骤
 
 ### Step 1: 解析输入
 
-1. 识别输入类型：文本、文件路径、截图、URL
-2. 提取关键信息：主题、项目、日期
-3. 判断意图：记录、追踪、提醒
+1. 识别输入类型（按优先级匹配）：
+
+| 信号词/模式 | 输入类型 | 路由键 |
+|-------------|----------|--------|
+| "仿真"、"Virtuoso"、"EMX"、"跑了一下" | 仿真/项目 | project |
+| "论文"、"paper"、"DOI"、"arXiv" | 论文 | paper |
+| "课程"、"lecture"、"讲义" | 课程 | course |
+| "工具"、"报错"、"配置"、"安装" | 工具经验 | tool |
+| 以上均不匹配 | 未归类 | shared |
+
+2. 提取三要素：`{project}`（项目名）、`{date}`（当前日期 YYYY-MM-DD）、`{slug}`（≤30字符 kebab-case 摘要，示例：`"LNA增益在2.4GHz下降3dB"` → `lna-gain-drop-2-4ghz`）
+   - project 推断：用户指定 > 从输入推断 > 留空路由到 `_shared`
+
+3. 判断意图：记录（默认）→ 追加到已有文件；追踪/提醒 → 新建独立文件
+   - `--intent` 影响：若 intent 含"追踪"/"提醒"/"TODO"，则新建独立文件而非追加
+
+4. 多义输入：在 Checkpoint 中展示备选路由让用户确认
 
 ### Step 2: 确定路由
 
@@ -46,17 +53,47 @@ user_invocable: true
 
 ### Step 3: 执行写入
 
-1. 检查目标文件是否存在
-2. 若存在：追加到末尾（append-only）
-3. 若不存在：创建新文件，添加标准 frontmatter
+**工具调用链**：
+```
+search_vault_smart(相关raw) → Read(目标文件) → Edit(追加) 或 Write(新建)
+```
+
+1. 先用 `search_vault_smart` 搜索是否已有相关 raw 文件
+2. 若存在且路由一致：用 `Edit` 追加到末尾（append-only）
+3. 若不存在：用 `Write` 创建新文件
+
+**新建文件的 frontmatter 模板**：
+```yaml
+---
+type: raw-note
+created_at: YYYY-MM-DDTHH:MM
+project: {project}          # 可选，有明确项目时填
+tags: [capture, {输入类型}]
+---
+```
+
+**追加内容的分隔模板**：
+```markdown
+---
+**YYYY-MM-DD HH:MM** | {输入类型} | {一句话摘要}
+
+{实际内容}
+```
 
 ### Step 4: 确认结果
 
-报告写入路径和内容摘要。
+输出格式：
+```
+✓ Capture 完成
+  路径: raw/notes/projects/{project}/logs/YYYY-MM-DD-{project}-log.md
+  操作: 追加 / 新建
+  内容: {一句话摘要}
+  后续: 当材料稳定后可走 /wiki-compile
+```
 
 ---
 
-## ⚠️ Capture Checkpoint（重要）
+## Capture Checkpoint
 
 **在写入前，确认路由决策：**
 
@@ -159,6 +196,9 @@ mcp__obsidian-mcp-tools__search_vault_smart({
 | 输入包含图片引用 | 保留原格式，验证图片存在 |
 | frontmatter 损坏 | 修复或重建 |
 | 输入为空 | 报告错误，不写入 |
+| project 名无法推断 | project 留空，路由到 `_shared/` |
+| search_vault_smart 返回空 | 直接创建新文件（无需追加） |
+| 多义输入匹配多个路由 | 在 Checkpoint 展示备选，让用户选择 |
 
 ---
 
@@ -168,4 +208,3 @@ mcp__obsidian-mcp-tools__search_vault_smart({
 |-------|------|------|
 | wiki-compile | `/home/holmes/.cc-switch/skills/wiki-compile/SKILL.md` | 稳定材料编译 |
 | wiki-refine | `/mnt/c/obsidian_wiki/.claude/commands/wiki-refine.md` | 高价值知识提炼 |
-| inbox-prepare | `/home/holmes/.claude/skills/inbox-prepare/SKILL.md` | inbox 预处理 |

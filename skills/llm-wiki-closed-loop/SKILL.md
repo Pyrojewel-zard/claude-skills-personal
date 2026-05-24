@@ -1,6 +1,9 @@
 ---
 name: llm-wiki-closed-loop
-description: Use when capturing, compiling, refining, or deduplicating knowledge into the Obsidian LLM Wiki across paper, project, experiment, course, and conversation workflows.
+description: |
+  Use when capturing, compiling, refining, or deduplicating knowledge into the Obsidian LLM Wiki.
+  Covers paper, project, experiment, course, and conversation workflows.
+  Triggers on: "wiki", "知识库", "入库", "编译", "compile", "capture", "refine", "知识管理".
 ---
 
 # LLM Wiki Closed Loop
@@ -118,11 +121,11 @@ capture low-density material
    - 更新 `wiki/_registry/{nodes,edges,fingerprints,compile_log}`。
 5. Maintain
    - 更新 `wiki/hot.md`（近况缓存）、`wiki/index.md`（目录）、`wiki/log.md`（操作日志）。
-5. Refine
+6. Refine
    - 仅在确有结构化价值时提炼 typed node。
-6. Discover
+7. Discover
    - 需要时再运行 `/wiki-graph --candidates` 发现潜在关系。
-7. Review
+8. Review
    - 通过 `/wiki-crystallize --scan` 审核候选并决定是否升格。
 
 ## 论文专项流程（推荐）

@@ -86,9 +86,34 @@ For each page P:
 
 ---
 
-### Step 3: Semantic Lint (Optional)
+### Step 3: Semantic Lint
 
-Requires LLM. Skip if not available.
+#### 3a. Frontmatter 检查（必检）
+
+| 检查项 | 适用类型 | 规则 |
+|--------|----------|------|
+| id 格式 | 所有 | 必须为 `type:slug` 格式 |
+| type 字段 | 所有 | 必须为 source/entity/concept/procedure/claim 之一 |
+| created_at | 所有 | 必须存在且为有效日期 |
+| sources | entity/concept/claim | 必须引用至少 1 个 source |
+| entities | concept | 必须引用至少 2 个 entity |
+| claim_type | claim | 必须为 insight/decision/constraint |
+| evidence_type | claim | 必须为 experimental/constraint/precedent/gap |
+| raw_ref | source | 必须指向存在的 raw 文件 |
+
+#### 3b. 页面长度检查（必检）
+
+| 类型 | 下限 | 上限 |
+|------|------|------|
+| entity | 100 行 | 300 行 |
+| concept | 50 行 | 200 行 |
+| claim | 50 行 | 200 行 |
+| procedure | 50 行 | 300 行 |
+| source | 100 行 | 300 行 |
+
+#### 3c. LLM 矛盾检测（可选）
+
+需要 LLM。跳过条件：LLM 不可用或页面数 <5。
 
 #### 3a. Build Page Summaries
 
