@@ -148,11 +148,8 @@ def main():
         print(f"ERROR: download returned HTTP {dr.status_code}")
         sys.exit(1)
 
-    # Extract to paper.marker/
-    output_dir = pdf_path.parent / "paper.marker"
-    if output_dir.exists():
-        shutil.rmtree(output_dir)
-    output_dir.mkdir()
+    # Extract alongside the PDF (flat, no subdirectory)
+    output_dir = pdf_path.parent
 
     with zipfile.ZipFile(io.BytesIO(dr.content)) as zf:
         for info in zf.infolist():
@@ -161,10 +158,13 @@ def main():
             parts = Path(info.filename).parts
             # Strip top-level directory from ZIP entry
             filename = parts[-1] if len(parts) >= 2 else parts[0]
-            # Rename .md to content.md
+            # Rename .md to match PDF name (e.g. paper.pdf → paper.md)
             if filename.endswith(".md"):
-                filename = "content.md"
-            with zf.open(info) as src, open(output_dir / filename, "wb") as dst:
+                filename = pdf_path.stem + ".md"
+            target = output_dir / filename
+            if target.exists() and target != pdf_path:
+                target.unlink()
+            with zf.open(info) as src, open(target, "wb") as dst:
                 shutil.copyfileobj(src, dst)
 
     print(f"OK: {output_dir}")

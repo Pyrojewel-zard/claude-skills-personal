@@ -15,7 +15,7 @@ User provides a PDF path (or asks to process one) and wants the result as Markdo
 
 1. Upload the PDF to the MarkerPDF server via the v2 API
 2. Poll for job completion (up to 2 minutes)
-3. Download the ZIP result and extract to `paper.marker/` next to the PDF
+3. Download the ZIP result and extract alongside the PDF (flat, no subdirectory)
 
 ## Configuration
 
@@ -41,13 +41,13 @@ The script:
 - Uploads the PDF with `POST /api/v2/submit`
 - Polls `GET /api/v2/status/{job_id}` every 10 seconds, up to 2 minutes
 - Downloads the ZIP from `GET /api/v2/download/{job_id}`
-- Extracts to `<pdf_dir>/paper.marker/` with `content.md` and images
+- Extracts to `<pdf_dir>/` with `<pdf_stem>.md` and images (flat alongside PDF)
 
 ## Output
 
 On success, the script prints the result directory path:
 ```
-OK: /path/to/paper.marker/
+OK: /path/to/pdf_dir/
 ```
 
 On failure, it prints:
@@ -61,7 +61,7 @@ Report the result to the user. If successful, tell them the output location and 
 
 User says: "parse /home/user/papers/article.pdf"
 → Run: `python3 <skill-dir>/scripts/markerpdf_convert.py /home/user/papers/article.pdf`
-→ Tell user: "Done. Markdown at /home/user/papers/paper.marker/content.md"
+→ Tell user: "Done. Markdown at /home/user/papers/article.md"
 
 User says: "convert this PDF to markdown" with a file path in context
 → Same flow.
