@@ -60,6 +60,11 @@ md_path  = BASE + "/" + attachmentKey + "/content.md"
    ls {BASE}/{attachmentKey}/*.(jpeg|png|jpg)  # 统计图片数量
    ```
 
+7. 如果 content.md 不存在但有 PDF：
+   - 告知用户"该论文 PDF 尚未解析为 Markdown"
+   - 可调用 `/zotero-pdf-parse` 将 PDF 解析为 content.md + 图片
+   - 解析完成后重新验证 md_path 和图片
+
 ## 输出格式
 
 展示搜索结果让用户选择，不要自动取第一个。用表格：
